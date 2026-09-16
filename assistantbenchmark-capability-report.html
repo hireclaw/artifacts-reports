@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Onvoix × AssistantBenchmark — Capability Report</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background:#faf9f7; color:#1a1a1a; }
+a { color:inherit; text-decoration:none; }
+a:hover { color:#e8654a; }
+
+.topbar { display:flex; align-items:center; gap:20px; padding:16px 32px; background:#fff; border-bottom:1px solid #e8e5e1; flex-wrap:wrap; }
+.topbar-title { font-size:18px; font-weight:700; white-space:nowrap; }
+.topbar-sub { font-size:12px; color:#888; }
+.topbar-right { margin-left:auto; display:flex; align-items:center; gap:12px; font-size:13px; color:#888; }
+
+.summary-strip { display:flex; padding:0 32px; background:#fff; border-bottom:1px solid #e8e5e1; flex-wrap:wrap; }
+.summary-item { padding:14px 24px; border-right:1px solid #e8e5e1; }
+.summary-item:last-child { border-right:none; }
+.summary-label { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:1.2px; color:#999; margin-bottom:4px; }
+.summary-value { font-size:20px; font-weight:700; font-family:'SF Mono',Menlo,monospace; }
+.summary-sub { font-size:11px; margin-top:2px; color:#888; }
+
+.filter-bar { display:flex; align-items:center; gap:10px; padding:12px 32px; background:#fff; border-bottom:1px solid #e8e5e1; flex-wrap:wrap; }
+.filter-btn { padding:4px 14px; border-radius:4px; font-size:12px; font-weight:600; cursor:pointer; border:1px solid #ddd; background:#fff; color:#666; }
+.filter-btn.active { background:#1a1a1a; color:#fff; border-color:#1a1a1a; }
+.count-label { margin-left:auto; font-size:13px; color:#888; font-family:'SF Mono',Menlo,monospace; }
+.search-input { padding:6px 12px; border-radius:6px; border:1px solid #ddd; font-size:12px; width:220px; background:#fff; color:#1a1a1a; }
+
+.table-wrap { padding:0 32px; }
+table { width:100%; border-collapse:collapse; font-size:13px; }
+thead th { text-align:left; padding:10px 12px; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:#999; border-bottom:2px solid #e8e5e1; white-space:nowrap; }
+tbody tr { border-bottom:1px solid #f0eeeb; transition:background .15s; }
+tbody tr:hover { background:#f7f5f2; }
+tbody td { padding:12px; vertical-align:top; line-height:1.45; }
+.td-num { font-family:'SF Mono',Menlo,monospace; color:#999; font-size:12px; white-space:nowrap; }
+.cell-title { font-weight:600; font-size:13px; }
+.cell-title a:hover { color:#e8654a; }
+.cell-desc { color:#666; font-size:12px; margin-top:2px; }
+.cell-reason { color:#444; font-size:12.5px; }
+.cell-unlock { color:#888; font-size:12px; }
+.mono { font-family:'SF Mono',Menlo,monospace; }
+
+.badge { display:inline-block; padding:2px 10px; border-radius:4px; font-size:11px; font-weight:700; white-space:nowrap; }
+.badge-green  { background:#dcfce7; color:#15803d; }
+.badge-red    { background:#fde8e8; color:#b91c1c; }
+.badge-yellow { background:#fef3c7; color:#a16207; }
+
+.section-head { padding:28px 32px 10px; }
+.section-head h2 { font-size:16px; font-weight:700; }
+.section-head p { font-size:12.5px; color:#888; margin-top:4px; }
+
+.gap-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:14px; padding:10px 32px 8px; }
+.gap-card { background:#fff; border:1px solid #e8e5e1; border-radius:10px; padding:16px; }
+.gap-card h3 { font-size:13.5px; font-weight:700; margin-bottom:6px; }
+.gap-card p { font-size:12.5px; color:#555; line-height:1.5; }
+.gap-card .unlock { margin-top:8px; font-size:12px; color:#1d4ed8; background:#dbeafe; border-radius:6px; padding:6px 10px; line-height:1.45; }
+.gap-card.red { border-left:4px solid #dc2626; }
+.gap-card.amber { border-left:4px solid #d97706; }
+
+.footer { text-align:center; padding:24px; font-size:11px; color:#ccc; }
+
+.mobile-cards { display:none; padding:8px 16px; }
+.m-card { background:#fff; border:1px solid #e8e5e1; border-radius:10px; padding:14px; margin-bottom:10px; }
+.m-card-head { display:flex; align-items:flex-start; gap:10px; margin-bottom:8px; }
+.m-card-title { font-weight:600; font-size:13px; flex:1; line-height:1.4; }
+.m-card-grid { font-size:12px; color:#555; line-height:1.5; }
+.m-card-unlock { margin-top:8px; padding-top:8px; border-top:1px solid #f0eeeb; font-size:11.5px; color:#1d4ed8; }
+
+@media (max-width: 900px) {
+  .table-wrap { display:none; }
+  .mobile-cards { display:block; }
+  .topbar, .summary-strip, .filter-bar { padding-left:16px; padding-right:16px; }
+  .section-head { padding:20px 16px 8px; }
+  .gap-grid { padding:8px 16px; }
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div>
+    <div class="topbar-title">Onvoix Capability Audit — AssistantBenchmark Use Cases</div>
+    <div class="topbar-sub">All 49 jobs on assistantbenchmark.com/use-cases, scored against what I can actually run on this machine</div>
+  </div>
+  <div class="topbar-right"><span>Generated 16 Sep 2026, 04:00 IST</span></div>
+</div>
+
+<div class="summary-strip">
+  <div class="summary-item">
+    <div class="summary-label">Use cases</div>
+    <div class="summary-value">49</div>
+    <div class="summary-sub">full benchmark list</div>
+  </div>
+  <div class="summary-item">
+    <div class="summary-label">✅ I can do</div>
+    <div class="summary-value" style="color:#15803d">20</div>
+    <div class="summary-sub">41% — end-to-end today</div>
+  </div>
+  <div class="summary-item">
+    <div class="summary-label">🟡 Partial</div>
+    <div class="summary-value" style="color:#a16207">24</div>
+    <div class="summary-sub">49% — one piece missing</div>
+  </div>
+  <div class="summary-item">
+    <div class="summary-label">🔴 Can't do</div>
+    <div class="summary-value" style="color:#b91c1c">5</div>
+    <div class="summary-sub">10% — hard gaps</div>
+  </div>
+</div>
+
+<div class="section-head">
+  <h2>🆚 Addendum: Meta Muse — how I stack up <span style="font-weight:400;color:#888;font-size:12px">(useofmuse.com — 100 real community use cases, 16 Sep 2026)</span></h2>
+  <p>Meta Muse is a consumer phone app (app + WhatsApp + web) built for life admin. Read honestly, it is stronger than me today at exactly the layer where my 5 CAN'Ts live — and weaker where owner control matters.</p>
+</div>
+
+<div class="gap-grid">
+  <div class="gap-card red">
+    <h3>Where Muse is ahead of me (today)</h3>
+    <p>• <b>Native Gmail:</b> tamed a 9,209-message inbox, receipt audits that found a $100/mo forgotten subscription, caught credit-card fraud Chase missed.<br>
+    • <b>Real phone calls:</b> called Costco service, rescheduled a dentist, called contractors for estimates, updated a car-rental booking — my single hardest gap, Muse does it.<br>
+    • <b>Native payments:</b> paid a parking ticket + $682 invoice from a photo, booked AND paid complex international flights.<br>
+    • <b>Meta ecosystem:</b> mined saved Instagram/Facebook posts into recipe books and city restaurant guides; reachable on WhatsApp natively.<br>
+    • <b>Phone push + connectors:</b> morning briefings, Peloton class alerts, card/connector integrations.</p>
+    <div class="unlock" style="background:#fef3c7;color:#a16207">My path: the email layer is unlockable via Composio (same 4 CAN'Ts as above). Phone calls stay open. Payments stay owner-gated by design.</div>
+  </div>
+  <div class="gap-card amber">
+    <h3>Where I'm ahead of Muse</h3>
+    <p>• <b>Owner-owned machine:</b> I run on your own box — full desktop control, real 24/7 persistence you can watch live (RDP/screen share), nothing flows to a platform's cloud.<br>
+    • <b>Deep automation:</b> self-hosted scripts + APIs, GitHub (authenticated), custom tunnels, CAPTCHA handling, TOTP 2FA vault — the layer consumer apps don't expose.<br>
+    • <b>Depth over breadth:</b> scripted end-to-end booking flows (proven on EaseMyTrip), coded reports/artifacts like this one, video generation.<br>
+    • <b>Honest reliability:</b> Reuters reported a Muse ticket-monitor silently disabling itself after ~15 minutes; users report it "makes mistakes sometimes". My loops log state in memory and tell you when they stop.</p>
+    <div class="unlock" style="background:#dcfce7;color:#15803d">Fair verdict: Muse wins the consumer life-admin layer (email, calls, payments). I win on control, depth, customization and privacy.</div>
+  </div>
+</div>
+
+<div class="table-wrap" style="padding-bottom:8px">
+<table>
+  <thead><tr><th>Head-to-head</th><th>Muse's showing</th><th>My verdict</th></tr></thead>
+  <tbody>
+    <tr><td>Inbox / email errands</td><td class="cell-reason">Native Gmail; 9,209-msg inbox tamed; school emails; receipt + fraud audits</td><td>🔴 CAN'T → 🟡 Composio unlock closes most</td></tr>
+    <tr><td>Phone calls</td><td class="cell-reason">Called Costco, dentist, contractors, car-rental</td><td>🔴 CAN'T (no dialer — hardest gap)</td></tr>
+    <tr><td>Payments</td><td class="cell-reason">Paid bills from photos; booked + paid intl flights</td><td>🟡 I stop at checkout; you tap UPI PIN (by design)</td></tr>
+    <tr><td>Travel & fares</td><td class="cell-reason">Fare trackers, multi-city research, honeymoon logistics (Skift: browsed consumer sites)</td><td>✅ CAN — proven scripted booking + fare watch</td></tr>
+    <tr><td>Coding</td><td class="cell-reason">Games, a fake bootable Mac, Muse Code/Spark daily review</td><td>✅ CAN — GitHub authed, full env, ships sites/reports</td></tr>
+    <tr><td>Images / music / video</td><td class="cell-reason">Composed melody + MIDI + 50 genre variations</td><td>✅ CAN — music, image & video gen tested live</td></tr>
+    <tr><td>Background monitoring</td><td class="cell-reason">Peloton/price/ticket watchers; one report: silently disabled after 15 min</td><td>✅ CAN — 30-min heartbeat + in-turn loops, logged in memory</td></tr>
+    <tr><td>Meta ecosystem</td><td class="cell-reason">Native IG/FB/WhatsApp; mined saved posts</td><td>🟡 Browser-level only (IG direct login rejected; Composio route planned)</td></tr>
+    <tr><td>Privacy & control</td><td class="cell-reason">Meta cloud; data flows to Meta</td><td>✅ Everything local + owner-watchable (RDP)</td></tr>
+    <tr><td>Extensibility</td><td class="cell-reason">Consumer connectors only</td><td>✅ MCP servers, custom scripts, tunnels, TOTP vault</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="section-head" style="padding-top:6px">
+  <p><b>Estimate (my honest guess, not verified):</b> of the 100 Muse stories here, I could already do roughly 45% outright, another ~35% with the Composio/login unlocks, and the phone-call slice (~10%) stays out of reach today.</p>
+</div>
+
+<div class="section-head">
+  <h2>🔴 The 5 I can't do — root causes first</h2>
+  <p>Four of the five share one root cause: no email mailbox connected. One is telephony.</p>
+</div>
+
+<div class="gap-grid">
+  <div class="gap-card red">
+    <h3>#5 Triage the inbox · #47 Clear junk inbox · #6 Run outreach · #12 Kids' school logistics</h3>
+    <p>Root cause: I have no email account on this machine (Workspace/mailbox is disabled). Nothing can read, sort, draft or send your mail today — so inbox triage, junk cleanup, approval-gated outreach and school-email monitoring are all impossible.</p>
+    <div class="unlock">🔓 Unlock: connect Gmail/Outlook via Composio MCP (I'm ready — just need your Composio API key, then one OAuth click). That flips 3 of these to CAN and gives the 4th its missing half.</div>
+  </div>
+  <div class="gap-card red">
+    <h3>#20 Phone someone for you</h3>
+    <p>Root cause: no dialer, no SIM, no voice channel. I can't place or receive a real phone call — and phone legs also weaken #7 (doctor), #13 (bill haggling), #44 (carrier phone tree).</p>
+    <div class="unlock">🔓 No practical unlock on this box. Workarounds I do have: web chats, contact forms, and text via WhatsApp Web (browser session).</div>
+  </div>
+  <div class="gap-card red">
+    <h3>#17 Think out loud by voice (live)</h3>
+    <p>Root cause: no real-time duplex audio loop. I do have one-way voice: your voice notes → transcription, and my replies → generated speech (tested live). A live phone-style conversation is the missing piece.</p>
+    <div class="unlock">🔓 Walkie-talkie mode works today: voice note in, spoken answer out, a few seconds apart.</div>
+  </div>
+  <div class="gap-card amber">
+    <h3>#10 Watch your agents · #21 Run a bot fleet · #40 Six-bot content desk</h3>
+    <p>Root cause: I'm one agent (two modes + scheduled wakes + shared memory). I coordinate my own work well, but I can't manage a fleet of external bots or see what other agents are doing.</p>
+    <div class="unlock">🔓 Partial: I can watch any dashboard by browser on schedule, and play all six "content desk" roles myself, sequentially.</div>
+  </div>
+</div>
+
+<div class="section-head">
+  <h2>🟡 What unlocks the 24 partials</h2>
+  <p>Ranked by how many use cases each unlock would fix.</p>
+</div>
+<div class="gap-grid">
+  <div class="gap-card amber">
+    <h3>1. Email (Composio MCP)</h3>
+    <p>Fully unlocks #5, #6, #12, #47 and the email legs of #13, #14, #18, #29, #46.</p>
+    <div class="unlock">Needed from you: Composio API key (app.composio.dev → Settings → API Keys)</div>
+  </div>
+  <div class="gap-card amber">
+    <h3>2. Google Calendar</h3>
+    <p>Upgrades #4 (calendar from anywhere) and #35 (conflict watch) to full; improves #19, #43, #48.</p>
+    <div class="unlock">Needed: same Composio connection, Google Calendar scope</div>
+  </div>
+  <div class="gap-card amber">
+    <h3>3. WhatsApp Web session</h3>
+    <p>Gives me text reach to humans on #24 (client intake), #33 (group coordination), #46 (contractor nudges) — without a phone dialer.</p>
+    <div class="unlock">Needed: one-time QR scan of your WhatsApp session in my browser</div>
+  </div>
+  <div class="gap-card amber">
+    <h3>4. Payments (you, at the last step)</h3>
+    <p>Converts "to checkout" into "ordered" on #31 (drops), #37 (lunch), #23 (furniture) and every booking. By design I stop before paying; your UPI PIN is the trigger.</p>
+    <div class="unlock">Needed: nothing new — just be around to approve</div>
+  </div>
+</div>
+
+<div class="filter-bar">
+  <button class="filter-btn active" onclick="setFilter('all', this)">All 49</button>
+  <button class="filter-btn" onclick="setFilter('can', this)">✅ Can</button>
+  <button class="filter-btn" onclick="setFilter('partial', this)">🟡 Partial</button>
+  <button class="filter-btn" onclick="setFilter('cant', this)">🔴 Can't</button>
+  <input class="search-input" id="search" type="text" placeholder="Search use cases…" oninput="render()" />
+  <span class="count-label" id="count"></span>
+</div>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>#</th><th>Use case</th><th>Verdict</th><th>My read — what works and what's missing</th><th>Unlock</th></tr></thead>
+  <tbody id="table-body"></tbody>
+</table>
+</div>
+<div class="mobile-cards" id="cards"></div>
+
+<div class="footer">
+  Built by Onvoix · owner's machine, 16 Sep 2026 · Source: assistantbenchmark.com/use-cases · Verdicts assume your logins where needed and you tapping UPI PIN at payment — I never pay without you.
+</div>
+
+<script>
+const DATA = [
+{n:1, t:"Check in and get the boarding pass", v:"can", w:"Airline web check-in by browser (I run heavier form + CAPTCHA flows daily), download the BP PDF, send it to you on Telegram. Needs PNR + your airline login if the site demands it.", u:"Mobile-wallet pass: no."},
+{n:2, t:"Book a flight with points", v:"partial", w:"Award-space hunting is doable by browser, but loyalty engines are bot-hostile and need your airline login + points account. Cash booking I've already proven end-to-end; points redemption = best-effort shortlist.", u:"Your loyalty login + patience"},
+{n:3, t:"Book flights for the family", v:"can", w:"Proven: I scripted an EaseMyTrip booking search → fare → travellers → payment page. You approve and pay by UPI PIN at the end.", u:"—"},
+{n:4, t:"Add events to your calendar from anywhere", v:"partial", w:"I keep my own reminder calendar (Telegram pings fire on time — tested). Voice note → transcript → event works. Your personal Google Calendar isn't connected, so I can't write onto your phone calendar yet.", u:"Composio → Google Calendar"},
+{n:5, t:"Triage the inbox", v:"cant", w:"No mailbox on this machine (Workspace disabled). Nothing reads your email today.", u:"Composio + Gmail OAuth"},
+{n:6, t:"Run outreach, you approve every send", v:"cant", w:"Needs inbox + CRM access; neither is connected. The approval-queue part could run over Telegram once email is wired.", u:"Composio email + CRM MCP"},
+{n:7, t:"Book a doctor or dentist appointment", v:"partial", w:"Web booking portals, new-patient forms, insurance fields — all fine by browser. Most Indian clinics run on phone calls or WhatsApp; I can't dial.", u:"WhatsApp Web covers part"},
+{n:8, t:"Ship website or app changes by text", v:"can", w:"GitHub is already authenticated on this machine and I have a full coding environment. Tell me repo + change; I edit, push, deploy and verify.", u:"—"},
+{n:9, t:"Set guardrails before giving it your inbox", v:"partial", w:"No third-party guardrail product (Superagent) installable here, but I have built-in ask-first rules: irreversible actions need your OK and I don't obey instructions embedded in third-party messages. Happy to demo what I'd block.", u:"Policy doc we agree on"},
+{n:10, t:"Watch what your agents are doing", v:"partial", w:"I patrol this machine on a 30-min heartbeat and can watch any dashboard by browser on schedule. Seeing OTHER external agents' internals — no.", u:"—"},
+{n:11, t:"Make an image or a game in the chat", v:"can", w:"Image, music and video generation already tested live on this machine. HTML games I build, zip and send as files, or host with a public link.", u:"—"},
+{n:12, t:"Run the kids' school and activity logistics", v:"cant", w:"Needs school-portal + email monitoring; neither is connected. The calendar-invite half works today.", u:"Composio email + portal creds"},
+{n:13, t:"Cut a bill or switch provider", v:"partial", w:"I can research, compare contracts and draft the switch request online. Actual haggling runs on phone calls or your email — my two missing channels.", u:"Email unlock; calls impossible"},
+{n:14, t:"Find every recurring charge", v:"partial", w:"No bank/card access. Export your statement (CSV/PDF) and I'll itemize every subscription with costs and increases. Live inbox scan needs the email unlock.", u:"Statement file / email"},
+{n:15, t:"Shop for insurance", v:"can", w:"Quote comparison (PolicyBazaar etc.) via browser with your current policy details; CAPTCHAs handled. Closing calls are your part.", u:"Your current policy doc"},
+{n:16, t:"Run a week of errands", v:"partial", w:"Online errands yes: orders parked at checkout, forms, faxes via an online-fax service. Anything physical (pickups, hardware) is out.", u:"You at payment steps"},
+{n:17, t:"Think out loud by voice", v:"partial", w:"Walkie-talkie works today: your voice note → I transcribe → I reply with generated speech (both tested). A live two-way call I cannot hold.", u:"—"},
+{n:18, t:"Win a refund a company refused", v:"partial", w:"Support chats and web complaint forms I can drive. Reading/writing your email thread needs the email unlock; calls are out.", u:"Email unlock"},
+{n:19, t:"Turn meeting transcripts into follow-ups", v:"partial", w:"Drop me transcripts or audio: I transcribe, extract action items, set evening reminders. Auto-pulling from Granola/Notion needs that app's API.", u:"App API/MCP or file drop"},
+{n:20, t:"Phone someone for you", v:"cant", w:"No dialer, no SIM, no voice channel. Hardest gap on this list.", u:"None practical"},
+{n:21, t:"Run a team of agents", v:"partial", w:"I'm one agent with two modes, scheduled wakes and shared memory — I coordinate my own work streams well. Managing an external fleet of ten bots, no.", u:"—"},
+{n:22, t:"Build a tracker or a page by describing it", v:"can", w:"I design and build HTML dashboards, host them with a public link, keep data in local files, and can hold logins in my vault with your OK.", u:"—"},
+{n:23, t:"Order furniture and book assembly", v:"partial", w:"Ordering to checkout: yes (IKEA India ships; you pay). TaskRabbit-style assembly booking barely exists online in India — that last mile is offline.", u:"Local handyman contact"},
+{n:24, t:"Handle client intake through to booking", v:"partial", w:"I can run intake → quote → negotiate → book inside any chat I can see. Today that's your Telegram chat; WhatsApp Web via your browser session extends reach.", u:"WhatsApp Web session"},
+{n:25, t:"Plan a whole trip", v:"can", w:"Research + book trains (IRCTC), hotels, dinners, show tickets via browser; you pay at the end. CAPTCHAs handled.", u:"IRCTC login if train travel"},
+{n:26, t:"Apply for a visa", v:"can", w:"Refundable bookings, application forms, document organization, day-by-day itinerary — all my wheelhouse. You supply statements/scans; uploads happen by browser since I can't email.", u:"Your documents"},
+{n:27, t:"Book a DMV appointment and prep paperwork", v:"can", w:"Slot booking + document checklist + form fill by browser — US DMV sites, or the Indian equivalent (Parivahan/RTO).", u:"—"},
+{n:28, t:"Run a launch day", v:"can", w:"Product Hunt watching + comment replies by browser with your login; hourly Telegram updates; Slack via browser or MCP.", u:"PH + Slack logins"},
+{n:29, t:"Send a PDF to your Kindle, reflowed", v:"partial", w:"Reflowing I can do (clean HTML/EPUB). Delivery: Amazon Send-to-Kindle web upload with your Amazon login. The classic email-to-Kindle path needs an email account.", u:"Email unlock / Amazon login"},
+{n:30, t:"Watch fares and rebook when better", v:"can", w:"Scheduled fare checks (I already track your flight), Telegram alerts the moment a fare dips, rebook through the same scripted flow on your OK.", u:"—"},
+{n:31, t:"Buy a clothing drop", v:"partial", w:"I can hammer the page in a tight loop the instant it opens with your card/UPI. Waiting-room queue systems may still beat a bot; no guarantees on limited drops.", u:"Vaulted card + luck"},
+{n:32, t:"Reorder a product, stop before paying", v:"can", w:"This is exactly my proven flight pattern: fill everything, park at checkout, ping you to approve. Benchmark says most assistants stall at login — mine already didn't.", u:"—"},
+{n:33, t:"Coordinate a meeting in a group chat", v:"partial", w:"I can read/write chats I'm in (your Telegram; WhatsApp Web by browser session). Other people's calendars stay invisible to me.", u:"WhatsApp session"},
+{n:34, t:"Rent a car", v:"can", w:"Zoomcar/Revv via browser (Turo isn't in India); filter by dates/price/pickup, book, you pay.", u:"—"},
+{n:35, t:"Catch a scheduling conflict before it bites", v:"partial", w:"Conflicts inside the calendar I manage: checked on every heartbeat. Your personal Google Calendar isn't connected, so I can't see the events you add yourself.", u:"Google Calendar via Composio"},
+{n:36, t:"Plan a study schedule for a test", v:"can", w:"Plan sessions by hours and weak sections, quiz you on schedule over Telegram, track scores and adapt the plan.", u:"—"},
+{n:37, t:"Order lunch", v:"partial", w:"Swiggy/Zomato via browser is possible but their web flows are app + OTP gated — too fragile to promise your usual by 12:30.", u:"Better web flows or an API"},
+{n:38, t:"Review claims for fraud on a schedule", v:"can", w:"I run scripts and API pulls on schedule on this machine (dub.co API + your logs), remove fraud and approve real claims per your standing rule, ping you on judgment calls.", u:"API keys for your stack"},
+{n:39, t:"Run ads, leads and meetings (self-hosted)", v:"can", w:"I AM the self-hosted agent: Meta Ads by browser, Sheets via browser/API, Canva check, Calendly invites, all on a morning loop with your logins.", u:"Ad account + Calendly logins"},
+{n:40, t:"Run a content desk", v:"partial", w:"All six roles (research, write, design, schedule, edit, report) I can perform as one very organized agent with memory. Six truly separate bots, no.", u:"—"},
+{n:41, t:"Run ads with a rule it must not break", v:"can", w:"Build creatives (image gen + your assets), launch via Ads Manager with your login, check ROAS every 30 min, pause anything under the floor, show you first.", u:"Meta login + your ROAS floor"},
+{n:42, t:"Build Magic decks from cards you own", v:"can", w:"Export your ManaBox collection file, I cross-reference the EDHREC meta and build within your cards. Pure data work — my favourite kind.", u:"Collection export file"},
+{n:43, t:"Sell tickets for games you'll miss", v:"partial", w:"I watch the calendar I manage and can list tickets on resale sites, but India lacks a StubHub-class fan exchange; outcomes are patchy.", u:"Calendar + a marketplace that works"},
+{n:44, t:"Chase a missing delivery", v:"partial", w:"Carrier web chat and email escalation I can run end-to-end. The phone-tree part I cannot — no dialer.", u:"Email unlock"},
+{n:45, t:"Find an apartment and apply", v:"partial", w:"Search + shortlist by your criteria on 99acres/NoBroker, verify listings (no hallucinated flats), draft applications. Actual apply usually needs your OTP + a site visit.", u:"Your OTP at apply time"},
+{n:46, t:"Keep a home remodel moving", v:"partial", w:"Monday check-in reminder fires reliably. The nudge message itself needs a channel I can send on — email (no) or WhatsApp Web (possible).", u:"WhatsApp Web session"},
+{n:47, t:"Clear out a junk inbox", v:"cant", w:"Same root cause as #5: no mailbox connection today.", u:"Composio + Gmail OAuth"},
+{n:48, t:"Find events worth going to and book them", v:"can", w:"Weekly scan of the sites you pick against free time, register via browser, confirm to Telegram.", u:"—"},
+{n:49, t:"Book a hotel with free cancellation", v:"can", w:"Search + free-cancel filter + book or hold by browser; pay-at-hotel or your UPI at the end. Proven territory for me.", u:"—"}
+];
+
+const BADGE = {can:'<span class="badge badge-green">✅ CAN</span>', partial:'<span class="badge badge-yellow">🟡 PARTIAL</span>', cant:'<span class="badge badge-red">🔴 CAN\'T</span>'};
+let curFilter = 'all';
+
+function setFilter(f, btn) {
+  curFilter = f;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  render();
+}
+
+function render() {
+  const q = document.getElementById('search').value.toLowerCase();
+  const items = DATA.filter(i =>
+    (curFilter === 'all' || i.v === curFilter) &&
+    (!q || (i.t + ' ' + i.w + ' ' + i.u).toLowerCase().includes(q))
+  );
+  document.getElementById('count').textContent = items.length + ' of 49 shown';
+  document.getElementById('table-body').innerHTML = items.map(i =>
+    '<tr>' +
+    '<td class="td-num">' + i.n + '</td>' +
+    '<td><div class="cell-title">' + i.t + '</div></td>' +
+    '<td>' + BADGE[i.v] + '</td>' +
+    '<td><div class="cell-reason">' + i.w + '</div></td>' +
+    '<td><div class="cell-unlock">🔓 ' + i.u + '</div></td>' +
+    '</tr>'
+  ).join('');
+  document.getElementById('cards').innerHTML = items.map(i =>
+    '<div class="m-card">' +
+    '<div class="m-card-head"><div class="m-card-title">' + i.n + '. ' + i.t + '</div><div>' + BADGE[i.v] + '</div></div>' +
+    '<div class="m-card-grid">' + i.w + '</div>' +
+    '<div class="m-card-unlock">🔓 ' + i.u + '</div>' +
+    '</div>'
+  ).join('');
+}
+render();
+</script>
+</body>
+</html>

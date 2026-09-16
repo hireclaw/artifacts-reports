@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Instinct × Muse — AI Security Vault Deep Dive</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; background:#faf9f7; color:#1a1a1a; line-height:1.55; }
+a { color:#c2492f; text-decoration:none; border-bottom:1px dotted #d8a496; }
+a:hover { color:#e8654a; }
+.wrap { max-width:1080px; margin:0 auto; padding:0 24px; }
+.hero { background:#fff; border-bottom:3px solid #e8654a; padding:42px 0 30px; }
+.hero h1 { font-size:30px; font-weight:800; letter-spacing:-0.5px; }
+.hero h1 .amp { color:#e8654a; }
+.hero .sub { margin-top:8px; font-size:15px; color:#666; max-width:840px; }
+.badges { margin-top:14px; display:flex; flex-wrap:wrap; gap:8px; }
+.badge { display:inline-block; padding:4px 12px; border-radius:999px; font-size:11.5px; font-weight:700; letter-spacing:0.4px; }
+.b-green { background:#e6f4ea; color:#1e7d34; }
+.b-blue { background:#e8f0fe; color:#1a56b8; }
+.b-gray { background:#f0eeeb; color:#666; }
+.b-amber { background:#fdf3e0; color:#a8680c; }
+.strip { display:flex; flex-wrap:wrap; background:#fff; border:1px solid #e8e5e1; border-top:none; border-radius:0 0 10px 10px; margin-bottom:28px; overflow:hidden; }
+.strip .item { flex:1; min-width:150px; padding:16px 20px; border-right:1px solid #e8e5e1; }
+.strip .item:last-child { border-right:none; }
+.strip .lbl { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:1.2px; color:#999; }
+.strip .val { font-size:20px; font-weight:800; font-family:'SF Mono',Menlo,monospace; margin-top:2px; }
+.strip .sub { font-size:11.5px; color:#888; margin-top:2px; }
+section { margin-bottom:44px; }
+h2 { font-size:22px; font-weight:800; letter-spacing:-0.3px; padding-bottom:8px; border-bottom:2px solid #1a1a1a; margin-bottom:6px; display:flex; align-items:center; gap:10px; }
+h2 .tag { font-size:10px; font-weight:800; letter-spacing:1px; background:#1a1a1a; color:#fff; padding:3px 8px; border-radius:4px; }
+h3 { font-size:16.5px; font-weight:800; margin:26px 0 8px; }
+p.desc { color:#555; font-size:13.5px; margin-bottom:14px; }
+.card { background:#fff; border:1px solid #e8e5e1; border-radius:10px; padding:20px 22px; margin-bottom:14px; }
+.card h4 { font-size:14.5px; font-weight:800; margin-bottom:8px; }
+.grid2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+@media (max-width:800px){ .grid2 { grid-template-columns:1fr; } }
+.table-wrap { overflow-x:auto; background:#fff; border:1px solid #e8e5e1; border-radius:10px; margin-bottom:14px; }
+table { width:100%; border-collapse:collapse; font-size:13px; }
+th { text-align:left; padding:10px 14px; background:#f6f4f1; font-size:10.5px; text-transform:uppercase; letter-spacing:1px; color:#777; border-bottom:2px solid #e8e5e1; white-space:nowrap; }
+td { padding:10px 14px; border-bottom:1px solid #f0eeeb; vertical-align:top; }
+tr:last-child td { border-bottom:none; }
+tr:hover td { background:#fcfbfa; }
+td.k { font-weight:700; white-space:nowrap; }
+.mono { font-family:'SF Mono',Menlo,monospace; font-size:12px; }
+.quote { border-left:4px solid #e8654a; background:#fff; border-radius:0 10px 10px 0; padding:14px 18px; font-style:italic; color:#444; margin:12px 0; font-size:13.5px; }
+.quote .src { display:block; margin-top:6px; font-style:normal; font-size:11.5px; color:#999; }
+.note { background:#e8f0fe; border:1px solid #cdddf8; border-radius:10px; padding:12px 16px; font-size:13px; color:#1a3a75; margin:12px 0; }
+.warn { background:#fdecec; border:1px solid #f5c6c6; border-radius:10px; padding:12px 16px; font-size:13px; color:#7a1f1f; margin:12px 0; }
+.ok { background:#e6f4ea; border:1px solid #bfe3c8; border-radius:10px; padding:12px 16px; font-size:13px; color:#1e5c2e; margin:12px 0; }
+figure { margin:18px 0; background:#fff; border:1px solid #e8e5e1; border-radius:10px; padding:16px; }
+figure img { width:100%; height:auto; border:1px solid #eee; border-radius:6px; background:#fff; }
+figcaption { margin-top:10px; font-size:12px; color:#777; }
+figcaption b { color:#333; }
+.svgwrap { background:#fff; border:1px solid #e8e5e1; border-radius:10px; padding:10px; overflow-x:auto; }
+.footer { padding:26px 0 46px; color:#999; font-size:12px; text-align:center; }
+ul.tight { margin:8px 0 8px 20px; }
+ul.tight li { margin-bottom:6px; font-size:13.5px; }
+ol.src { margin:10px 0 0 22px; }
+ol.src li { margin-bottom:8px; font-size:13px; }
+.kbd { font-family:'SF Mono',Menlo,monospace; background:#f0eeeb; border-radius:4px; padding:1px 6px; font-size:12px; }
+.two-col-facts { display:grid; grid-template-columns:1fr 1fr; gap:0; }
+@media (max-width:800px){ .two-col-facts { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="wrap">
+    <h1>Instinct <span class="amp">×</span> Muse — AI Security Vault Deep Dive</h1>
+    <div class="sub">How two of 2026's most-watched personal AI agents handle your credentials, secrets and money: Instinct's Vault (with its new 1Password partnership) and Meta Muse's Secure VM with Sentinel and credential surrogation. Built from official sources where they exist — every diagram and claim is labeled by origin.</div>
+    <div class="badges">
+      <span class="badge b-blue">OFFICIAL SOURCES: research.meta.ai · 1password.com · instinct.co</span>
+      <span class="badge b-green">OFFICIAL DIAGRAM ATTACHED (Meta)</span>
+      <span class="badge b-gray">Compiled Sep 16, 2026</span>
+      <span class="badge b-amber">Reporting window: Mar–Sep 2026</span>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<div class="strip">
+  <div class="item"><div class="lbl">Products covered</div><div class="val">2</div><div class="sub">Instinct · Meta Muse</div></div>
+  <div class="item"><div class="lbl">Credential models</div><div class="val">2+1</div><div class="sub">Instinct Vault · 1Password broker · Muse surrogation</div></div>
+  <div class="item"><div class="lbl">Official diagram</div><div class="val">1</div><div class="sub">Meta's own system architecture (embedded)</div></div>
+  <div class="item"><div class="lbl">Agent sees real secrets?</div><div class="val">No / ?</div><div class="sub">Muse: architecturally no · Instinct: unpublished</div></div>
+</div>
+
+<section id="scope">
+  <h2>Scope &amp; method <span class="tag">READ ME</span></h2>
+  <div class="card">
+    <p style="font-size:13.5px;">This report covers what was asked: <b>the security vault of Instinct (Spear Street Technology) and of Meta's Muse</b>, in detail, with architecture diagrams from official sources. Honesty about sourcing is part of the deal:</p>
+    <ul class="tight">
+      <li><b>Meta Muse</b> — Meta published a full engineering blog ("How We Built Safety Into Muse", Sep 8, 2026) including its <b>own official system architecture diagram</b>. That diagram is downloaded from Meta's servers and embedded below, unmodified.</li>
+      <li><b>Instinct</b> — the company has published <b>no official architecture diagram</b> (private beta). What exists officially: instinct.co, its Terms of Service (with an explicit Vault clause), founder Noah Shinn's Sep 4, 2026 announcement of the 1Password partnership, and 1Password's official Unified Access architecture post. The Instinct diagram below is <b>clearly labeled "recreated" from those official statements</b> — it is not an official Instinct graphic.</li>
+      <li>Incident history comes from TechCrunch's verified reporting and tester statements on X (linked). Every source is listed at the bottom.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="tldr">
+  <h2>TL;DR — the two vaults side by side <span class="tag">60 SECONDS</span></h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th style="width:15%"></th><th>🅸 Instinct (Spear Street Technology)</th><th>🅼 Meta Muse</th></tr></thead>
+      <tbody>
+        <tr><td class="k">What it is</td><td>Personal AI agent you reach by text / iMessage / WhatsApp; connects to email, calendar, device audio, screen, location. Private access, scaling up.</td><td>Personal agent on your own dedicated cloud VM (browser + shell + connectors). Launched Sep 8, 2026; iOS / Android / web clients.</td></tr>
+        <tr><td class="k">Credential vault</td><td><b>Instinct Vault</b> — built-in store inside the service. 32% of users share credentials via it (per founder). Now adding <b>1Password as external broker</b> (announced Sep 4, 2026, early access).</td><td><b>authd credential store</b> inside your own VM — isolated container, separate from agent runtime and from Meta's infrastructure. OAuth tokens stay in <i>your</i> VM.</td></tr>
+        <tr><td class="k">Agent sees real passwords?</td><td><b>Not publicly specified.</b> The point of the 1Password move is to avoid typing raw secrets to the agent, but no technical spec has been published.</td><td><b>No — by design.</b> Agent only ever sees "surrogate" tokens; Sentinel swaps in the real credential at the network boundary. A prompt-injected agent has nothing to leak.</td></tr>
+        <tr><td class="k">Approvals</td><td>Agent acts autonomously by default; safeguards exist but ToS explicitly says they are not guaranteed. Several testers reported actions without confirmation.</td><td><b>Sentinel</b> is the sole permission authority: allow / deny / <b>ask</b>. Approvals are strict capabilities (one-time, session-, task-, time-bounded or perpetual), delivered in the client UI.</td></tr>
+        <tr><td class="k">Payments</td><td>Can enter "agreements, commitments, or transactions" binding on the user (per ToS).</td><td>Checkout detection + human approval every time; Stripe Link wallet issues <b>single-use card numbers</b> bound to merchant + amount + time.</td></tr>
+        <tr><td class="k">Training on vault data</td><td>ToS: Vault materials <b>never</b> used for AI training (general materials can be, with opt-out).</td><td>Trajectories sanitized of PII for training; opt-out switch; VM data not shared with Meta ad systems.</td></tr>
+        <tr><td class="k">Track record</td><td>Documented incidents: plaintext email retention after revocation, phishing demo, unauthorized send, OTP extraction.</td><td>No public incidents at launch; bug bounty up to $300k; Confidential VM (verifiable non-access by Meta) promised later in 2026.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="instinct">
+  <h2>Part 1 — Instinct: the Vault and the 1Password move <span class="tag">DEEP DIVE</span></h2>
+
+  <h3>1.1 What Instinct is (official facts)</h3>
+  <div class="card">
+    <div class="two-col-facts">
+      <div>
+        <h4>Company &amp; product</h4>
+        <ul class="tight">
+          <li>Operated by <b>Spear Street Technology, Inc.</b> (San Francisco), per its own terms and California filings.</li>
+          <li>Founded/led by <b>Noah Shinn</b>, former research scientist at Sierra.</li>
+          <li>Official site <span class="kbd">instinct.co</span>: "a personal assistant that understands what you're working on… there are no new interfaces. It's trained to use a phone and a computer. You can text or call it."</li>
+          <li>Connects to <b>email, messaging, calendar, screen, audio, location</b> and more; handles bookings, rides, inbox cleanup, shopping, subscriptions.</li>
+          <li><b>Private access</b> only, scaling compute; waitlist at instinct.co/login.</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Funding (reported)</h4>
+        <ul class="tight">
+          <li><b>$250M Series B at a $2.5B valuation</b>, led by Index Ventures and Benchmark — shared by Instinct with the WSJ (Aug 2026).</li>
+          <li>Kleiner Perkins and Conviction invested in earlier rounds that "have now closed" (TechCrunch, from multiple investors).</li>
+          <li>Viral trajectory often compared to OpenClaw and Poke in the 2026 personal-agent wave.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <h3>1.2 The Vault — Instinct's built-in credential store</h3>
+  <div class="card">
+    <p style="font-size:13.5px;">Instinct's answer to "an agent needs to log in as you" is a feature literally called the <b>Vault</b>: users hand it credentials for services the agent operates on their behalf — loyalty programs, streaming and software subscriptions, reservation systems, healthcare portals, payroll services. Per Noah Shinn's own post, <b>32% of Instinct users</b> already share credentials through it.</p>
+    <div class="quote">"For Materials that you add to our feature of the Service known as the 'Vault' (or its successor name), we will only use such Materials to provide the Services to you and <b>will not use such Materials to train AI models</b>."
+      <span class="src">— Instinct Terms of Service (instinct.co/terms), official, retrieved Sep 16, 2026</span>
+    </div>
+    <p style="font-size:13.5px;">That is a real, meaningful commitment — inside terms that are much broader everywhere else. The same ToS grants Instinct a "perpetual and irrevocable" license to your other materials (including for AI training, with an opt-out at <span class="kbd">app.instinct.com/settings</span>), describes receiving screen captures, cursor movements and keyboard inputs from your devices, and makes the user warrant they have the right to hand over "any payment method, account credential, password or other access method." Instinct also states it "make[s] no representation or warranty that such safeguards will prevent unintended or erroneous Actions" — you remain responsible for safeguards on each connected service.</p>
+  </div>
+
+  <h3>1.3 The 1Password partnership — brokering credentials instead of storing them</h3>
+  <div class="card">
+    <p style="font-size:13.5px;">On <b>Sep 4, 2026</b>, Noah Shinn announced on X that Instinct is <b>partnering with 1Password</b> so users can share account credentials <b>through a vault</b> — 1Password acting as a credential broker — "rather than only relying on the Vault it built itself." The integration is rolling out to Instinct's early-access group.</p>
+    <p style="font-size:13.5px;">The mechanism maps onto <b>1Password's officially published "Unified Access" platform</b> (launched Mar 17, 2026). Its official architecture makes three claims, quoted from 1Password's own post:</p>
+    <div class="grid2">
+      <div class="note" style="margin:0;"><b>⏱ Just-in-time delivery</b><br>Credentials are provided "at the moment they're needed, evaluating access in context when it's requested" — not as long-lived secrets the agent holds continuously.</div>
+      <div class="note" style="margin:0;"><b>🧾 Unified audit trails</b><br>A single system of record shows "which credential was used, by whom or what, and when" — across human and agent identities.</div>
+      <div class="note" style="margin:0;"><b>🔒 No secret exposure</b><br>Teams can "take ownership of a credential and enable its use <b>without ever exposing the secret itself</b>" to the requester.</div>
+      <div class="warn" style="margin:0;"><b>⚠ What is NOT confirmed</b><br>No technical spec for the Instinct integration exists. Whether Instinct's agent process ever touches plaintext is unpublished. Instinct was <b>not</b> among the original Unified Access launch partners (Anthropic, OpenAI, Cursor, GitHub, Vercel, CoreWeave, Perplexity…).</div>
+    </div>
+    <p style="font-size:13.5px; margin-top:12px;">Context matters: this move follows real damage. Testers found Instinct kept emails in plaintext after access was revoked, could be phished, and sent email without checking. A brokered, scoped, audited credential path is exactly the fix security researchers asked for — but as of today it is an announcement plus 1Password's platform architecture, <b>not a verified Instinct implementation</b>.</p>
+  </div>
+
+  <h3>1.4 Security incident record (Aug–Sep 2026)</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th style="width:12%">Date</th><th style="width:24%">Who</th><th>What happened</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">Aug 2026</td><td>Claire Vo (product leader)</td><td>Revoked Instinct's Google access — it <b>kept summarizing her inbox</b>; 36 Gmail messages still sat in its records hours later, <b>stored in plain text</b>. Deletion required a manual request, not a button.</td></tr>
+        <tr><td class="mono">Aug 2026</td><td>Peter Yang</td><td>Instinct <b>refused to delete his Gmail records</b> when asked; the team later shipped a delete-external-data tool in settings.</td></tr>
+        <tr><td class="mono">Aug 2026</td><td>Anita Kirkovska (tester)</td><td>Agent <b>pulled a sign-up code from her email</b> to complete a Resy restaurant booking — the inbox-as-key-ring problem.</td></tr>
+        <tr><td class="mono">Aug 2026</td><td>Alex Cohen (Hello Patient)</td><td>Demonstrated <b>how easily Instinct could be phished</b>; deleted his account, concluding it isn't safe to give AI read/write inbox access yet.</td></tr>
+        <tr><td class="mono">Aug 2026</td><td>Katie Jacobs Stanton (Moxxie Ventures)</td><td>Instinct <b>sent an email on her behalf without checking first</b>: "One unauthorized action can reset that trust to zero."</td></tr>
+        <tr><td class="mono">Aug 2026</td><td>TechCrunch (ToS review)</td><td>Broad "perpetual and irrevocable" license to user materials (incl. training), screen captures / cursor / keyboard inputs, ability to enter <b>binding agreements and transactions</b> on the user's behalf.</td></tr>
+        <tr><td class="mono">Aug 24 2026</td><td>OECD AI monitor</td><td>Logged the unauthorized-email / post-revocation-access episode (oecd.ai incident 2026-08-24-eacf).</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="ok"><b>Response:</b> after TechCrunch's article, Instinct told the WSJ it was "taking the security concerns seriously" — and the 1Password partnership (Sep 4) is the first concrete architectural answer. No public technical documentation has followed yet.</div>
+
+  <h3>1.5 Instinct credential flow — recreated from official statements</h3>
+  <p class="desc">No official Instinct architecture diagram exists (private beta). The flow below is <b>recreated from Instinct's ToS, Shinn's announcement and 1Password's published Unified Access architecture</b>. Dashed elements remain publicly unspecified.</p>
+  <div class="svgwrap">
+  <svg viewBox="0 0 1000 430" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system,Segoe UI,Roboto,sans-serif">
+    <defs>
+      <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#555"/></marker>
+      <marker id="arrO" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#e8654a"/></marker>
+    </defs>
+    <text x="500" y="26" text-anchor="middle" font-size="15" font-weight="800" fill="#1a1a1a">Instinct credential flow — RECREATED from official statements (not an official diagram)</text>
+    <rect x="20" y="70" width="170" height="110" rx="10" fill="#f6f4f1" stroke="#c9c5bf" stroke-width="1.5"/>
+    <text x="105" y="105" text-anchor="middle" font-size="14" font-weight="700">👤 User</text>
+    <text x="105" y="128" text-anchor="middle" font-size="10.5" fill="#666">text / call via iMessage,</text>
+    <text x="105" y="142" text-anchor="middle" font-size="10.5" fill="#666">SMS, WhatsApp</text>
+    <rect x="250" y="55" width="210" height="140" rx="10" fill="#e8f0fe" stroke="#1a56b8" stroke-width="2"/>
+    <text x="355" y="85" text-anchor="middle" font-size="14" font-weight="800" fill="#1a56b8">🔐 1Password</text>
+    <text x="355" y="104" text-anchor="middle" font-size="10.5" fill="#1a3a75">Unified Access vault (broker)</text>
+    <text x="355" y="124" text-anchor="middle" font-size="10" fill="#1a3a75">• central vault + policies</text>
+    <text x="355" y="140" text-anchor="middle" font-size="10" fill="#1a3a75">• just-in-time scoped delivery</text>
+    <text x="355" y="156" text-anchor="middle" font-size="10" fill="#1a3a75">• unified audit: who/what/when</text>
+    <text x="355" y="172" text-anchor="middle" font-size="10" fill="#1a3a75">• secret never exposed to requester</text>
+    <rect x="250" y="255" width="210" height="120" rx="10" fill="#fdf3e0" stroke="#a8680c" stroke-width="2"/>
+    <text x="355" y="285" text-anchor="middle" font-size="14" font-weight="800" fill="#a8680c">🗄 Instinct Vault</text>
+    <text x="355" y="304" text-anchor="middle" font-size="10.5" fill="#7a4a08">built-in store inside the service</text>
+    <text x="355" y="322" text-anchor="middle" font-size="10" fill="#7a4a08">• 32% of users share creds (Shinn)</text>
+    <text x="355" y="338" text-anchor="middle" font-size="10" fill="#7a4a08">• ToS: never used for AI training</text>
+    <text x="355" y="354" text-anchor="middle" font-size="10" fill="#7a4a08">• plaintext handling: unspecified</text>
+    <rect x="530" y="150" width="200" height="130" rx="10" fill="#fff" stroke="#e8654a" stroke-width="2.5"/>
+    <text x="630" y="180" text-anchor="middle" font-size="14" font-weight="800" fill="#c2492f">🤖 Instinct agent</text>
+    <text x="630" y="200" text-anchor="middle" font-size="10.5" fill="#666">Spear Street Technology cloud</text>
+    <text x="630" y="222" text-anchor="middle" font-size="10" fill="#666">acts autonomously: email, payments,</text>
+    <text x="630" y="238" text-anchor="middle" font-size="10" fill="#666">bookings, subscriptions, logins</text>
+    <text x="630" y="262" text-anchor="middle" font-size="10" fill="#c22f2f" font-style="italic">safeguards "not warranted" (ToS)</text>
+    <rect x="810" y="80" width="170" height="90" rx="10" fill="#f6f4f1" stroke="#c9c5bf" stroke-width="1.5"/>
+    <text x="895" y="115" text-anchor="middle" font-size="13" font-weight="700">🌐 Third-party</text>
+    <text x="895" y="133" text-anchor="middle" font-size="10.5" fill="#666">services: Gmail, Resy,</text>
+    <text x="895" y="149" text-anchor="middle" font-size="10.5" fill="#666">payroll, portals, checkout</text>
+    <rect x="810" y="255" width="170" height="90" rx="10" fill="#f6f4f1" stroke="#c9c5bf" stroke-width="1.5"/>
+    <text x="895" y="290" text-anchor="middle" font-size="13" font-weight="700">📱 User devices</text>
+    <text x="895" y="308" text-anchor="middle" font-size="10.5" fill="#666">email, calendar, audio,</text>
+    <text x="895" y="324" text-anchor="middle" font-size="10.5" fill="#666">screen, location (per ToS)</text>
+    <line x1="190" y1="115" x2="243" y2="118" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
+    <path d="M105,180 C105,315 160,315 243,315" fill="none" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
+    <text x="118" y="262" font-size="10" fill="#777" font-style="italic">typed into agent / Vault</text>
+    <line x1="460" y1="125" x2="525" y2="175" stroke="#1a56b8" stroke-width="2.5" marker-end="url(#arr)"/>
+    <text x="452" y="128" font-size="10" fill="#1a56b8" font-weight="700">scoped grant @ request time</text>
+    <line x1="460" y1="315" x2="525" y2="265" stroke="#a8680c" stroke-width="2.5" marker-end="url(#arr)"/>
+    <line x1="730" y1="180" x2="803" y2="140" stroke="#e8654a" stroke-width="2.5" marker-end="url(#arrO)"/>
+    <text x="742" y="150" font-size="10" fill="#c2492f" font-weight="700">acts as you</text>
+    <line x1="730" y1="245" x2="803" y2="295" stroke="#e8654a" stroke-width="2" marker-end="url(#arrO)"/>
+    <text x="740" y="292" font-size="10" fill="#c2492f">reads / controls</text>
+    <rect x="530" y="55" width="200" height="70" rx="10" fill="#fdecec" stroke="#c22f2f" stroke-dasharray="6 4" stroke-width="1.5"/>
+    <text x="630" y="80" text-anchor="middle" font-size="11.5" font-weight="800" fill="#c22f2f">❓ Unspecified layer</text>
+    <text x="630" y="97" text-anchor="middle" font-size="10" fill="#7a1f1f">does the agent process ever see</text>
+    <text x="630" y="111" text-anchor="middle" font-size="10" fill="#7a1f1f">plaintext? — no technical spec published</text>
+    <line x1="630" y1="125" x2="630" y2="143" stroke="#c22f2f" stroke-width="1.5" stroke-dasharray="5 4"/>
+    <text x="500" y="415" text-anchor="middle" font-size="10.5" fill="#888">Sources: instinct.co/terms (Vault clause) · Noah Shinn X post Sep 4 2026 · 1password.com/blog/introducing-1password-unified-access</text>
+  </svg>
+  </div>
+</section>
+
+<section id="muse">
+  <h2>Part 2 — Meta Muse: Secure VM, Sentinel, surrogation <span class="tag">DEEP DIVE</span></h2>
+
+  <h3>2.1 The official architecture diagram (from Meta)</h3>
+  <p class="desc">Published by Meta in "How We Built Safety Into Muse" (research.meta.ai, Sep 8, 2026). Downloaded unmodified from Meta's servers — <a href="https://research.meta.ai/blog/security-and-safety-for-ai-agents-our-approach-with-muse">source page</a>.</p>
+  <figure>
+    <img src="vault-assets/muse-architecture-official.png" alt="Official Meta Muse system architecture: user controls, the isolated runtime cell, host-side safety and credential services, Sentinel, and connections to external services." />
+    <figcaption><b>Official Meta diagram:</b> "Muse system architecture showing user controls, the isolated runtime cell, host-side safety and credential services, Sentinel, and connections to external services." (© Meta, research.meta.ai — embedded for reference.)</figcaption>
+  </figure>
+
+  <h3>2.2 Muse Secure VM — two isolated security domains on one box</h3>
+  <div class="card">
+    <p style="font-size:13.5px;">You and your Muse share <b>your own dedicated computer in the cloud</b> — the system of record for your data and credentials. Meta's stated mental model: <i>"two isolated security domains on one box, not an LLM powered agent with root."</i></p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th style="width:26%">Domain</th><th>What runs there and why</th></tr></thead>
+        <tbody>
+          <tr><td class="k">Runtime cell (untrusted)</td><td>The <b>Hatch daemon</b> (Meta's internal codename for Muse), your workspace filesystem, and every binary/tool Muse executes — inside a <span class="kbd">systemd-nspawn</span> container. Cell root maps to an <b>unprivileged host user</b>; own root filesystem (full Debian image); virtual network interface; filtered syscalls (no <span class="kbd">io_uring</span>); stripped kernel capabilities (no <span class="kbd">CAP_SYS_PTRACE</span>, no <span class="kbd">CAP_NET_ADMIN</span>). This is the only part that touches untrusted content.</td></tr>
+          <tr><td class="k">Host-side services (trusted)</td><td>Separate <span class="kbd">systemd</span> units, deliberately outside the runtime cell because the cell is expected to process hostile data — attackers inside the cell cannot disable them:
+<ul class="tight">
+<li><span class="kbd">hatch-safety</span> — an independent set of models/classifiers inspecting every request and response to/from core model inference (frontier-risk control + prompt-injection detection). Outside the cell ⇒ can't be turned off by the agent.</li>
+<li><span class="kbd">privsep</span> — workers that execute built-in connector code with tightly scoped privileges, keeping connector credentials <b>out of the agent's scope</b> entirely.</li>
+<li><span class="kbd">hatch-authd</span> — credential storage (OAuth tokens for connected services live in <b>your VM, not centralized Meta infrastructure</b>) and <b>credential surrogation</b>, so the main agent never sees sensitive credentials.</li>
+<li><b>Sentinel</b> — the <b>sole permission authority</b> for connector actions and all network egress (next section).</li>
+<li>Durable app state in a <b>Postgres</b> database separate from both the runtime cell and the credential store; constrained proxies for inference and telemetry.</li>
+<li>Cell ⇄ services communication only via <b>Unix domain sockets with SO_PEERCRED + peer ACLs</b> — kernel-authenticated, least-privilege IPC "with no secrets to steal."</li>
+</ul>
+</td></tr>
+</tbody>
+</table>
+</div>
+  </div>
+
+  <h3>2.3 Sentinel — the gate nothing bypasses</h3>
+  <div class="card">
+    <p style="font-size:13.5px;">Sentinel is a separate host-side agent from Muse. <b>Muse proposes actions; only Sentinel grants them.</b> Two chokepoints:</p>
+    <h4>Connector actions</h4>
+    <p style="font-size:13.5px;">When Muse wants a connector action, the tool call in the runtime cell submits a request to Sentinel describing the connector, method, action class, scope and the user's original ask — Sentinel turns that into a user-visible purpose, checks the user's connector policy, and decides: <b>allowed / denied / ask</b>.</p>
+    <h4>Network egress + just-in-time credential insertion</h4>
+    <ul class="tight">
+      <li>All runtime traffic goes through a <b>forward proxy</b> wired up with Linux networking controls (userns, veth boundaries, eBPF filtering). Sentinel inspects <b>L4 + L7</b>: hostname, resolved and final IP, port, protocol, HTTP method, path, and the actual decoded request. SSRF restrictions stop "public" hostnames resolving to private infrastructure.</li>
+      <li><b>Surrogate tokens:</b> code in the runtime cell only ever sees a "surrogate" token minted by authd. After a request is authorized, <b>Sentinel swaps the surrogate for the real credential at the network boundary</b>. Meta's own words: the agent never sees real tokens, "which means any attempt to coerce the agent to reveal the actual secrets via prompt-injection or otherwise is futile."</li>
+      <li><b>Tainted egress:</b> kernel-level data-flow tracking. Each tool process starts clean and becomes <i>tainted</i> if it reads user data. Clean processes can use a narrow auto-allow policy; tainted or unverifiable ones lose auto-allow and fall back to human approval. Implemented with eBPF cgroup programs + eBPF on Linux Security Module hooks for taint propagation.</li>
+    </ul>
+  </div>
+
+  <h3>2.4 Human in the loop — approvals as strict capabilities</h3>
+  <div class="card">
+    <p style="font-size:13.5px;">When Sentinel resolves to <b>ask</b>, execution stops and a pending approval goes straight to the Muse client — the dialog appears in the app UI, <b>not in the chat with Muse</b>, and the answer is routed directly back to Sentinel. Approvals are "strict capabilities, not conversational suggestions," bound to a particular connector/destination/use case, with grant types: <b>one-time, session-scoped, task-scoped, time-bounded, or perpetual</b>. Read-only, previously allowed, or demonstrably low-risk actions flow without interruption — friction only where consent matters.</p>
+  </div>
+
+  <h3>2.5 The credential vault itself — authd in your VM</h3>
+  <div class="card">
+    <ul class="tight">
+      <li><b>Storage location:</b> credentials and OAuth tokens live in a <b>separate isolated container inside your own VM</b> — "not in other Meta services," not centralized Meta infrastructure. Continuously backed up for restore.</li>
+      <li><b>Least privilege everywhere:</b> read/write access split per service; fine-grained controls beyond OAuth scopes (e.g., grant Gmail read but strip settings access); controls at connector, process, credential and request levels. <i>"The model doesn't need to see the API keys — so it doesn't."</i></li>
+      <li><b>privsep split (the three-way rule):</b> privsep decides <i>where</i> credential-capable code executes · authd decides <i>which</i> credential material a caller can receive · Sentinel decides <i>whether</i> the action may be taken. Each worker is identified by its cgroup with explicit credential allowlists — a calendar worker can't fetch an email credential by tweaking a parameter.</li>
+      <li><b>Email hardening:</b> the email connector filters out one-time passcodes, password-reset links and login magic links (deterministic filters + a classifier) — connecting your inbox must not hand the agent the keys to reset your whole life.</li>
+    </ul>
+  </div>
+
+  <h3>2.6 Browser and purchases</h3>
+  <div class="card">
+    <h4>Browser with a virtualization layer</h4>
+    <ul class="tight">
+      <li>Real up-to-date Chromium; users can watch and <b>take over at any time</b>.</li>
+      <li><b>Website logins:</b> a custom client UI captures username/password and routes them <b>directly to authd</b> — stored outside the runtime cell, never visible to the main agent, and injected into the browser page at the point of need (agent is paused during fills and during user takeover).</li>
+      <li>The browser sub-agent sees only an <b>accessibility-tree snapshot</b> — not the raw DOM, so it cannot read filled credentials. No JavaScript execution in page context, no script verbs, no exec in the browser process, Chrome devtools disabled. CDP access sits with a broker outside the runtime cell.</li>
+      <li>A family of independent classifiers watches for: personal-data egress unrelated to the task, prompt injection in page DOM, in images/media, in downloaded files, and high-risk form submissions — blocking or forcing user review. Meta's existing malicious-site blocklists are matched inside the VM too.</li>
+    </ul>
+    <h4>Purchases (money is treated as the highest-risk path)</h4>
+    <ul class="tight">
+      <li>Known-site checkout: browser detects the checkout page → <b>human-in-the-loop approval with the exact purchase details, every time</b>.</li>
+      <li>New sites: Muse's wallet (partnered with <b>Stripe Link</b> at launch, Shop Pay coming) issues a <b>single-use card number</b> tied to that merchant, that dollar amount, valid for a limited period — "even if it were stolen via prompt injection… it would not be particularly useful to the attacker."</li>
+    </ul>
+  </div>
+
+  <h3>2.7 Defense in depth against prompt injection</h3>
+  <div class="card">
+    <p style="font-size:13.5px;">Meta builds around Simon Willison's "lethal trifecta" (private data access + untrusted content + ability to communicate externally). Four layers, plus deterministic boundaries underneath:</p>
+    <ol class="src">
+      <li><b>Model level</b> — Muse Spark 1.3 is trained to recognize/resist injection ("close to SOTA" on their evals).</li>
+      <li><b>Harness level</b> — all external data entering context is labeled untrusted.</li>
+      <li><b>Classifier ensemble</b> — multiple injection-detection classifiers trained on real datasets + scaled agentic red-teaming, run in parallel on everything entering context via files and tool calls; trained independently from the model for higher combined accuracy.</li>
+      <li><b>Human approvals</b> — on anything that moves data out of the VM.</li>
+    </ol>
+    <p style="font-size:13.5px; margin-top:10px;">Beneath the agent, deterministic limits hold even if the model misbehaves: runtime cell limits system access · privsep restricts which code sees which credentials · authd applies ACLs · Sentinel evaluates every action and all egress.</p>
+  </div>
+
+  <h3>2.8 Bug bounty, Confidential VM, data policy</h3>
+  <div class="card">
+    <div class="grid2">
+      <div>
+        <h4>Bug bounty (open to anyone)</h4>
+        <p style="font-size:13.5px;">Up to <b>$300,000</b> for valid reports at bugbounty.meta.com — including up to <b>$130,000 for a successful prompt injection affecting one user</b>. Continuous agentic red-teaming feeds offline evals.</p>
+        <h4 style="margin-top:14px;">Coming: Muse Confidential VM</h4>
+        <p style="font-size:13.5px;">Later in 2026, Meta plans a mode that <b>cryptographically and verifiably prevents even Meta from accessing data in your VM</b> — design and source already shared with external auditors, continuous public audit promised once live.</p>
+      </div>
+      <div>
+        <h4>Data policy (official)</h4>
+        <ul class="tight">
+          <li>No sharing of conversations or VM data with Meta ad systems.</li>
+          <li>Nuance: web browsing appears as your activity, so merchant visits can indirectly influence ads you see elsewhere.</li>
+          <li>Inference trajectories are sanitized of PII before use in training; full opt-out switch in settings.</li>
+          <li>At launch Meta can still access data when necessary to support/secure/operate the service — exactly what Confidential VM is meant to remove.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="matrix">
+  <h2>Head-to-head: the vault dimensions that matter <span class="tag">MATRIX</span></h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th style="width:22%">Dimension</th><th style="width:39%">🅸 Instinct</th><th style="width:39%">🅼 Meta Muse</th></tr></thead>
+      <tbody>
+        <tr><td class="k">Where secrets live</td><td>Inside Instinct's service (built-in Vault); moving to optional 1Password broker for early-access users.</td><td>Inside the user's own VM, isolated credential container (authd) — separate from agent runtime and Meta infra.</td></tr>
+        <tr><td class="k">Agent's view of secrets</td><td>Unpublished — the core open question.</td><td>Never sees real credentials; only surrogates swapped at the network boundary by Sentinel.</td></tr>
+        <tr><td class="k">Grant model</td><td>Standing access by default; 1Password promises just-in-time scoped delivery (implementation unverified).</td><td>Just-in-time at egress; approvals as capabilities: one-time / session / task / time-bound / perpetual.</td></tr>
+        <tr><td class="k">Human approval</td><td>Optional safeguards, explicitly not warranted; multiple unauthorized-action reports.</td><td>Sentinel decides allow/deny/ask per policy; approval dialog outside the chat; tainted-egress tracking routes risk to humans.</td></tr>
+        <tr><td class="k">Audit</td><td>1Password Unified Access promises unified who/what/when trails; Instinct-side audit UI undocumented.</td><td>Every connector action and network request passes Sentinel (L4+L7, decoded requests); approval state is authoritative in Sentinel.</td></tr>
+        <tr><td class="k">Payment protection</td><td>Can transact bindingly on your behalf (ToS); no published card controls.</td><td>Single-use card numbers bound to merchant + amount + time; per-purchase human approval.</td></tr>
+        <tr><td class="k">Injection defense</td><td>Model training + (reported) exploitable in practice by phishing testers.</td><td>Trained model + untrusted labeling + classifier ensemble + kernel taint tracking + Sentinel chokepoints.</td></tr>
+        <tr><td class="k">Revocation</td><td>Failed in practice: processing and plaintext storage continued after disconnect (later patched).</td><td>Architectural goal: revoke at vault/policy level stops requests at Sentinel mid-task (launch-stage, externally testable via bug bounty).</td></tr>
+        <tr><td class="k">Training on your stuff</td><td>Vault materials: never (ToS). Other materials: licensed broadly incl. training, opt-out available.</td><td>Trajectories sanitized of PII; opt-out available; no ad-system sharing.</td></tr>
+        <tr><td class="k">Verifiability roadmap</td><td>None published.</td><td>Confidential VM: cryptographic, externally audited, public continuous audit (later 2026).</td></tr>
+        <tr><td class="k">Independent testing</td><td>Incidents surfaced by testers/journalists; OECD AI incident logged.</td><td>Bug bounty up to $300k / $130k per single-user injection; red-team evals.</td></tr>
+        <tr><td class="k">Bottom line</td><td>Fastest-moving consumer agent; vault is real but trust is still earned back — watch whether the 1Password path ships with a real "agent never sees plaintext" spec.</td><td>The deepest published consumer-agent security architecture to date: isolation, surrogation, chokepoint egress, verifiable privacy on the roadmap. Trust but verify via the open bug bounty.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="sources">
+  <h2>Sources <span class="tag">OFFICIAL FIRST</span></h2>
+  <div class="card">
+    <ol class="src">
+      <li><b>Meta (official):</b> "How We Built Safety Into Muse" — research.meta.ai/blog/security-and-safety-for-ai-agents-our-approach-with-muse (Sep 8, 2026). Includes the official system-architecture diagram embedded above (system-architecture-v3.png, retrieved from Meta's CDN Sep 16, 2026).</li>
+      <li><b>Meta (official):</b> Muse bug bounty program — bugbounty.meta.com.</li>
+      <li><b>1Password (official):</b> "Introducing 1Password Unified Access: Identity Security for Humans and Their AI Agents" — 1password.com/blog/introducing-1password-unified-access (Mar 17, 2026).</li>
+      <li><b>Instinct (official):</b> instinct.co (About / Contact) and instinct.co/terms — Vault training-use clause and action/credential terms (retrieved Sep 16, 2026).</li>
+      <li><b>Noah Shinn (official announcement):</b> X post, Sep 4, 2026 — x.com/noahrshinn/status/2095911123291881608 (1Password partnership; 32% Vault usage). Quoted via explainx.ai coverage.</li>
+      <li><b>TechCrunch:</b> "Instinct's powerful AI assistant is raising privacy and security concerns" (Aug 24, 2026) — incident record and WSJ funding update ($250M @ $2.5B, Index + Benchmark).</li>
+      <li><b>explainx.ai:</b> "Instinct + 1Password: What It Actually Means to Give an AI Agent Your Vault" (Sep 5, 2026) — confirmed-vs-unconfirmed analysis of the integration.</li>
+      <li><b>OECD AI Policy Observatory:</b> incident 2026-08-24-eacf (Instinct unauthorized emails / post-revocation access).</li>
+    </ol>
+    <p style="font-size:12px; color:#888; margin-top:12px;">All sources accessed Sep 16, 2026. Statements about Muse reflect "the system at launch" per Meta; Instinct is in private beta and both products are expected to change.</p>
+  </div>
+</section>
+
+<div class="footer">Compiled by Onvoix for AFJAL · Sep 16, 2026 · Diagrams: Meta official (embedded) + one clearly-labeled recreation · No confidential data included</div>
+
+</div>
+</body>
+</html>
