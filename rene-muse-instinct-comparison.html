@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Rene × Muse × Instinct — Personal AI Agent Comparison</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background:#faf9f7; color:#1a1a1a; }
+a { color:inherit; text-decoration:none; }
+a:hover { color:#e8654a; }
+.mono { font-family:'SF Mono',Menlo,monospace; }
+
+.topbar { display:flex; align-items:center; gap:20px; padding:18px 32px; background:#fff; border-bottom:1px solid #e8e5e1; flex-wrap:wrap; }
+.topbar-title { font-size:19px; font-weight:800; white-space:nowrap; }
+.topbar-title .x { color:#e8654a; }
+.topbar-sub { font-size:12px; color:#888; }
+.topbar-right { margin-left:auto; display:flex; align-items:center; gap:12px; font-size:12px; color:#888; }
+
+.summary-strip { display:flex; padding:0 32px; background:#fff; border-bottom:1px solid #e8e5e1; flex-wrap:wrap; }
+.summary-item { padding:14px 24px; border-right:1px solid #e8e5e1; }
+.summary-item:last-child { border-right:none; }
+.summary-label { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:1.2px; color:#999; margin-bottom:4px; }
+.summary-value { font-size:19px; font-weight:700; font-family:'SF Mono',Menlo,monospace; }
+.summary-sub { font-size:11px; margin-top:2px; color:#888; }
+
+.hero { padding:30px 32px 8px; }
+.hero h1 { font-size:24px; font-weight:800; letter-spacing:-.3px; }
+.hero p.lead { font-size:14px; color:#555; margin-top:8px; max-width:860px; line-height:1.55; }
+.legend { display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; }
+.pill { font-size:11px; font-weight:700; padding:3px 10px; border-radius:20px; border:1px solid #e0ddd8; background:#fff; color:#666; }
+.pill b { color:#1a1a1a; }
+
+.section-head { padding:28px 32px 10px; }
+.section-head h2 { font-size:16px; font-weight:800; }
+.section-head h2 .accent { color:#e8654a; }
+.section-head p { font-size:12.5px; color:#888; margin-top:4px; max-width:880px; line-height:1.5; }
+
+.verdict { margin:6px 32px 4px; background:#111; color:#f5f2ee; border-radius:12px; padding:20px 24px; }
+.verdict .v-tag { font-size:10px; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; color:#e8654a; margin-bottom:10px; }
+.verdict-line { display:flex; gap:10px; align-items:baseline; padding:7px 0; border-bottom:1px solid #2a2a2a; flex-wrap:wrap; }
+.verdict-line:last-child { border-bottom:none; }
+.verdict .who { font-weight:800; min-width:210px; }
+.verdict .what { font-size:13.5px; color:#d8d3cc; line-height:1.5; }
+.verdict .kicker { margin-top:12px; font-size:13px; color:#fff; background:#e8654a; display:inline-block; padding:6px 12px; border-radius:6px; font-weight:600; }
+
+.cards3 { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; padding:10px 32px 8px; }
+.pcard { background:#fff; border:1px solid #e8e5e1; border-radius:12px; padding:18px; border-top:4px solid #999; }
+.pcard.rene { border-top-color:#10b981; }
+.pcard.muse { border-top-color:#7c3aed; }
+.pcard.instinct { border-top-color:#ea580c; }
+.pcard h3 { font-size:16px; font-weight:800; display:flex; align-items:center; gap:8px; }
+.pcard .tag { font-size:10px; font-weight:800; padding:2px 8px; border-radius:4px; letter-spacing:.5px; }
+.rene .tag { background:#dcfce7; color:#15803d; }
+.muse .tag { background:#ede9fe; color:#6d28d9; }
+.instinct .tag { background:#ffedd5; color:#c2410c; }
+.pcard .oneliner { font-size:12.5px; color:#555; margin:8px 0 12px; line-height:1.5; }
+.kv { font-size:12px; line-height:1.5; }
+.kv b { color:#1a1a1a; }
+.kv .k { color:#999; font-weight:700; text-transform:uppercase; font-size:9.5px; letter-spacing:1px; display:block; margin-top:9px; }
+.kv p { color:#444; }
+
+.matrix-wrap { padding:0 32px 8px; }
+table { width:100%; border-collapse:collapse; font-size:12.5px; background:#fff; border:1px solid #e8e5e1; border-radius:10px; overflow:hidden; }
+thead th { text-align:left; padding:10px 12px; font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:#999; border-bottom:2px solid #e8e5e1; background:#fff; }
+thead th.c-rene { color:#0d9488; } thead th.c-muse { color:#6d28d9; } thead th.c-instinct { color:#c2410c; }
+tbody tr { border-bottom:1px solid #f0eeeb; page-break-inside:avoid; }
+tbody tr:hover { background:#f7f5f2; }
+tbody td { padding:11px 12px; vertical-align:top; line-height:1.5; }
+td.dim { font-weight:700; font-size:12px; width:150px; }
+td .sub { display:block; color:#999; font-weight:400; font-size:11px; margin-top:2px; }
+.win { display:inline-block; font-size:9.5px; font-weight:800; border-radius:4px; padding:1px 6px; margin-left:6px; vertical-align:middle; }
+.win.g { background:#dcfce7; color:#15803d; } .win.p { background:#ede9fe; color:#6d28d9; } .win.o { background:#ffedd5; color:#c2410c; }
+
+.deep { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; padding:10px 32px 8px; }
+.dcard { background:#fff; border:1px solid #e8e5e1; border-radius:12px; padding:16px; }
+.dcard h4 { font-size:13px; font-weight:800; margin-bottom:8px; }
+.dcard p { font-size:12.5px; color:#555; line-height:1.55; }
+.dcard .flag { margin-top:10px; font-size:11.5px; padding:7px 10px; border-radius:6px; line-height:1.45; }
+.rene-f { background:#ecfdf5; color:#065f46; }
+.muse-f { background:#f5f3ff; color:#4c1d95; }
+.instinct-f { background:#fff7ed; color:#7c2d12; }
+.broker { margin:8px 32px 4px; background:#f0f9ff; border:1px solid #bae6fd; border-radius:10px; padding:14px 18px; font-size:12.5px; color:#0c4a6e; line-height:1.55; }
+.broker b { color:#075985; }
+
+.bestworst { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; padding:10px 32px 8px; }
+.bw { background:#fff; border:1px solid #e8e5e1; border-radius:12px; padding:16px; }
+.bw h4 { font-size:13px; font-weight:800; margin-bottom:8px; }
+.bw ul { list-style:none; }
+.bw li { font-size:12.5px; color:#444; padding:5px 0 5px 20px; position:relative; line-height:1.45; border-bottom:1px dashed #f0eeeb; }
+.bw li:last-child { border-bottom:none; }
+.bw li::before { content:'▸'; position:absolute; left:2px; color:#e8654a; font-weight:800; }
+.bw .minus li::before { content:'▾'; color:#999; }
+
+.means { margin:6px 32px 8px; background:#fff; border:1px solid #e8e5e1; border-left:4px solid #e8654a; border-radius:12px; padding:20px 24px; }
+.means h3 { font-size:14px; font-weight:800; margin-bottom:10px; }
+.means p { font-size:13px; color:#444; line-height:1.6; margin-bottom:9px; }
+.means p b { color:#1a1a1a; }
+.means .ed { font-size:10.5px; font-weight:800; color:#e8654a; letter-spacing:1px; text-transform:uppercase; }
+
+.sources { margin:8px 32px 4px; background:#fff; border:1px solid #e8e5e1; border-radius:12px; padding:18px 22px; }
+.sources h3 { font-size:13px; font-weight:800; margin-bottom:8px; }
+.sources ul { list-style:none; }
+.sources li { font-size:12px; color:#666; padding:4px 0 4px 18px; position:relative; line-height:1.5; }
+.sources li::before { content:'·'; position:absolute; left:6px; font-weight:800; }
+.footer { text-align:center; padding:24px; font-size:11px; color:#ccc; }
+
+@media print {
+  body { background:#fff; }
+  .topbar, .summary-strip { padding-left:16px; padding-right:16px; }
+  .hero, .section-head { padding-left:16px; padding-right:16px; }
+  .verdict { margin:6px 16px 4px; }
+  .cards3, .deep, .bestworst { padding-left:16px; padding-right:16px; }
+  .matrix-wrap { padding:0 16px 8px; }
+  .means, .broker, .sources { margin-left:16px; margin-right:16px; }
+  section { page-break-inside:avoid; }
+  h2 { page-break-after:avoid; }
+}
+@media (max-width: 900px) {
+  .cards3, .deep, .bestworst { grid-template-columns:1fr; }
+  .topbar, .summary-strip, .hero, .section-head { padding-left:16px; padding-right:16px; }
+  .matrix-wrap { overflow-x:auto; padding:0 16px 8px; }
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div>
+    <div class="topbar-title">Rene <span class="x">×</span> Muse <span class="x">×</span> Instinct</div>
+    <div class="topbar-sub">Personal AI agents — three-way comparison</div>
+  </div>
+  <div class="topbar-right"><span>v1.0 · compiled 17 Sep 2026</span></div>
+</div>
+
+<div class="summary-strip">
+  <div class="summary-item"><div class="summary-label">Products</div><div class="summary-value">3</div><div class="summary-sub">Rene · Meta Muse · Instinct</div></div>
+  <div class="summary-item"><div class="summary-label">Rene</div><div class="summary-value">LIVE</div><div class="summary-sub">WhatsApp · Telegram · iOS — free to start</div></div>
+  <div class="summary-item"><div class="summary-label">Muse (Meta)</div><div class="summary-value">WAITLIST</div><div class="summary-sub">not available in India (verified live 16 Sep)</div></div>
+  <div class="summary-item"><div class="summary-label">Instinct</div><div class="summary-value">$2.5B</div><div class="summary-sub">private beta · iMessage · invite-only</div></div>
+  <div class="summary-item"><div class="summary-label">Reachable from India today</div><div class="summary-value">1 of 3</div><div class="summary-sub">only Rene</div></div>
+</div>
+
+<div class="hero">
+  <h1>Three agents, three bets</h1>
+  <p class="lead">Rene, Meta's Muse and Instinct are all trying to be "the AI that runs your life" — but they bet on different layers. Rene bets on <b>where you already are</b> (WhatsApp/Telegram). Muse bets on <b>how much it can do</b> (calls, payments, email). Instinct bets on <b>how fast it can grow</b> ($50M → $2.5B in months) and on a security partnership to catch up. This report compares what each actually ships today, how each handles your credentials, and what the gap analysis means for Onvoix and Memorae.</p>
+  <div class="legend">
+    <span class="pill"><b>Confirmed</b> — vendor's own site/docs</span>
+    <span class="pill"><b>Reported</b> — credible press (TechCrunch, Reuters)</span>
+    <span class="pill"><b>Verified-live</b> — checked by me 16–17 Sep 2026</span>
+    <span class="pill"><b>Editorial</b> — my judgment, labeled</span>
+  </div>
+</div>
+
+<div class="section-head"><h2>The 30-second verdict</h2></div>
+<div class="verdict">
+  <div class="v-tag">TL;DR</div>
+  <div class="verdict-line"><span class="who" style="color:#34d399;">Rene — distributes smartest</span><span class="what">Lives inside WhatsApp & Telegram where users already are; honest privacy posture (delegated access, never-train); builds sites & decks; unique agent-to-agent "Rene-to-Rene" coordination. Young product, thin public track record.</span></div>
+  <div class="verdict-line"><span class="who" style="color:#a78bfa;">Muse — executes deepest</span><span class="what">The only one that makes real phone calls, pays natively, and tames a 9,209-message inbox. Credential design is the most agent-proof on record (surrogate tokens + policy engine + confidential VM). But: not available in India yet.</span></div>
+  <div class="verdict-line"><span class="who" style="color:#fb923c;">Instinct — grew fastest</span><span class="what">$50M → $2.5B valuation in months on a text/call agent pitch. 1Password broker deal (Sep 2026) is the right security idea — announced with zero published technical spec, after documented privacy stumbles.</span></div>
+  <div class="kicker">Only Rene is fully usable from India today. Muse is waitlisted here. That gap is the opening.</div>
+</div>
+
+<div class="section-head"><h2>Who makes what</h2><p>Stage, channels, pricing and positioning — as published by each vendor.</p></div>
+<div class="cards3">
+  <div class="pcard rene">
+    <h3><span class="tag">🟢 LIVE</span> Rene</h3>
+    <div class="oneliner">"Multiplayer Personal Superintelligence — the best contact in your phone."</div>
+    <div class="kv">
+      <span class="k">Maker / stage</span>
+      <p>Second Enlightenment Limited (2en.ai); iOS app by Marumaru, LLC. Live signup, free to start.</p>
+      <span class="k">Channels</span>
+      <p>WhatsApp, Telegram, iOS / iPad / Mac (M1+) / visionOS app. Text-first.</p>
+      <span class="k">Price</span>
+      <p>Free tier; Rene Pro ₹1,999 · Rene Premium ₹19,900 (in-app, India App Store listing).</p>
+      <span class="k">Standout</span>
+      <p>Agent-to-agent "Rene-to-Rene" planning; builds websites, decks & images; runs errands in your browser.</p>
+    </div>
+  </div>
+  <div class="pcard muse">
+    <h3><span class="tag">🟣 META</span> Muse</h3>
+    <div class="oneliner">"Your Personal AI Agent" — life admin for consumers.</div>
+    <div class="kv">
+      <span class="k">Maker / stage</span>
+      <p>Meta. Consumer rollout; 100 community use-cases documented on useofmuse.com.</p>
+      <span class="k">Channels</span>
+      <p>Phone app, WhatsApp (native), web.</p>
+      <span class="k">Price</span>
+      <p>Not published at compile time (consumer Meta product).</p>
+      <span class="k">Standout</span>
+      <p>Real phone calls, native payments, native Gmail — the deepest task execution of the three.</p>
+    </div>
+  </div>
+  <div class="pcard instinct">
+    <h3><span class="tag">🟠 BETA</span> Instinct</h3>
+    <div class="oneliner">"Text or call an AI agent and it handles your life."</div>
+    <div class="kv">
+      <span class="k">Maker / stage</span>
+      <p>Spear Street Technology (founder Noah Shinn). Private beta, invite-only. $250M Series B (Aug 2026); valuation $50M → $2.5B in months.</p>
+      <span class="k">Channels</span>
+      <p>iMessage (text/call), invite-only early access.</p>
+      <span class="k">Price</span>
+      <p>Not public (private beta).</p>
+      <span class="k">Standout</span>
+      <p>Hype-to-scale speed; first-party Vault (32% of users share credentials); 1Password broker partnership announced Sep 4, 2026.</p>
+    </div>
+  </div>
+</div>
+
+<div class="section-head"><h2>Capability matrix</h2><p>What each agent actually does today. 🏷 badges mark the category leader for that row. Claims are source-labeled in the text.</p></div>
+<div class="matrix-wrap">
+<table>
+<thead><tr>
+  <th style="width:150px;">Dimension</th>
+  <th class="c-rene">🟢 Rene</th>
+  <th class="c-muse">🟣 Muse (Meta)</th>
+  <th class="c-instinct">🟠 Instinct</th>
+</tr></thead>
+<tbody>
+  <tr><td class="dim">Interface<span class="sub">where you talk to it</span></td>
+    <td>WhatsApp + Telegram + iOS/Mac app <span class="win g">broadest free reach</span></td>
+    <td>App + WhatsApp + web</td>
+    <td>iMessage, invite-only</td></tr>
+  <tr><td class="dim">Email</td>
+    <td>Gmail triage, replies drafted; Outlook follow-ups <span class="sub">(official site)</span></td>
+    <td>Native Gmail — 9,209-msg inbox tamed, receipt audits, fraud catch <span class="win p">deepest</span> <span class="sub">(useofmuse.com)</span></td>
+    <td>Emails handled; connects to Gmail <span class="sub">(press reports)</span></td></tr>
+  <tr><td class="dim">Calendar & routines</td>
+    <td>Conflict clearing, morning briefs, recurring routines</td>
+    <td>Morning briefings, scheduling, reminders <span class="sub">(use cases)</span></td>
+    <td>Calendars connected; scheduling tasks <span class="sub">(press)</span></td></tr>
+  <tr><td class="dim">Real phone calls</td>
+    <td>Not documented</td>
+    <td>Called Costco, dentist, contractors, car-rental <span class="win p">only one verified</span></td>
+    <td>"Text or call" pitch; call capability marketed <span class="sub">(founder's pitch)</span></td></tr>
+  <tr><td class="dim">Payments</td>
+    <td>Not documented</td>
+    <td>Paid parking ticket + $682 invoice from a photo; booked & paid int'l flights; single-use cards <span class="win p">deepest</span></td>
+    <td>Paying tolls, subscriptions reported <span class="sub">(TechCrunch)</span></td></tr>
+  <tr><td class="dim">Browser errands</td>
+    <td>Restaurant research + booking with email confirmation <span class="sub">(official demo)</span></td>
+    <td>Full browsing incl. fare research (Skift)</td>
+    <td>Web tasks as core pitch (beta)</td></tr>
+  <tr><td class="dim">Content creation</td>
+    <td>Websites w/ galleries, slide decks, images <span class="win g">clear focus</span></td>
+    <td>Recipes/guides from saved posts; Muse Code</td>
+    <td>Not a documented focus</td></tr>
+  <tr><td class="dim">Agent-to-agent</td>
+    <td>"Rene-to-Rene": two users' agents negotiate plans directly <span class="win g">unique</span></td>
+    <td>Not documented</td>
+    <td>Not documented</td></tr>
+  <tr><td class="dim">Memory & context</td>
+    <td>Cross-conversation memory; preferences ("Mum's birthday, loves her garden")</td>
+    <td>Persistent context across life admin</td>
+    <td>Task context; Vault holds credentials/identity fields</td></tr>
+  <tr><td class="dim">Integrations</td>
+    <td>Gmail, Outlook, Calendar, Slack, Notion, Linear, GitHub, Health, WHOOP <span class="sub">(official)</span></td>
+    <td>Meta ecosystem (IG/FB/WhatsApp) + connectors & cards</td>
+    <td>Gmail, calendars, loyalty, subscriptions, healthcare portals, payroll <span class="sub">(32% of users via Vault)</span></td></tr>
+  <tr><td class="dim">Credential security<span class="sub">how logins are handled</span></td>
+    <td>Delegated access only — "never sees or stores your password"</td>
+    <td>authd vault in user's confidential VM; surrogate tokens; Sentinel policy engine <span class="win p">most agent-proof design</span></td>
+    <td>First-party Vault + 1Password broker (announced, spec unpublished) <span class="sub">open Q: agent-side plaintext?</span></td></tr>
+  <tr><td class="dim">Human approval</td>
+    <td>"Asks before anything sensitive is sent or changed"</td>
+    <td>Sentinel allow / deny / ask — approvals as live capabilities <span class="win p">first-class</span></td>
+    <td>Not a documented core feature</td></tr>
+  <tr><td class="dim">Privacy (training & sale)</td>
+    <td>Never sold, never trained on <span class="sub">(official FAQ + ToS)</span></td>
+    <td>Committed to not training on customer data <span class="sub">(docs)</span></td>
+    <td>Never-train clause in ToS <span class="sub">(verified after earlier broad-license ToS)</span></td></tr>
+  <tr><td class="dim">Track record</td>
+    <td>Clean but short — no public incident history yet</td>
+    <td>One Reuters-reported reliability lapse (ticket monitor silently disabled ~15 min)</td>
+    <td>Documented stumbles: 36 emails kept 3h after revoke; plaintext email storage; unauthorized sends; phishing demo <span class="win o">most scrutinized</span></td></tr>
+  <tr><td class="dim">India availability</td>
+    <td>Yes — app + WhatsApp + Telegram, ₹ pricing <span class="win g">only one live</span></td>
+    <td>No — regional block, waitlist <span class="sub">(verified live 16 Sep)</span></td>
+    <td>No — iMessage invite-only beta</td></tr>
+  <tr><td class="dim">Price today</td>
+    <td>Free to start; Pro ₹1,999 / Premium ₹19,900</td>
+    <td>Unpublished</td>
+    <td>Unpublished (beta)</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="section-head"><h2>Credential & security models</h2><p>The one question that matters for every agent: when it logs in as you, does the agent process ever see the raw password?</p></div>
+<div class="deep">
+  <div class="dcard">
+    <h4>🟢 Rene — don't hold secrets at all</h4>
+    <p>Rene's stated model sidesteps the question: email and calendar connect via <b>delegated permissions</b> (OAuth-style), so the agent never sees or stores your password. Your data is excluded from model training and not sold. Sensitive sends/changes require your confirmation.</p>
+    <div class="flag rene-f">Strength: simplest safe default. Limit: delegated access caps how far the agent can act — deep logins (bank, loyalty) aren't part of the documented story.</div>
+  </div>
+  <div class="dcard">
+    <h4>🟣 Muse — surrogate tokens</h4>
+    <p>Muse's published architecture: real secrets live in an <b>authd vault inside your own confidential VM</b>; the sandboxed agent holds only <b>surrogate tokens</b>, with a Sentinel policy engine (allow / deny / ask) and single-use payment cards between the agent and the real world.</p>
+    <div class="flag muse-f">Strength: most agent-proof design on record. Caveat: full confidential-VM rollout is "later in 2026" — until then the boundary is host-side.</div>
+  </div>
+  <div class="dcard">
+    <h4>🟠 Instinct — broker the problem away</h4>
+    <p>Instinct's Vault holds logins (32% of users use it). The Sep 2026 <b>1Password partnership</b> would route credentials through 1Password's Unified Access — just-in-time delivery, unified audit trails, no secret exposure. That architecture is verified at 1Password's platform level.</p>
+    <div class="flag instinct-f">Gap: the Instinct-specific integration is one social post — no spec, early-access only, and the "does the agent see plaintext?" question is unanswered. Prior incidents (retention-after-revoke, plaintext email storage) make the missing spec material.</div>
+  </div>
+</div>
+<div class="broker"><b>What "brokered access" should mean (1Password Unified Access, published Mar 2026):</b> credentials delivered just-in-time for one task, a readable audit trail of which credential was used by what and when, and the secret never exposed to the requesting party. Partners named by 1Password include Anthropic, OpenAI, Cursor, GitHub, Vercel, CoreWeave — Instinct is not in that original list, so its integration is newer and separately announced.</div>
+
+<div class="section-head"><h2>Best-at / worst-at</h2></div>
+<div class="bestworst">
+  <div class="bw">
+    <h4>🟢 Rene</h4>
+    <ul>
+      <li>Channel strategy — lives in WhatsApp/Telegram, zero install friction</li>
+      <li>Privacy defaults — delegated access, never-train, ask-before-send</li>
+      <li>Creation — sites, decks, images from chat</li>
+      <li>Agent-to-agent multiplayer (nobody else ships this)</li>
+    </ul>
+    <ul class="minus">
+      <li>No documented calls or payments</li>
+      <li>Brand-new: no ratings, thin public track record</li>
+      <li>Integration mechanics unpublished</li>
+    </ul>
+  </div>
+  <div class="bw">
+    <h4>🟣 Muse (Meta)</h4>
+    <ul>
+      <li>Task depth — real calls, real payments, inbox mastery</li>
+      <li>Credential design — surrogate tokens + policy engine</li>
+      <li>Meta ecosystem reach (IG/FB/WhatsApp native)</li>
+      <li>Documented real-world use cases (100 community stories)</li>
+    </ul>
+    <ul class="minus">
+      <li>Not available in India (waitlist)</li>
+      <li>One reported reliability lapse (self-disabling monitor)</li>
+      <li>Confidential-VM boundary not fully shipped yet</li>
+    </ul>
+  </div>
+  <div class="bw">
+    <h4>🟠 Instinct</h4>
+    <ul>
+      <li>Speed — $50M → $2.5B valuation in months</li>
+      <li>Vault adoption — 32% of users already share credentials</li>
+      <li>Right security instinct — broker, don't store</li>
+      <li>Text/call simplicity as the pitch</li>
+    </ul>
+    <ul class="minus">
+      <li>Documented privacy stumbles (retention, plaintext, unauthorized sends)</li>
+      <li>1Password deal announced without a published spec</li>
+      <li>Invite-only beta — not in India</li>
+    </ul>
+  </div>
+</div>
+
+<div class="section-head"><h2>What this means for Onvoix & Memorae</h2><p>Editorial — my judgment, grounded in the capability benchmark I ran on 16 Sep (45% of Muse's 100 use cases already matched; +35% unlockable with email + payments).</p></div>
+<div class="means">
+  <p class="ed">Editorial</p>
+  <p><b>Rene is the closest structural competitor to Onvoix — same channel.</b> It's a WhatsApp/Telegram text-first agent. The difference is the wedge: Rene went horizontal (email, calendar, work apps); Onvoix went vertical (social media management for creators). Rene's existence validates the channel — and raises the bar: it ships morning briefs, memory, and approval-gated sending as table stakes. Onvoix already has approval-gated publishing; briefs and memory are cheap to add.</p>
+  <p><b>Rene-to-Rene multiplayer is the idea worth stealing for Memorae.</b> Two agents negotiating a dinner date is exactly what a memory layer becomes at the endgame — your memory talks to my memory. Memorae's "memory above all your apps" positioning is the natural home for agent-to-agent context exchange. No one else is doing it; that's a genuine whitespace.</p>
+  <p><b>Muse's lead is infrastructure, not ideas — and it's closed to India.</b> Real phone calls (a telephony partner) and native payments (a cards/UPI rails partner) are the two gaps repeatedly flagged in my benchmark. They need partners, not genius. Meanwhile Muse isn't even reachable in India — the 100-use-case playbook is public, and nobody is executing it for Indian users.</p>
+  <p><b>Instinct's lesson: the security story is a product feature.</b> Its $2.5B valuation came with documented privacy stumbles that TechCrunch made famous. The counter-play is cheap: publish your access model ("delegated, never stored, revoked means revoked"), log every credential use visibly, and make revocation instant. A small team that does this out-trusts a $2.5B company with a press-release spec.</p>
+  <p style="margin-bottom:0;"><b>One-line takeaway:</b> Rene proves the channel, Muse proves the ceiling, Instinct proves the hype cycle — and all three leave the same openings: India, vertical depth, and verifiable trust.</p>
+</div>
+
+<div class="section-head"><h2>Sources & method</h2><p>Compiled 17 Sep 2026. Primary sources first; marketing claims separated from verified mechanics throughout.</p></div>
+<div class="sources">
+  <ul>
+    <li><b>Rene:</b> rene.co (official homepage + FAQ, fetched 17 Sep 2026); App Store listing "Rene – Your Omni Assistant" (id6768238195, India store — provider Marumaru, LLC, © Second Enlightenment Limited, ₹ pricing); rene.co/privacy.</li>
+    <li><b>Muse:</b> useofmuse.com (100 community use cases); my capability benchmark + live sign-in check 16 Sep 2026 (regional restriction → waitlist; India unavailable); Reuters-reported reliability lapse via prior research.</li>
+    <li><b>Instinct:</b> explainx.ai "Instinct + 1Password" (5 Sep 2026, citing Noah Shinn's 4 Sep 2026 X post); TechCrunch (24 Aug 2026) privacy reporting; 1Password Unified Access press (Mar 2026) + 1password.dev/agentic-autofill; my Instinct × Muse vault deep-dive (Sep 2026) for vault/policy architecture.</li>
+    <li><b>Observation:</b> instinct.ai served a domain-marketplace (Atom) verification wall on 17 Sep 2026 — the product's current web home is not confirmed at that domain.</li>
+    <li><b>Editorial sections</b> ("What this means for Onvoix & Memorae", verdict one-liners) are my analysis, built on the 16 Sep Onvoix-vs-Muse benchmark artifacts.</li>
+  </ul>
+</div>
+
+<div class="footer">Rene × Muse × Instinct — Personal AI Agent Comparison · v1.0 · 17 Sep 2026 · compiled by Onvoix</div>
+
+</body>
+</html>
