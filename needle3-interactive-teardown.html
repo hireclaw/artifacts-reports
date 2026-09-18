@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Needle 3 — Interactive Teardown · Cactus Compute</title>
+<style>
+:root{
+  --bg:#faf9f7; --ink:#17151a; --muted:#6b6672; --line:#e6e2dc; --card:#ffffff;
+  --accent:#e83d84; --accent-soft:#fdeef4; --green:#1a9e6c; --green-soft:#e8f6f0;
+  --amber:#c77f0a; --amber-soft:#fdf3e3; --blue:#2f6fd6; --blue-soft:#ecf2fc;
+  --code-bg:#17151a; --code-ink:#e8e6ef;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:'Inter',-apple-system,'Segoe UI',Roboto,sans-serif;line-height:1.6;font-size:16px}
+.wrap{max-width:1060px;margin:0 auto;padding:0 20px}
+h1{font-size:clamp(28px,5vw,44px);line-height:1.15;letter-spacing:-.02em}
+h2{font-size:clamp(22px,3.4vw,30px);letter-spacing:-.015em;margin:0 0 14px}
+h3{font-size:18px;margin:22px 0 8px}
+p{margin:0 0 14px}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+.muted{color:var(--muted)}
+.small{font-size:13.5px}
+code,.mono{font-family:'SF Mono',ui-monospace,Menlo,Consolas,monospace}
+code{background:#f0ede8;border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:.86em}
+header{border-bottom:1px solid var(--line);background:linear-gradient(180deg,#fff 0%,var(--bg) 100%);padding:44px 0 30px}
+.kicker{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);background:var(--accent-soft);border:1px solid #f6cddd;border-radius:999px;padding:4px 12px;margin-bottom:16px}
+.sub{font-size:18px;color:var(--muted);max-width:720px}
+.statrow{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 18px;min-width:130px}
+.stat b{display:block;font-size:22px;letter-spacing:-.02em}
+.stat span{font-size:12.5px;color:var(--muted)}
+nav.tabs{position:sticky;top:0;z-index:50;background:rgba(250,249,247,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+nav.tabs .wrap{display:flex;gap:2px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+nav.tabs button{appearance:none;border:none;background:none;font:inherit;font-size:14px;font-weight:600;color:var(--muted);padding:14px 14px;cursor:pointer;border-bottom:2.5px solid transparent;white-space:nowrap}
+nav.tabs button:hover{color:var(--ink)}
+nav.tabs button.on{color:var(--accent);border-bottom-color:var(--accent)}
+section{display:none;padding:36px 0 10px}
+section.on{display:block}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;margin:16px 0}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:760px){.grid2,.grid3{grid-template-columns:1fr}}
+.badge{display:inline-block;font-size:12px;font-weight:700;border-radius:999px;padding:3px 11px;margin:2px 4px 2px 0}
+.b-green{background:var(--green-soft);color:var(--green)}
+.b-amber{background:var(--amber-soft);color:var(--amber)}
+.b-blue{background:var(--blue-soft);color:var(--blue)}
+.b-pink{background:var(--accent-soft);color:var(--accent)}
+.blocks{display:grid;grid-template-columns:repeat(10,1fr);gap:7px;margin:16px 0 6px}
+.blk{aspect-ratio:1;border-radius:8px;background:#efece7;border:1.5px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#b9b3ad;transition:all .25s}
+.blk.on{background:var(--accent);border-color:var(--accent);color:#fff;box-shadow:0 3px 10px rgba(232,61,132,.35)}
+.blk.end{background:var(--ink);border-color:var(--ink);color:#fff}
+input[type=range]{width:100%;accent-color:var(--accent);height:30px}
+.ladderStats{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+.ladderStats .stat{flex:1;min-width:110px}
+pre{background:var(--code-bg);color:var(--code-ink);border-radius:12px;padding:18px;overflow-x:auto;font-size:13px;line-height:1.55;position:relative;margin:12px 0}
+pre .c{color:#8f8a9b}
+pre .k{color:#f472b6}
+pre .s{color:#86efac}
+pre .n{color:#93c5fd}
+.codebox{position:relative}
+.copybtn{position:absolute;top:10px;right:10px;background:#2c2933;color:#cfc9da;border:1px solid #44404d;border-radius:7px;font-size:12px;padding:4px 10px;cursor:pointer;z-index:2}
+.copybtn:hover{background:#3a3644;color:#fff}
+.demo{background:var(--blue-soft);border:1px solid #d5e2f7;border-radius:14px;padding:20px;margin:16px 0}
+.demo .tag{font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--blue)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.chip{background:#fff;border:1.5px solid var(--line);border-radius:999px;padding:7px 15px;font-size:13.5px;cursor:pointer;font:inherit;transition:all .15s}
+.chip:hover{border-color:var(--accent);color:var(--accent)}
+.chip.sel{background:var(--ink);border-color:var(--ink);color:#fff}
+.json{background:var(--code-bg);border-radius:10px;padding:14px;font-size:12.5px;overflow-x:auto;margin-top:10px;min-height:130px;white-space:pre;color:#d9f2e5;font-family:ui-monospace,Menlo,Consolas,monospace}
+.json .hi{color:#f472b6;font-weight:700}
+table{width:100%;border-collapse:collapse;font-size:14px;margin:12px 0}
+th{text-align:left;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border-bottom:2px solid var(--line);padding:9px 10px}
+td{border-bottom:1px solid var(--line);padding:10px;vertical-align:top}
+tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#f6f4f0}
+.pro{border-left:4px solid var(--green);background:var(--green-soft);border-radius:0 12px 12px 0;padding:16px 20px;margin:14px 0}
+.con{border-left:4px solid var(--amber);background:var(--amber-soft);border-radius:0 12px 12px 0;padding:16px 20px;margin:14px 0}
+.note{border-left:4px solid var(--blue);background:var(--blue-soft);border-radius:0 12px 12px 0;padding:16px 20px;margin:14px 0}
+ul{margin:0 0 14px 22px}
+li{margin-bottom:7px}
+footer{border-top:1px solid var(--line);margin-top:44px;padding:26px 0 40px;color:var(--muted);font-size:13.5px}
+.flow{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:12px 0}
+.flow .node{background:#fff;border:1.5px solid var(--line);border-radius:10px;padding:8px 14px;font-size:13px;font-weight:600}
+.flow .node.hot{border-color:var(--accent);background:var(--accent-soft);color:var(--accent)}
+.flow .arr{color:var(--muted);font-weight:700}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <span class="kicker">Interactive teardown · Sep 18 2026</span>
+    <h1>Needle 3: an 8–29 MB model<br>that acts, not chats</h1>
+    <p class="sub">Cactus Compute shipped a foundation model for tiny devices — one set of weights where every depth from 2 to 20 layers is a deployable model. Tool calls, structured extraction and embeddings, fully offline, on watches, robots and microcontrollers. This is how it works, what it claims, and what to make of it.</p>
+    <div class="statrow">
+      <div class="stat"><b>8–29 MB</b><span>single binary, CQ2-bit</span></div>
+      <div class="stat"><b>2–20</b><span>layers, any depth a model</span></div>
+      <div class="stat"><b>29–121M</b><span>parameters (laddered)</span></div>
+      <div class="stat"><b>&lt;1 MB</b><span>engine per platform</span></div>
+      <div class="stat"><b>0 tokens</b><span>leaving the device</span></div>
+    </div>
+  </div>
+</header>
+
+<nav class="tabs">
+  <div class="wrap">
+    <button class="on" data-t="s1">Overview</button>
+    <button data-t="s2">The Ladder</button>
+    <button data-t="s3">Architecture (SAN)</button>
+    <button data-t="s4">Capabilities</button>
+    <button data-t="s5">Use Cases</button>
+    <button data-t="s6">Developer Path</button>
+    <button data-t="s7">Deploy Targets</button>
+    <button data-t="s8">Verdict</button>
+  </div>
+</nav>
+
+<div class="wrap">
+
+<!-- ============ OVERVIEW ============ -->
+<section id="s1" class="on">
+  <h2>The one-paragraph version</h2>
+  <p>Needle 3 (released Sep 17 2026) is a foundation model built for <b>acting on-device</b> — not conversation. It reads tool definitions or a schema, then returns structured JSON: which function to call with which arguments, or typed fields extracted from messy text. Cactus trades away general chat ability to make a single 8–29 MB binary that, by their measurements, beats models 10× its size on mobile tool-calling suites and matches 2–3× bigger models on extraction — all running offline on a Raspberry Pi 5, a phone, or a watch.</p>
+
+  <div class="grid3">
+    <div class="card"><span class="badge b-pink">Skill 1</span><h3 style="margin-top:8px">Tool calls</h3><p class="small">Given your app's functions, Needle picks the right ones and fills every argument from the user's words. Two asks → two calls, in order. Unknown ask → an empty list, not a hallucinated guess.</p></div>
+    <div class="card"><span class="badge b-blue">Skill 2</span><h3 style="margin-top:8px">Structured extraction</h3><p class="small">Declare a shape (even a Pydantic model), hand over messy text, get typed fields back. The decode grammar <i>guarantees</i> the output parses. Generalises to classification.</p></div>
+    <div class="card"><span class="badge b-green">Skill 3</span><h3 style="margin-top:8px">Text embedding</h3><p class="small">The same model emits sentence vectors — local semantic search, query→tool matching, near-duplicate alert merging. Nothing leaves the device.</p></div>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">The headline spec sheet</h3>
+    <table>
+      <tr><th>Property</th><th>Value</th><th>Notes</th></tr>
+      <tr><td>Model</td><td>29–121M param Laddered Simple Attention Network</td><td>CQ2 2-bit quantisation; 29M ≈ 4 layers, 121M = 20 layers</td></tr>
+      <tr><td>Binary size</td><td>~8 MB (4L) → 29 MB (20L)</td><td>One <code>needle3.cact</code> file; devices can hold it all and pick depth per request</td></tr>
+      <tr><td>Training</td><td>360B tokens</td><td>Proprietary structured dataset (queries, traces, tool schemas)</td></tr>
+      <tr><td>Speed</td><td>400–4,000 tok/s decode · 1–10k tok/s prefill</td><td>On a Raspberry Pi 5 — vendor-reported</td></tr>
+      <tr><td>Inputs</td><td>Text + tool definitions / extraction schema</td><td>Schema-literal: it reads your descriptions literally</td></tr>
+      <tr><td>Outputs</td><td>One JSON object per turn</td><td>Tool calls, extracted fields, confidence score</td></tr>
+      <tr><td>Engine</td><td>&lt;1 MB prebuilt, 11 platform targets</td><td>macOS, Linux (x86/ARM/RISC-V/MIPS), Windows, Android, iOS, tvOS, watchOS, WASM, WASI</td></tr>
+    </table>
+  </div>
+
+  <div class="note">
+    <b>Why this matters in 2026:</b> the personal-agent wave keeps hitting the same wall — phones can't run frontier models, and cloud round-trips cost privacy, latency and battery. Needle 3 attacks the exact gap: <i>doing actions offline</i> (dim lights, read a card charge, steer a robot), not chatting. Infrastructure for the "agent on the wrist / in the vacuum" era.
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">Three ideas hold it up</h3>
+    <div class="flow"><span class="node hot">1 · SAN</span><span class="arr">→</span><span class="node">delete the FFN, keep attention</span><span class="arr">→</span><span class="node">context-grounded, tiny</span></div>
+    <div class="flow"><span class="node hot">2 · Intelligence ladder</span><span class="arr">→</span><span class="node">one training run</span><span class="arr">→</span><span class="node">19 nested subnetworks</span><span class="arr">→</span><span class="node">pick size at deploy time</span></div>
+    <div class="flow"><span class="node hot">3 · Confidence gating</span><span class="arr">→</span><span class="node">calibrated score per call</span><span class="arr">→</span><span class="node">suppress below floor</span><span class="arr">→</span><span class="node">route on the number</span></div>
+    <p class="small muted" style="margin-top:10px">Each gets its own tab below — with the actual maths and numbers from Cactus's two research posts (both dated Sep 17 2026, alongside an arXiv paper).</p>
+  </div>
+</section>
+
+<!-- ============ LADDER ============ -->
+<section id="s2">
+  <h2>The intelligence ladder</h2>
+  <p>Normally you'd train a family of models — small for the watch, big for the phone — and maintain each separately. Needle 3 trains <b>one 20-layer stack</b> such that 19 nested subnetworks (depths 2–20) are each a working model sharing the same weights. Pick your size at deploy time. Same engine, same file.</p>
+
+  <div class="card">
+    <h3 style="margin-top:0">🪜 Ladder Explorer — drag the depth</h3>
+    <input type="range" id="depthRange" min="2" max="20" value="20" oninput="setDepth(this.value)" aria-label="subnetwork depth">
+    <div class="ladderStats">
+      <div class="stat"><b id="stDepth">20L</b><span>depth (blocks that run)</span></div>
+      <div class="stat"><b id="stSize">29 MB</b><span>approx. binary (CQ2-bit)</span></div>
+      <div class="stat"><b id="stCache">100%</b><span>KV-cache vs full model</span></div>
+      <div class="stat"><b id="stVerdict">—</b><span>role at this depth</span></div>
+    </div>
+    <div class="blocks" id="blockGrid"></div>
+    <p class="small muted" id="orderLine"></p>
+    <p class="small muted">Every subnetwork keeps block 0 and block 19 (endpoints, black) and fills the interior by repeatedly halving the widest gap: order <code class="mono">0, 19, 9, 14, 4, 6, 11, 16, 2, 7, 12, 17, 1, 3, 5, 8, 10, 13, 15, 18</code>. Subnetwork d = the first d blocks of that order — each depth is a strict superset of the one below, so shallow subnetworks still see early <i>and</i> late computation.</p>
+    <p class="small muted">Sizes interpolate between Cactus's anchors (8 MB @ 4L → 29 MB @ 20L); below 4 layers the tied embedding table dominates, so the slider floors there. Skipping a block is the identity on the residual stream — and the KV cache is per-block, so shallower = proportionally smaller cache, which is what memory-bound devices actually feel.</p>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">How it's trained without training 19 models</h3>
+    <ul>
+      <li><b>Sampled paths:</b> each step runs the full model with probability 0.8 (ordinary LM step), or a random depth d ∈ {2…19} with probability 0.2, with the loss scaled by d/20.</li>
+      <li><b>Self-distillation:</b> on subnetwork steps, a KL term (λ=1, stop-gradient) pulls the shallow pass toward the frozen full model's predictions — recovering gradient the shallow rung alone couldn't carry, at no extra forward pass.</li>
+      <li><b>Free regularisation:</b> in matched pairs, the ladder-trained net hit <b>1.958</b> validation loss at full depth vs <b>2.037</b> without the ladder — and its 16-layer exit matched the control's full 18 layers. No block can become load-bearing when every prefix must work.</li>
+      <li><b>Multi-lane residual:</b> 4 parallel residual streams on a round-robin lane schedule, renumbered inside each subnetwork so surviving blocks still alternate lanes. Engram memory sites and global-attention layers stay attached to their blocks.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">What each rung is good for (vendor-reported)</h3>
+    <table>
+      <tr><th>Depth</th><th>Base (gated)</th><th>Fine-tuned</th><th>Cactus's own words / numbers</th></tr>
+      <tr><td>2L</td><td>~0 — gate withholds nearly everything</td><td>56.5 on DroidCall</td><td>"Two layers of a generalist is not a product. Two layers fine-tuned on one product's tools is a different matter." (forced-call base: 20.5)</td></tr>
+      <tr><td>4L</td><td>weak</td><td>passes DeepSeek V4 Flash on DroidCall</td><td>~8 MB, "starting at 29M parameters"</td></tr>
+      <tr><td>4L–20L tuned</td><td>—</td><td>+18 to +36 points on DroidCall, every depth</td><td>From 4 layers up, tuned subnetworks pass DSV4 Flash (cloud API) on their suites</td></tr>
+      <tr><td>20L full</td><td>shipped generalist behaviour</td><td>LoRA at full depth, then slice</td><td>29 MB; the "beats 10×-size models on tool calls" claim refers to their Mobile Actions (961 rows) / DroidCall (200 rows) suites</td></tr>
+    </table>
+    <p class="small muted">⚠️ All scores are Cactus-run on Cactus-built suites, against DeepSeek V4 Flash through its API. Independent verification: none yet. See Verdict tab.</p>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">The slice-of-slice trap (honestly documented)</h3>
+    <p class="small">A sliced model has its own block numbering — re-slice it by <i>its</i> numbering and you get a different, <b>untrained</b> set of blocks. Of the 14 subnetworks of a 16-layer slice, 13 differed from the parent's. The fix: every slice carries its parent's selection order, so slicing a slice equals slicing the original. A subtle deployment bug they chose to write down — a good sign.</p>
+  </div>
+</section>
+
+<!-- ============ ARCHITECTURE ============ -->
+<section id="s3">
+  <h2>Simple Attention Networks — the research bet</h2>
+  <p>Needle 3's size and speed come from deleting the feed-forward network — two-thirds of a transformer's non-embedding parameters — from every block. Cactus published a controlled study (<a href="https://arxiv.org/pdf/2607.18363" target="_blank" rel="noopener">arXiv 2607.18363</a>) asking what that actually costs.</p>
+
+  <div class="grid2">
+    <div class="card">
+      <h3 style="margin-top:0">Standard block</h3>
+      <pre style="margin:0">x → <span class="k">Attention</span> → <span class="k">FFN (SwiGLU)</span> → x
+     ~⅓ of weights   ~⅔ of weights
+     "routing"       "memory / storage"</pre>
+      <p class="small muted">The FFN is the model's key-value store of training facts.</p>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0">SAN block (Needle)</h3>
+      <pre style="margin:0">x → <span class="k">Attention</span> → x
+   pre-norm · GQA · RoPE
+   QK-norm · scalar residual gate
+   4-lane residual · tied embeddings</pre>
+      <p class="small muted">Selects and transports content already in context — cannot synthesise what the context doesn't support. "Context-grounded."</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">The controlled experiment: delete the FFN, measure the loss</h3>
+    <table>
+      <tr><th>Control</th><th>Setup</th><th>Cost of removing FFN</th><th>Reading</th></tr>
+      <tr><td>Matched depth</td><td>keep 20 layers; FFN arm is 87M params vs 24M</td><td><b>0.47 nats</b></td><td>you deleted 72% of the model</td></tr>
+      <tr><td>Matched FLOPs</td><td>9-layer FFN vs 20-layer SAN, ~0.40 GFLOPs/token</td><td><b>0.26 nats</b></td><td>attention spends budget on the parameter-free quadratic term</td></tr>
+      <tr><td>Matched parameters</td><td>reinvest everything into attention depth (4L FFN vs 20L SAN)</td><td><b>0.0055 nats</b> (0.27% of loss)</td><td>reproducible across seed pairs to 1 part in 10,000</td></tr>
+    </table>
+    <p class="small">Method hygiene worth noting: per-arm learning-rate sweeps (the optimal Muon rate differs 2× between arms), a pipeline noise floor of 0.0015 nats, pre-registered predictions, and gap shrinkage with training (0.046 → 0.019 → 0.0055 nats at 5B / 30B / 105B tokens).</p>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">Where the deficit lives — and why it's fine for Needle</h3>
+    <ul>
+      <li>The gap is <b>concentrated on query tokens</b> — positions where context offers nothing to route from. On traces and answer regions the SAN leads; it even reverses Lambada (0.203 vs 0.181) when trained on distribution-matched web text.</li>
+      <li>Translation: <b>FFNs are storage; attention is routing.</b> Tool calling and extraction are routing problems — the function names, argument values and schema are all in the prompt. That is exactly Needle's regime.</li>
+      <li>Needle buys back the query-token deficit with <b>engram memory</b> — memory sites bolted onto specific blocks, inherited from Needle 2.</li>
+      <li>Training dynamics: routing matrices (Q, K) freeze in the first quarter of training; content-writing matrices keep gaining rank forever — in SANs that role moves to the attention output projection, the only write path left.</li>
+      <li>Ablations: QK-norm is load-bearing (removing it diverges — the study's only divergence); residual scalar gates are performance-neutral but diagnostic; post-attention sandwich norm beats baseline by 0.009 nats; 20 layers is the optimum at matched params; 48-layer SAN stacks train without incident. Every instability in the study happened in the FFN arm.</li>
+    </ul>
+  </div>
+
+  <div class="note">
+    <b>The honest trade:</b> at matched parameters a SAN pays ~2× the FLOPs per token at 2048 context. The trade wins where <b>memory, not compute, is the binding constraint</b> — which is precisely the on-device regime. Cactus states it as a regime claim, not superiority. MMLU-class benchmarks are at chance at these scales; this is not a knowledge model.
+  </div>
+</section>
+
+<!-- ============ CAPABILITIES ============ -->
+<section id="s4">
+  <h2>What a turn looks like</h2>
+  <p class="muted">Every turn returns one JSON object: <code>function_calls</code> (arguments + confidence), <code>suppressed_calls</code> (below the gate), or <code>extraction</code> fields. Demos below are <b>simulated illustrations</b> of the documented output format — not a live model.</p>
+
+  <div class="demo">
+    <span class="tag">Demo A · Multi-tool call</span>
+    <p class="small" style="margin-top:6px">Two asks in one sentence → two offline calls, arguments filled, in order.</p>
+    <div class="chips">
+      <button class="chip" onclick="demoA(this,0)">"Dim the bedroom to 20 and lock up"</button>
+      <button class="chip" onclick="demoA(this,1)">"Read my last card charge, then turn off the corridor lights"</button>
+      <button class="chip" onclick="demoA(this,2)">"What's the weather on Mars?"</button>
+    </div>
+    <div class="json" id="demoAout">Pick a phrase above — the returned JSON appears here.</div>
+  </div>
+
+  <div class="demo">
+    <span class="tag">Demo B · Confidence gate</span>
+    <p class="small" style="margin-top:6px">Every call carries a calibrated confidence score. Below the floor (default <code>0.1</code>) it's moved to <code>suppressed_calls</code> and your app decides what happens.</p>
+    <div class="chips">
+      <button class="chip" onclick="demoB(this,0)">Clear ask → executes</button>
+      <button class="chip" onclick="demoB(this,1)">Ambiguous ask → suppressed</button>
+      <button class="chip" onclick="demoB(this,2)">Regex-forced trigger → bypasses the gate</button>
+    </div>
+    <div class="json" id="demoBout">Pick a scenario above.</div>
+  </div>
+
+  <div class="demo">
+    <span class="tag">Demo C · Structured extraction</span>
+    <p class="small" style="margin-top:6px">Schema in (here: a Pydantic-style card-charge shape), messy text in, typed fields out. The decode grammar guarantees the JSON parses — no "almost-valid" outputs.</p>
+    <div class="chips">
+      <button class="chip" onclick="demoC(this,0)">Extract card charge</button>
+      <button class="chip" onclick="demoC(this,1)">Extract meeting details</button>
+    </div>
+    <div class="json" id="demoCout">Pick an extraction above.</div>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">Text embedding, the quiet third skill</h3>
+    <p class="small">Same model, different head: sentence vectors for on-device semantic search, routing a query to the right tool, or de-duplicating alerts ("drone battery" vs "battery of drone" match). At these sizes the vectors are coarse, but for match/rank/route inside one app's vocabulary, local beats nothing-available.</p>
+  </div>
+</section>
+
+<!-- ============ USE CASES ============ -->
+<section id="s5">
+  <h2>Eight surfaces, one binary</h2>
+  <p class="muted">From the product page — the domains Cactus ships Needle 3 for.</p>
+  <div class="grid2">
+    <div class="card"><span class="badge b-pink">Smart Home</span><p class="small" style="margin-top:8px">"Dim the bedroom and lock up" → two calls, executed <b>offline</b>, no speaker-cloud round trip. Works when the internet doesn't.</p></div>
+    <div class="card"><span class="badge b-pink">Robots</span><p class="small" style="margin-top:8px">Nuanced vacuum instructions from a small binary; the robot's voice commands don't need a data centre.</p></div>
+    <div class="card"><span class="badge b-pink">Phones</span><p class="small" style="margin-top:8px">Assistants that read your screen, send the message, or file the expense — on-device tool calling for app actions.</p></div>
+    <div class="card"><span class="badge b-pink">Wearables</span><p class="small" style="margin-top:8px">Watches and hearables: the 2–8 layer rungs exist exactly for this memory envelope.</p></div>
+    <div class="card"><span class="badge b-pink">Automotive</span><p class="small" style="margin-top:8px">Cabin control and vehicle functions with zero network dependency and no data leaving the car.</p></div>
+    <div class="card"><span class="badge b-pink">Smart Glasses / AR</span><p class="small" style="margin-top:8px">Hands-free commands routed to app functions mid-session; prefill speeds matter for interrupt-driven use.</p></div>
+    <div class="card"><span class="badge b-pink">Personal Computers</span><p class="small" style="margin-top:8px">Local agents driving desktop apps — the privacy pitch: your files never leave the machine.</p></div>
+    <div class="card"><span class="badge b-pink">Local Search</span><p class="small" style="margin-top:8px">Embeddings power offline semantic search, matching and routing inside the app's own corpus.</p></div>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">The privacy angle, made concrete</h3>
+    <p class="small">A card-charge reader, a health-data parser, a home controller — the classic objection is "I'm sending my raw data to a cloud model to get JSON back." Needle 3's pitch: the model is small enough to live next to the data, so the sensitive text never crosses a network. That's a compliance-friendly story (and a battery-friendly one: no radio wake-ups for routine commands).</p>
+  </div>
+</section>
+
+<!-- ============ DEVELOPER ============ -->
+<section id="s6">
+  <h2>The developer path</h2>
+
+  <div class="card">
+    <h3 style="margin-top:0">Define tools → run the loop</h3>
+    <div class="codebox"><button class="copybtn" onclick="cp(this)">copy</button><pre><span class="c"># pip install cactus-toolkit</span>
+<span class="k">from</span> cactus <span class="k">import</span> Needle, tool
+needle = Needle(<span class="s">"path/to/needle3.cact"</span>)
+
+<span class="n">@tool</span>(description=<span class="s">"Dim the lights in a specific room."</span>)
+<span class="k">def</span> <span class="n">dim_light</span>(room: <span class="n">str</span>, brightness: <span class="n">int</span> = <span class="n">30</span>):
+    ...
+
+<span class="n">@tool</span>(description=<span class="s">"Toggle the lock state of a door."</span>)
+<span class="k">def</span> <span class="n">toggle_lock</span>(location: <span class="n">str</span>):
+    ...
+
+result = needle.run(<span class="s">"Dim the bedroom and lock up"</span>)
+<span class="c"># → calls dim_light, then toggle_lock, results attached</span></pre></div>
+    <p class="small muted">The decorator + docstring/description is the whole tool interface — Needle reads descriptions <b>literally</b>.</p>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <h3 style="margin-top:0">Extraction</h3>
+      <div class="codebox"><button class="copybtn" onclick="cp(this)">copy</button><pre><span class="k">from</span> pydantic <span class="k">import</span> BaseModel
+
+<span class="k">class</span> <span class="n">CardCharge</span>(BaseModel):
+    merchant: <span class="n">str</span>
+    amount: <span class="n">float</span>
+
+needle.extract(
+    <span class="s">"Rs 1,250 at BLU SMART on Tue"</span>,
+    schema=CardCharge
+)</pre></div>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0">Regex triggers (gate bypass)</h3>
+      <div class="codebox"><button class="copybtn" onclick="cp(this)">copy</button><pre><span class="c"># user speech starting "hey assistant"</span>
+<span class="c"># is FORCED to route to wake_tool,</span>
+<span class="c"># confidence gate skipped:</span>
+triggers = [<span class="s">"(?i)^hey assistant.*"</span>]
+
+needle.run(
+    user_input, trigger_patterns=triggers
+)</pre></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">Tool-writing rules (the part that actually determines quality)</h3>
+    <ul class="small">
+      <li>Keep each tool's description <b>narrow and plain</b> — no marketing copy, no API docs.</li>
+      <li><b>One tool per action</b>: don't register "manage smart home"; register <code>set_light_brightness</code> and <code>toggle_lock</code>.</li>
+      <li><b>Parameter names should mirror user words</b> — the model fills arguments by matching the sentence to names.</li>
+      <li>Use <b>enum values that look like user phrases</b>, where possible.</li>
+      <li>Make optional arguments truly optional with <b>defaults</b>; put value formats in descriptions.</li>
+      <li>Keep the toolset small — every tool you add is another thing the model can confuse.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">Fine-tune + slice (one adapter, every depth)</h3>
+    <div class="codebox"><button class="copybtn" onclick="cp(this)">copy</button><pre><span class="c"># train a LoRA adapter at the full 20 layers...</span>
+needle finetune data.jsonl --epochs 10 --out adapter.safetensors
+
+<span class="c"># ...merge, then slice to the depth your device wants.</span>
+<span class="c"># The adapter trains ALL subnetworks at once (weights are shared).</span>
+needle build --lora adapter.safetensors --layers 8 \
+             --platform linux-arm64 --out ./pi</pre></div>
+    <p class="small muted">Tuning lifts every depth 18–36 points on DroidCall; from 4 layers up, tuned subnetworks pass DeepSeek V4 Flash on Cactus's suites. One adapter serves every rung — no per-size training.</p>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">Confidence as an API</h3>
+    <p class="small">The gate is a calibrated head, floor default <code>0.1</code>. Suppressed calls aren't errors — they're a <b>signal</b>: route them to a cloud model, a confirmation UI, or a retry with clarification. That's the recommended architecture: device-first, escalate only when unsure.</p>
+  </div>
+</section>
+
+<!-- ============ DEPLOY ============ -->
+<section id="s7">
+  <h2>Where it runs</h2>
+  <p class="muted">The engine is a sub-1-MB prebuilt binary for each target; the model file is the same <code>needle3.cact</code> everywhere.</p>
+  <div class="card">
+    <table>
+      <tr><th>Platform</th><th>Sub-targets</th><th>Typical story</th></tr>
+      <tr><td>Linux</td><td>x86-64 · ARM64 · RISC-V · MIPS</td><td>Raspberry Pi, routers, robots, microcontroller-class boards</td></tr>
+      <tr><td>Android</td><td>arm64-v8a · armeabi-v7a · x86-64</td><td>On-device phone assistants</td></tr>
+      <tr><td>iOS · tvOS · watchOS</td><td>arm64 · simulator</td><td>iPhone, Apple TV, Apple Watch — the wearable rung</td></tr>
+      <tr><td>macOS · Windows</td><td>Apple Silicon / Intel · x64</td><td>Desktop agents, local file tooling</td></tr>
+      <tr><td>Web</td><td>WASM · WASI</td><td>Browser-side tool calling, serverless edge functions</td></tr>
+      <tr><td>MCUs</td><td>via prebuilt engines</td><td>Microcontroller deployments at the smallest rungs</td></tr>
+    </table>
+  </div>
+  <div class="note">
+    <b>Deploy-time depth choice:</b> a device can hold the full 29 MB file and <b>choose depth per request</b> — a fast shallow pass for "lights off", the full stack for a complex multi-tool command — without a second download. Cactus notes this per-request depth-switching is designed but <i>not yet shipped</i>; today you bake a depth at build time.
+  </div>
+</section>
+
+<!-- ============ VERDICT ============ -->
+<section id="s8">
+  <h2>The verdict</h2>
+
+  <div class="pro"><b>What's genuinely strong</b>
+    <ul class="small" style="margin-top:8px">
+      <li><b>The ladder is a real idea, not marketing:</b> one weights file → 19 deployable models, with measured self-regularisation benefits (1.958 vs 2.037 val loss) and per-block KV cache scaling. It kills the "train a family of models" maintenance problem.</li>
+      <li><b>Research is unusually transparent for a product launch:</b> a controlled ablation study (arXiv), pre-registered predictions, a published negative result (2-layer generalist is useless), and a self-documented slicing bug. That's more rigour than most model releases.</li>
+      <li><b>The niche is correct:</b> tool calling + extraction are routing problems, and the SAN paper argues exactly why FFN-free models fit them. "Beats models 10× its size" is scoped to that regime — and at 8–29 MB, "10×" models are still small ones, so read the claim carefully.</li>
+      <li><b>Deployment surface is serious:</b> 11 platforms, sub-1-MB engines, microcontrollers to phones, WASM included.</li>
+    </ul>
+  </div>
+
+  <div class="con"><b>What to discount or verify</b>
+    <ul class="small" style="margin-top:8px">
+      <li><b>Every benchmark is vendor-run</b> on vendor-built suites (DroidCall 200 rows, Mobile Actions 961 rows) against DSV4 Flash over an API. No independent replication yet.</li>
+      <li><b>No chat, no knowledge:</b> MMLU-class performance is at chance at this scale — by design. If your assistant needs to answer questions, this is a component, not the brain. Pair it with a cloud LLM for reasoning.</li>
+      <li><b>FLOPs cost:</b> ~2× compute per token at matched parameters — fine when memory-bound, a real cost when tokens are many.</li>
+      <li><b>Per-request depth switching not shipped yet</b> — the coolest capability is currently a promise.</li>
+      <li><b>Confidence floor 0.1 is low;</b> you'll want to tune the gate per product, and their own 2-layer gated score of ~0 shows the gate can erase a model entirely.</li>
+    </ul>
+  </div>
+
+  <div class="note"><b>Fit with the broader trend:</b> 2026's agent stack is consolidating into "big cloud brain + tiny local hands." Needle 3 is a credible candidate for the local hands: action routing offline, structured output by grammar, embeddings included. For anyone building voice-controlled devices, IoT products or privacy-sensitive phone agents, this is one of the most interesting small-model releases of the year. For chat products — wrong tool, deliberately.
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">Sources & method</h3>
+    <ul class="small">
+      <li><a href="https://cactuscompute.com/needle" target="_blank" rel="noopener">cactuscompute.com/needle</a> — product page (specs, capabilities, platform list)</li>
+      <li><a href="https://cactuscompute.com/blog/simple-attention-networks" target="_blank" rel="noopener">Simple Attention Networks</a> — the controlled FFN-removal study (Sep 17 2026)</li>
+      <li><a href="https://cactuscompute.com/blog/intelligence-ladders" target="_blank" rel="noopener">Intelligence Ladders</a> — ladder construction, training, per-depth scores (Sep 17 2026)</li>
+      <li><a href="https://arxiv.org/pdf/2607.18363" target="_blank" rel="noopener">arXiv 2607.18363</a> — A Controlled Study of Attention-Only Transformers</li>
+      <li>All performance figures are <b>vendor-reported</b>; interactive demos on the Capabilities tab are simulated illustrations of the documented format, not live model output. Built by Onvoix, Sep 18 2026.</li>
+    </ul>
+  </div>
+</section>
+
+</div>
+
+<footer><div class="wrap">
+  <b>Needle 3 — Interactive Teardown</b> · sources: cactuscompute.com/needle + two research posts + arXiv 2607.18363 · all performance figures vendor-reported · demos simulated · <a href="https://hireclaw.github.io/artifacts-reports/" target="_blank" rel="noopener">more artifacts</a>
+</div></footer>
+
+<script>
+const ORDER=[0,19,9,14,4,6,11,16,2,7,12,17,1,3,5,8,10,13,15,18];
+const END=new Set([0,19]);
+const grid=document.getElementById('blockGrid');
+for(let b=0;b<20;b++){const d=document.createElement('div');d.className='blk'+(END.has(b)?' end':'');d.id='blk'+b;d.textContent=b;grid.appendChild(d);}
+const ROLE={2:'novelty — unusable as a generalist (gated ≈ 0)',3:'extreme edge — fine-tune territory',4:'smallest shipped rung · ~8 MB · tuned beats DSV4 Flash',5:'extreme edge — fine-tune territory',6:'wearables / MCU class',7:'wearables / MCU class',8:'wearable & IoT sweet spot (fine-tuned)',9:'wearable & IoT class',10:'mid ladder — balanced',11:'mid ladder — balanced',12:'phone class',13:'phone class',14:'phone class',15:'phone / desktop class',16:'phone / desktop — tuned 16L ≈ untuned 18L control',17:'full-weight generalist range',18:'full-weight generalist range',19:'near-full stack',20:'full model — 29 MB, the shipped generalist'};
+function sizeMB(d){if(d>=20)return 29;if(d<=4)return 8;return Math.round((8+(d-4)*(21/16))*10)/10;}
+function setDepth(d){
+  d=+d;
+  const active=new Set(ORDER.slice(0,d));
+  for(let b=0;b<20;b++){const el=document.getElementById('blk'+b);el.classList.toggle('on',active.has(b));el.classList.toggle('end',END.has(b)&&active.has(b));}
+  document.getElementById('stDepth').textContent=d+'L';
+  document.getElementById('stSize').textContent=(d<4?'~'+sizeMB(4)+' MB (floor)':sizeMB(d)+' MB');
+  document.getElementById('stCache').textContent=Math.round(d/20*100)+'%';
+  document.getElementById('stVerdict').textContent=ROLE[d]||'—';
+  document.getElementById('orderLine').textContent='Depth '+d+' runs blocks: '+ORDER.slice(0,d).join(', ');
+}
+setDepth(20);
+document.querySelectorAll('nav.tabs button').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('nav.tabs button').forEach(x=>x.classList.remove('on'));
+  document.querySelectorAll('section').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on');document.getElementById(b.dataset.t).classList.add('on');
+  window.scrollTo({top:0,behavior:'smooth'});
+}));
+const A=[
+'{\n  "function_calls": [\n    { "name": "dim_light", "arguments": { "room": "bedroom", "brightness": 20 }, "confidence": 0.94 },\n    { "name": "toggle_lock", "arguments": { "location": "front_door", "state": "locked" }, "confidence": 0.91 }\n  ],\n  "suppressed_calls": []\n}\n// one turn, two actions, zero network',
+'{\n  "function_calls": [\n    { "name": "read_card_statement", "arguments": { "range": "last_transaction" }, "confidence": 0.9 },\n    { "name": "set_light_state", "arguments": { "room": "corridor", "state": "off" }, "confidence": 0.88 }\n  ],\n  "suppressed_calls": []\n}\n// order preserved; results attached to each call object',
+'{\n  "function_calls": [],\n  "suppressed_calls": []\n}\n// no matching tool → empty list, not a hallucinated call.\n// (a chat model would answer; Needle acts or stays silent)'
+];
+const B=[
+'{\n  "function_calls": [\n    { "name": "set_thermostat", "arguments": { "temperature_c": 21 }, "confidence": 0.93 }\n  ],\n  "suppressed_calls": []\n}',
+'{\n  "function_calls": [],\n  "suppressed_calls": [\n    { "name": "send_message", "arguments": { "contact": "unknown_from_context" }, "confidence": 0.07 }\n  ]\n}\n// below the 0.1 floor → moved to suppressed_calls;\n// your app decides: confirm, clarify, or escalate to a cloud model',
+'{\n  "function_calls": [\n    { "name": "wake_tool", "arguments": { "utterance": "hey assistant, start my run" }, "confidence": 1.0, "forced": true }\n  ],\n  "suppressed_calls": []\n}\n// trigger regex "(?i)^hey assistant.*" → gate bypassed'
+];
+const C=[
+'{\n  "extraction": {\n    "merchant": "BLU SMART",\n    "amount": 1250.00,\n    "card_last4": "4128",\n    "date": "2026-09-16"\n  }\n}\n// decode grammar guarantees this parses against the schema',
+'{\n  "extraction": {\n    "title": "Quarterly review",\n    "date": "2026-09-24",\n    "time": "15:00",\n    "location": "Meeting Room 2",\n    "attendees": ["finance-team@corp.io"]\n  }\n}'
+];
+function show(id,txt){document.getElementById(id).textContent=txt;}
+function demoA(btn,i){document.querySelectorAll('#s4 .demo:nth-of-type(1) .chip').forEach(c=>c.classList.remove('sel'));btn.classList.add('sel');show('demoAout',A[i]);}
+function demoB(btn,i){document.querySelectorAll('#s4 .demo:nth-of-type(2) .chip').forEach(c=>c.classList.remove('sel'));btn.classList.add('sel');show('demoBout',B[i]);}
+function demoC(btn,i){document.querySelectorAll('#s4 .demo:nth-of-type(3) .chip').forEach(c=>c.classList.remove('sel'));btn.classList.add('sel');show('demoCout',C[i]);}
+function cp(btn){const pre=btn.parentElement.querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(()=>{btn.textContent='copied!';setTimeout(()=>btn.textContent='copy',1200);});}
+</script>
+</body>
+</html>
