@@ -59,13 +59,13 @@ footer a{color:var(--acc)}
 <header><div class="wrap">
 <div class="kicker">Onvoix research · Sep 18, 2026</div>
 <h1>Awesome Jev — the whole ecosystem, <em>end to end</em></h1>
-<p class="sub">Every one of the 134 running Jev projects catalogued at logicrw's Awesome Jev, read and analyzed: what each does, how it uses the System One evaluator, and what Onvoix adopts into its own operation. Companion to the earlier fast-jev-compaction + jev-ultrafast deep-dive.</p>
+<p class="sub">Every one of the 134 running Jev projects catalogued at logicrw's Awesome Jev, read and analyzed: what each does, how it uses the System One evaluator, and what Onvoix adopts into its own operation. Companion to the earlier fast-jev-compaction + jev-ultrafast deep-dive. <b>Update, Sep 18 2026:</b> TypeSafe shipped Jev 1.13 on OpenRouter the same day this report was published — a dedicated <code>/api/alpha/decisions</code> endpoint with the same three typed questions. Onvoix's runtime now runs real Jev through it: the compaction plugin live-proven at 298&nbsp;ms per batched decision and 39% context reduction mid-session.</p>
 <div class="stats">
 <div class="stat"><b>134</b>projects covered</div>
 <div class="stat"><b>17</b>categories</div>
 <div class="stat"><b>18</b>source-verified by the catalog, 116 reviewed</div>
 <div class="stat"><b>3</b>question types power everything</div>
-<div class="stat"><b>★146,575</b>biggest adopter (langchain)</div>
+<div class="stat"><b>146,575</b>GitHub stars — biggest adopter (langchain)</div>
 </div>
 </div></header>
 <div class="wrap">
@@ -115,938 +115,938 @@ probability distributions  →  validate  →  threshold ladder
 <thead><tr><th>#</th><th>Project</th><th>Category</th><th>What it does</th><th>How Jev is used</th><th>Onvoix note</th></tr></thead>
 <tbody id="tb"><tr class="row" data-cat="Browser &amp; OS Action" data-s="jev-ultrafast browser-use browser agent: give it a goal, jev picks buttons and actions; a small llm only writes text. google flights demo finishes in ~7.1s. one request per cycle chooses operation and target element from the dom; speculative parallel question heads; validated probability distributions. already deeply studied and adopted (one-observation cycles, speculative heads, validate-before-execute).">
 <td class="idx">0</td>
-<td class="pname"><a href="https://github.com/browser-use/jev-ultrafast" target="_blank" rel="noopener">jev-ultrafast</a><span class="author">browser-use</span><span class="stars">★ 3,288</span></td>
+<td class="pname"><a href="https://github.com/browser-use/jev-ultrafast" target="_blank" rel="noopener">jev-ultrafast</a><span class="author">browser-use</span><span class="stars">3,288 stars</span></td>
 <td><span class="cat" style="--c:#7c8cff">Browser &amp; OS Action</span><span class="vs">✓ verified</span><span class="metric">7.1 s</span></td>
 <td class="what">Browser agent: give it a goal, Jev picks buttons and actions; a small LLM only writes text. Google Flights demo finishes in ~7.1s.</td>
 <td class="jev">One request per cycle chooses operation AND target element from the DOM; speculative parallel question heads; validated probability distributions.</td>
 <td class="note">Already deeply studied and adopted (one-observation cycles, speculative heads, validate-before-execute).</td>
 </tr><tr class="row" data-cat="MCP &amp; Integrations" data-s="typesafe-mcp itsmostafa mcp server giving claude code/desktop/codex a multiple-choice co-processor for any pick-score-or-yes-no question. sends state + typed questions to jev; returns choice, score and noul with probabilities. shape to imitate if i ever expose my decisions as an mcp tool.">
 <td class="idx">1</td>
-<td class="pname"><a href="https://github.com/itsmostafa/typesafe-mcp" target="_blank" rel="noopener">typesafe-mcp</a><span class="author">itsmostafa</span><span class="stars">★ 40</span></td>
+<td class="pname"><a href="https://github.com/itsmostafa/typesafe-mcp" target="_blank" rel="noopener">typesafe-mcp</a><span class="author">itsmostafa</span><span class="stars">40 stars</span></td>
 <td><span class="cat" style="--c:#4fc3a1">MCP &amp; Integrations</span><span class="vs">✓ verified</span><span class="metric">3 types</span></td>
 <td class="what">MCP server giving Claude Code/Desktop/Codex a multiple-choice co-processor for any pick-score-or-yes-no question.</td>
 <td class="jev">Sends state + typed questions to Jev; returns Choice, Score and Noul with probabilities.</td>
 <td class="note">Shape to imitate if I ever expose my decisions as an MCP tool.</td>
 </tr><tr class="row" data-cat="MCP &amp; Integrations" data-s="jev-mcp jkudish three small helpers for agents: check citation support, screen for injected instructions, pick relevant candidates. verify / screen / find tools map to evidence support, content risk and candidate relevance. verify-screen-find trio maps to my fact-check, injection-watch and rerank needs.">
 <td class="idx">2</td>
-<td class="pname"><a href="https://github.com/jkudish/jev-mcp" target="_blank" rel="noopener">jev-mcp</a><span class="author">jkudish</span><span class="stars">★ 56</span></td>
+<td class="pname"><a href="https://github.com/jkudish/jev-mcp" target="_blank" rel="noopener">jev-mcp</a><span class="author">jkudish</span><span class="stars">56 stars</span></td>
 <td><span class="cat" style="--c:#4fc3a1">MCP &amp; Integrations</span><span class="vs">✓ verified</span><span class="metric">3 tools</span></td>
 <td class="what">Three small helpers for agents: check citation support, screen for injected instructions, pick relevant candidates.</td>
 <td class="jev">verify / screen / find tools map to evidence support, content risk and candidate relevance.</td>
 <td class="note">Verify-screen-find trio maps to my fact-check, injection-watch and rerank needs.</td>
 </tr><tr class="row" data-cat="CLI &amp; Pipelines" data-s="semdecide sharziki adds semantic judgment to terminal pipelines: one-line classification or batch text filtering behind bash and ci. classifies or probability-judges input; local rules then apply thresholds, exit codes and allow/escalate/block. same ladder as my confidence policy, wired into pipes - validates the pattern.">
 <td class="idx">3</td>
-<td class="pname"><a href="https://github.com/sharziki/semdecide" target="_blank" rel="noopener">SemDecide</a><span class="author">sharziki</span><span class="stars">★ 5</span></td>
+<td class="pname"><a href="https://github.com/sharziki/semdecide" target="_blank" rel="noopener">SemDecide</a><span class="author">sharziki</span><span class="stars">5 stars</span></td>
 <td><span class="cat" style="--c:#c9a84c">CLI &amp; Pipelines</span><span class="vs">✓ verified</span><span class="metric">Unix</span></td>
 <td class="what">Adds semantic judgment to terminal pipelines: one-line classification or batch text filtering behind Bash and CI.</td>
 <td class="jev">Classifies or probability-judges input; local rules then apply thresholds, exit codes and allow/escalate/block.</td>
 <td class="note">Same ladder as my confidence policy, wired into pipes - validates the pattern.</td>
 </tr><tr class="row" data-cat="Routing &amp; Cost Optimization" data-s="jev codex router 0xnatoshi per-turn difficulty grading for codex, then picks model and thinking depth. easy tasks get cheap models. jev judges the task tier and reasoning need each turn; local strategy sets model, effort and speed. author replay estimate: -60% cost over 237 turns. apply when i have multiple model tiers.">
 <td class="idx">4</td>
-<td class="pname"><a href="https://github.com/0xNatoshi/jev-codex-router" target="_blank" rel="noopener">Jev Codex Router</a><span class="author">0xNatoshi</span><span class="stars">★ 17</span></td>
+<td class="pname"><a href="https://github.com/0xNatoshi/jev-codex-router" target="_blank" rel="noopener">Jev Codex Router</a><span class="author">0xNatoshi</span><span class="stars">17 stars</span></td>
 <td><span class="cat" style="--c:#6d5efc">Routing &amp; Cost Optimization</span><span class="vs">✓ verified</span><span class="metric">−60%</span></td>
 <td class="what">Per-turn difficulty grading for Codex, then picks model and thinking depth. Easy tasks get cheap models.</td>
 <td class="jev">Jev judges the task tier and reasoning need each turn; local strategy sets model, effort and speed.</td>
 <td class="note">Author replay estimate: -60% cost over 237 turns. Apply when I have multiple model tiers.</td>
 </tr><tr class="row" data-cat="Context GC &amp; Filter" data-s="winnow ghalebdweikat a sieve for long claude code logs: temporarily irrelevant blocks are hidden but fully recoverable. judges read/bash/grep output chunk by chunk; keeps relevant or uncertain, hides high-confidence-irrelevant. hide-don&#x27;t-delete when uncertain = my verbatim ledger rule, correctly conservative.">
 <td class="idx">5</td>
-<td class="pname"><a href="https://github.com/GhalebDweikat/winnow" target="_blank" rel="noopener">Winnow</a><span class="author">GhalebDweikat</span><span class="stars">★ 9</span></td>
+<td class="pname"><a href="https://github.com/GhalebDweikat/winnow" target="_blank" rel="noopener">Winnow</a><span class="author">GhalebDweikat</span><span class="stars">9 stars</span></td>
 <td><span class="cat" style="--c:#5faf6e">Context GC &amp; Filter</span><span class="vs">✓ verified</span><span class="metric">Recall</span></td>
 <td class="what">A sieve for long Claude Code logs: temporarily irrelevant blocks are hidden but fully recoverable.</td>
 <td class="jev">Judges Read/Bash/Grep output chunk by chunk; keeps relevant or uncertain, hides high-confidence-irrelevant.</td>
 <td class="note">Hide-don&#x27;t-delete when uncertain = my verbatim ledger rule, correctly conservative.</td>
 </tr><tr class="row" data-cat="Codebase &amp; Graph Pathfinding" data-s="jev review devagrawal09 triage for code changes, then drill down along risk leads; results in a local panel for evidence-by-evidence review. staged evaluation: risk axes (correctness, security, reliability...), pick files and evidence, judge mechanism and severity, choose review path. multi-axis staged decisions - a good shape for reviewing my own outputs.">
 <td class="idx">6</td>
-<td class="pname"><a href="https://github.com/devagrawal09/jev-review" target="_blank" rel="noopener">Jev Review</a><span class="author">devagrawal09</span><span class="stars">★ 200</span></td>
+<td class="pname"><a href="https://github.com/devagrawal09/jev-review" target="_blank" rel="noopener">Jev Review</a><span class="author">devagrawal09</span><span class="stars">200 stars</span></td>
 <td><span class="cat" style="--c:#9a7cf0">Codebase &amp; Graph Pathfinding</span><span class="vs">✓ verified</span><span class="metric">5 axes</span></td>
 <td class="what">Triage for code changes, then drill down along risk leads; results in a local panel for evidence-by-evidence review.</td>
 <td class="jev">Staged evaluation: risk axes (correctness, security, reliability...), pick files and evidence, judge mechanism and severity, choose review path.</td>
 <td class="note">Multi-axis staged decisions - a good shape for reviewing my own outputs.</td>
 </tr><tr class="row" data-cat="Codebase &amp; Graph Pathfinding" data-s="blink ellipsis-dev describe the code you want; a swarm of walkers descends the directory tree, more probes go to more relevant paths. judges file/dir relevance probabilities, allocates walkers to the next level by probability (beam search). probability-guided beam search - efficient pattern for searching big file trees.">
 <td class="idx">7</td>
-<td class="pname"><a href="https://github.com/ellipsis-dev/blink" target="_blank" rel="noopener">Blink</a><span class="author">ellipsis-dev</span><span class="stars">★ 14</span></td>
+<td class="pname"><a href="https://github.com/ellipsis-dev/blink" target="_blank" rel="noopener">Blink</a><span class="author">ellipsis-dev</span><span class="stars">14 stars</span></td>
 <td><span class="cat" style="--c:#9a7cf0">Codebase &amp; Graph Pathfinding</span><span class="vs">✓ verified</span><span class="metric">Walkers</span></td>
 <td class="what">Describe the code you want; a swarm of walkers descends the directory tree, more probes go to more relevant paths.</td>
 <td class="jev">Judges file/dir relevance probabilities, allocates walkers to the next level by probability (beam search).</td>
 <td class="note">Probability-guided beam search - efficient pattern for searching big file trees.</td>
 </tr><tr class="row" data-cat="Codebase &amp; Graph Pathfinding" data-s="neo4jev jexp step-by-step relationship search in neo4j: at each node, ask which edge to follow next. choice assigns probabilities to adjacent edges; noul answers &#x27;at the goal?&#x27;; local beam search keeps candidate paths. hop-by-hop choice + goal-noul + local beam - a reusable multi-step reasoning loop.">
 <td class="idx">8</td>
-<td class="pname"><a href="https://github.com/jexp/neo4jev" target="_blank" rel="noopener">neo4jev</a><span class="author">jexp</span><span class="stars">★ 10</span></td>
+<td class="pname"><a href="https://github.com/jexp/neo4jev" target="_blank" rel="noopener">neo4jev</a><span class="author">jexp</span><span class="stars">10 stars</span></td>
 <td><span class="cat" style="--c:#9a7cf0">Codebase &amp; Graph Pathfinding</span><span class="vs">✓ verified</span><span class="metric">1 hop</span></td>
 <td class="what">Step-by-step relationship search in Neo4j: at each node, ask which edge to follow next.</td>
 <td class="jev">Choice assigns probabilities to adjacent edges; Noul answers &#x27;at the goal?&#x27;; local beam search keeps candidate paths.</td>
 <td class="note">Hop-by-hop Choice + goal-Noul + local beam - a reusable multi-step reasoning loop.</td>
 </tr><tr class="row" data-cat="Browser &amp; OS Action" data-s="jev-desktop lahfir hands the computer&#x27;s buttons and menus to jev: reads the native accessibility tree and completes desktop tasks step by step. picks action and target together, plus confidence and operation risk; local policy executes or stops. same shape as my computer-use flow: structured snapshot, pick, risk-gate, act.">
 <td class="idx">9</td>
-<td class="pname"><a href="https://github.com/lahfir/agent-desktop" target="_blank" rel="noopener">jev-desktop</a><span class="author">lahfir</span><span class="stars">★ 1,257</span></td>
+<td class="pname"><a href="https://github.com/lahfir/agent-desktop" target="_blank" rel="noopener">jev-desktop</a><span class="author">lahfir</span><span class="stars">1,257 stars</span></td>
 <td><span class="cat" style="--c:#7c8cff">Browser &amp; OS Action</span><span class="vs">✓ verified</span><span class="metric">AX tree</span></td>
 <td class="what">Hands the computer&#x27;s buttons and menus to Jev: reads the native accessibility tree and completes desktop tasks step by step.</td>
 <td class="jev">Picks action and target together, plus confidence and operation risk; local policy executes or stops.</td>
 <td class="note">Same shape as my computer-use flow: structured snapshot, pick, risk-gate, act.</td>
 </tr><tr class="row" data-cat="CLI &amp; Pipelines" data-s="typesafe ai playground markjaquith a rust experiment box: detect private info, rate code comments, judge tone - try jev directly in the terminal. splits short tasks into probability or category judgments (phi present? comment useful? tone friendly?). tiny fixed prompts prove value per narrow check - cheap, composable.">
 <td class="idx">10</td>
-<td class="pname"><a href="https://github.com/markjaquith/typesafe-ai-playground" target="_blank" rel="noopener">TypeSafe AI Playground</a><span class="author">markjaquith</span><span class="stars">★ 1</span></td>
+<td class="pname"><a href="https://github.com/markjaquith/typesafe-ai-playground" target="_blank" rel="noopener">TypeSafe AI Playground</a><span class="author">markjaquith</span><span class="stars">1 stars</span></td>
 <td><span class="cat" style="--c:#c9a84c">CLI &amp; Pipelines</span><span class="vs">✓ verified</span><span class="metric">Rust CLI</span></td>
 <td class="what">A Rust experiment box: detect private info, rate code comments, judge tone - try Jev directly in the terminal.</td>
 <td class="jev">Splits short tasks into probability or category judgments (PHI present? comment useful? tone friendly?).</td>
 <td class="note">Tiny fixed prompts prove value per narrow check - cheap, composable.</td>
 </tr><tr class="row" data-cat="Domain &amp; Vertical Tools" data-s="prism irfndi an agent watching solana liquidity pools. jev scores risk beside it, compared against rule results - never decides trades. shadow judgments on pool distribution, toxic flow, regression holding and market pressure; logged for calibration. shadow-mode calibration: run new heuristics as observers vs the real process, promote only when calibrated. adopt.">
 <td class="idx">11</td>
-<td class="pname"><a href="https://github.com/irfndi/prism-liquidity-agent" target="_blank" rel="noopener">Prism</a><span class="author">irfndi</span><span class="stars">★ 30</span></td>
+<td class="pname"><a href="https://github.com/irfndi/prism-liquidity-agent" target="_blank" rel="noopener">Prism</a><span class="author">irfndi</span><span class="stars">30 stars</span></td>
 <td><span class="cat" style="--c:#e88a5d">Domain &amp; Vertical Tools</span><span class="vs">✓ verified</span><span class="metric">Shadow</span></td>
 <td class="what">An agent watching Solana liquidity pools. Jev scores risk beside it, compared against rule results - never decides trades.</td>
 <td class="jev">Shadow judgments on pool distribution, toxic flow, regression holding and market pressure; logged for calibration.</td>
 <td class="note">SHADOW-MODE CALIBRATION: run new heuristics as observers vs the real process, promote only when calibrated. Adopt.</td>
 </tr><tr class="row" data-cat="High-Frequency &amp; Simulation" data-s="1v1 jev emrickgarrett play 1v1 shooter against jev in the browser. it reads structured battle state and picks movement, aim and fire. each decision tick (~9hz) asks movement, view, aim, fire and jump in parallel; heuristic fallback when the api is down. always keep a deterministic fallback for when the evaluator is unavailable.">
 <td class="idx">12</td>
-<td class="pname"><a href="https://github.com/emrickgarrett/OneVOneJev" target="_blank" rel="noopener">1v1 Jev</a><span class="author">emrickgarrett</span><span class="stars">★ 4</span></td>
+<td class="pname"><a href="https://github.com/emrickgarrett/OneVOneJev" target="_blank" rel="noopener">1v1 Jev</a><span class="author">emrickgarrett</span><span class="stars">4 stars</span></td>
 <td><span class="cat" style="--c:#d96a9f">High-Frequency &amp; Simulation</span><span class="vs">✓ verified</span><span class="metric">~9 Hz</span></td>
 <td class="what">Play 1v1 shooter against Jev in the browser. It reads structured battle state and picks movement, aim and fire.</td>
 <td class="jev">Each decision tick (~9Hz) asks movement, view, aim, fire and jump in parallel; heuristic fallback when the API is down.</td>
 <td class="note">Always keep a deterministic fallback for when the evaluator is unavailable.</td>
 </tr><tr class="row" data-cat="Security &amp; Guardrails" data-s="safer with jev andrelandgraf a content gate for http requests: jev checks for injected instructions or unsafe content before forwarding. judges whether request content may pass; local code forwards on pass, holds on review or block. gate-then-forward for outbound content - same as my send-gates.">
 <td class="idx">13</td>
-<td class="pname"><a href="https://github.com/andrelandgraf/typesafe-on-neon" target="_blank" rel="noopener">Safer with Jev</a><span class="author">andrelandgraf</span><span class="stars">★ 2</span></td>
+<td class="pname"><a href="https://github.com/andrelandgraf/typesafe-on-neon" target="_blank" rel="noopener">Safer with Jev</a><span class="author">andrelandgraf</span><span class="stars">2 stars</span></td>
 <td><span class="cat" style="--c:#e05c5c">Security &amp; Guardrails</span><span class="vs">✓ verified</span><span class="metric">Pass / block</span></td>
 <td class="what">A content gate for HTTP requests: Jev checks for injected instructions or unsafe content before forwarding.</td>
 <td class="jev">Judges whether request content may pass; local code forwards on pass, holds on review or block.</td>
 <td class="note">Gate-then-forward for outbound content - same as my send-gates.</td>
 </tr><tr class="row" data-cat="Context GC &amp; Filter" data-s="fast-jev-compaction tamaratran compaction for claude code: prunes stale tool calls and results, keeps surviving content verbatim - no lossy summaries. per call, two noul questions (keep call? keep result verbatim?); local rules keep, truncate to 300 chars, or delete. fully studied and adopted - verbatim pruning over lossy summaries.">
 <td class="idx">14</td>
-<td class="pname"><a href="https://github.com/tamaratran/fast-jev-compaction" target="_blank" rel="noopener">fast-jev-compaction</a><span class="author">tamaratran</span><span class="stars">★ 1,628</span></td>
+<td class="pname"><a href="https://github.com/tamaratran/fast-jev-compaction" target="_blank" rel="noopener">fast-jev-compaction</a><span class="author">tamaratran</span><span class="stars">1,628 stars</span></td>
 <td><span class="cat" style="--c:#5faf6e">Context GC &amp; Filter</span><span class="vs">reviewed</span></td>
 <td class="what">Compaction for Claude Code: prunes stale tool calls and results, keeps surviving content verbatim - no lossy summaries.</td>
 <td class="jev">Per call, two Noul questions (keep call? keep result verbatim?); local rules keep, truncate to 300 chars, or delete.</td>
 <td class="note">Fully studied and adopted - verbatim pruning over lossy summaries.</td>
 </tr><tr class="row" data-cat="Codebase &amp; Graph Pathfinding" data-s="jev-review niazmorshed2007 a quality dashboard for coding agents: after each change, check readability, security, tests etc. improved or not. focused diff + context scored via score/choice/noul per dimension, compared against the previous round. delta-scoring between iterations - a model for measuring my own edit quality.">
 <td class="idx">15</td>
-<td class="pname"><a href="https://github.com/NiazMorshed2007/jev-review" target="_blank" rel="noopener">jev-review</a><span class="author">NiazMorshed2007</span><span class="stars">★ 93</span></td>
+<td class="pname"><a href="https://github.com/NiazMorshed2007/jev-review" target="_blank" rel="noopener">jev-review</a><span class="author">NiazMorshed2007</span><span class="stars">93 stars</span></td>
 <td><span class="cat" style="--c:#9a7cf0">Codebase &amp; Graph Pathfinding</span><span class="vs">reviewed</span></td>
 <td class="what">A quality dashboard for coding agents: after each change, check readability, security, tests etc. improved or not.</td>
 <td class="jev">Focused diff + context scored via Score/Choice/Noul per dimension, compared against the previous round.</td>
 <td class="note">Delta-scoring between iterations - a model for measuring my own edit quality.</td>
 </tr><tr class="row" data-cat="Data &amp; Search" data-s="pg-jev realzachi lets sql ask &#x27;which tickets have angry customers&#x27; - plain-language row filtering, classification and ordering. rows batched to jev returning match/category/score, usable as where, group by, order by. batch semantic filtering of tabular data - perfect for lead lists and inbox triage.">
 <td class="idx">16</td>
-<td class="pname"><a href="https://github.com/realZachi/pg-jev" target="_blank" rel="noopener">pg-jev</a><span class="author">realZachi</span><span class="stars">★ 80</span></td>
+<td class="pname"><a href="https://github.com/realZachi/pg-jev" target="_blank" rel="noopener">pg-jev</a><span class="author">realZachi</span><span class="stars">80 stars</span></td>
 <td><span class="cat" style="--c:#4f9ed9">Data &amp; Search</span><span class="vs">reviewed</span></td>
 <td class="what">Lets SQL ask &#x27;which tickets have angry customers&#x27; - plain-language row filtering, classification and ordering.</td>
 <td class="jev">Rows batched to Jev returning match/category/score, usable as WHERE, GROUP BY, ORDER BY.</td>
 <td class="note">Batch semantic filtering of tabular data - perfect for lead lists and inbox triage.</td>
 </tr><tr class="row" data-cat="High-Frequency &amp; Simulation" data-s="jevpilot standardagents drive a small car in the browser; jev picks from precomputed routes and speeds. reads road state, nearby cars and candidate trajectories; collision prediction and emergency braking stay in code. deterministic feasibility first, evaluator only picks among legal options. adopt.">
 <td class="idx">17</td>
-<td class="pname"><a href="https://github.com/standardagents/jevpilot" target="_blank" rel="noopener">jevpilot</a><span class="author">standardagents</span><span class="stars">★ 41</span></td>
+<td class="pname"><a href="https://github.com/standardagents/jevpilot" target="_blank" rel="noopener">jevpilot</a><span class="author">standardagents</span><span class="stars">41 stars</span></td>
 <td><span class="cat" style="--c:#d96a9f">High-Frequency &amp; Simulation</span><span class="vs">reviewed</span></td>
 <td class="what">Drive a small car in the browser; Jev picks from precomputed routes and speeds.</td>
 <td class="jev">Reads road state, nearby cars and candidate trajectories; collision prediction and emergency braking stay in code.</td>
 <td class="note">Deterministic feasibility first, evaluator only picks among legal options. Adopt.</td>
 </tr><tr class="row" data-cat="Browser &amp; OS Action" data-s="jev-browser jkudish give it a url and task; it picks buttons, fills fields, pages through, and returns content plus an action log. choice per step for the dom action + two noul probes: done yet? stuck yet? text goes to a small model. explicit done/stuck probes - add an &#x27;am i stuck?&#x27; check to my long browser loops.">
 <td class="idx">18</td>
-<td class="pname"><a href="https://github.com/jkudish/jev-browser" target="_blank" rel="noopener">jev-browser</a><span class="author">jkudish</span><span class="stars">★ 33</span></td>
+<td class="pname"><a href="https://github.com/jkudish/jev-browser" target="_blank" rel="noopener">jev-browser</a><span class="author">jkudish</span><span class="stars">33 stars</span></td>
 <td><span class="cat" style="--c:#7c8cff">Browser &amp; OS Action</span><span class="vs">reviewed</span></td>
 <td class="what">Give it a URL and task; it picks buttons, fills fields, pages through, and returns content plus an action log.</td>
 <td class="jev">Choice per step for the DOM action + two Noul probes: done yet? stuck yet? Text goes to a small model.</td>
 <td class="note">Explicit done/stuck probes - add an &#x27;am I stuck?&#x27; check to my long browser loops.</td>
 </tr><tr class="row" data-cat="Security &amp; Guardrails" data-s="pi-jev y0usaf a risk observer for the pi coding agent: pre-exec checks if commands overstep, post-exec scans logs for leaked secrets and error handling. pre-judges destructiveness, exfiltration, scope and impact; post-judges secret detection and error class; exposes jev_ask. pre + post command review mirrors my approval-first policy.">
 <td class="idx">19</td>
-<td class="pname"><a href="https://github.com/y0usaf/pi-jev" target="_blank" rel="noopener">pi-jev</a><span class="author">y0usaf</span><span class="stars">★ 30</span></td>
+<td class="pname"><a href="https://github.com/y0usaf/pi-jev" target="_blank" rel="noopener">pi-jev</a><span class="author">y0usaf</span><span class="stars">30 stars</span></td>
 <td><span class="cat" style="--c:#e05c5c">Security &amp; Guardrails</span><span class="vs">reviewed</span></td>
 <td class="what">A risk observer for the Pi coding agent: pre-exec checks if commands overstep, post-exec scans logs for leaked secrets and error handling.</td>
 <td class="jev">Pre-judges destructiveness, exfiltration, scope and impact; post-judges secret detection and error class; exposes jev_ask.</td>
 <td class="note">Pre + post command review mirrors my approval-first policy.</td>
 </tr><tr class="row" data-cat="Security &amp; Guardrails" data-s="pi-jev-auto-mode jomatsu a gate for pi command execution: clearly-safe passes on rules, the rest goes to jev; default is block when unsure. hard-deny/allow rules first; jev judges escalated bash/write/edit against authorization and risk conditions. deterministic rules resolve the obvious; model judgment only for the uncertain band. adopt.">
 <td class="idx">20</td>
-<td class="pname"><a href="https://github.com/jomatsu/pi-jev-auto-mode" target="_blank" rel="noopener">pi-jev-auto-mode</a><span class="author">jomatsu</span><span class="stars">★ 8</span></td>
+<td class="pname"><a href="https://github.com/jomatsu/pi-jev-auto-mode" target="_blank" rel="noopener">pi-jev-auto-mode</a><span class="author">jomatsu</span><span class="stars">8 stars</span></td>
 <td><span class="cat" style="--c:#e05c5c">Security &amp; Guardrails</span><span class="vs">reviewed</span></td>
 <td class="what">A gate for Pi command execution: clearly-safe passes on rules, the rest goes to Jev; default is block when unsure.</td>
 <td class="jev">Hard-deny/allow rules first; Jev judges escalated bash/write/edit against authorization and risk conditions.</td>
 <td class="note">Deterministic rules resolve the obvious; model judgment only for the uncertain band. Adopt.</td>
 </tr><tr class="row" data-cat="Domain &amp; Vertical Tools" data-s="jev-trades zadescoxp practice simulated crypto trading on live market data; panel shows virtual positions and indicators, no real order api. reads completed minute candles and indicators, returns structured trade judgments; python applies confidence and position limits. paper mode by default, confidence + limits in code - my exact money policy.">
 <td class="idx">21</td>
-<td class="pname"><a href="https://github.com/zadescoxp/Jev-Trades" target="_blank" rel="noopener">Jev-Trades</a><span class="author">zadescoxp</span><span class="stars">★ 7</span></td>
+<td class="pname"><a href="https://github.com/zadescoxp/Jev-Trades" target="_blank" rel="noopener">Jev-Trades</a><span class="author">zadescoxp</span><span class="stars">7 stars</span></td>
 <td><span class="cat" style="--c:#e88a5d">Domain &amp; Vertical Tools</span><span class="vs">reviewed</span></td>
 <td class="what">Practice simulated crypto trading on live market data; panel shows virtual positions and indicators, no real order API.</td>
 <td class="jev">Reads completed minute candles and indicators, returns structured trade judgments; Python applies confidence and position limits.</td>
 <td class="note">Paper mode by default, confidence + limits in code - my exact money policy.</td>
 </tr><tr class="row" data-cat="MCP &amp; Integrations" data-s="jev dannote turns jev into an async companion in elixir programs; pattern-match the answers to decide next steps. converts noul/choice/score replies into elixir maps routed by genserver handle_answer and guards. language binding - confirms the api is trivially wrappable anywhere.">
 <td class="idx">22</td>
-<td class="pname"><a href="https://github.com/dannote/jev" target="_blank" rel="noopener">jev</a><span class="author">dannote</span><span class="stars">★ 7</span></td>
+<td class="pname"><a href="https://github.com/dannote/jev" target="_blank" rel="noopener">jev</a><span class="author">dannote</span><span class="stars">7 stars</span></td>
 <td><span class="cat" style="--c:#4fc3a1">MCP &amp; Integrations</span><span class="vs">reviewed</span></td>
 <td class="what">Turns Jev into an async companion in Elixir programs; pattern-match the answers to decide next steps.</td>
 <td class="jev">Converts Noul/Choice/Score replies into Elixir maps routed by GenServer handle_answer and guards.</td>
 <td class="note">Language binding - confirms the API is trivially wrappable anywhere.</td>
 </tr><tr class="row" data-cat="MCP &amp; Integrations" data-s="jev-mcp blakestone-x adds classify, score, yes-no and candidate-matching tools to mcp clients. translates tool arguments into jev choice/score/noul questions and returns structured answers. same trio again - the universal three question types.">
 <td class="idx">23</td>
-<td class="pname"><a href="https://github.com/blakestone-x/jev-mcp" target="_blank" rel="noopener">jev-mcp</a><span class="author">blakestone-x</span><span class="stars">★ 7</span></td>
+<td class="pname"><a href="https://github.com/blakestone-x/jev-mcp" target="_blank" rel="noopener">jev-mcp</a><span class="author">blakestone-x</span><span class="stars">7 stars</span></td>
 <td><span class="cat" style="--c:#4fc3a1">MCP &amp; Integrations</span><span class="vs">reviewed</span></td>
 <td class="what">Adds classify, score, yes-no and candidate-matching tools to MCP clients.</td>
 <td class="jev">Translates tool arguments into Jev Choice/Score/Noul questions and returns structured answers.</td>
 <td class="note">Same trio again - the universal three question types.</td>
 </tr><tr class="row" data-cat="Domain &amp; Vertical Tools" data-s="ha-jev abovecolin smart home answers like &#x27;is the laundry done but forgotten?&#x27; - jev answers become home assistant sensors feeding automations. selected device/entity states go to jev; probability/option/score comes back and thresholds trigger automations. probability-as-sensor + threshold automation - elegant home pattern.">
 <td class="idx">24</td>
-<td class="pname"><a href="https://github.com/AboveColin/HA-Jev" target="_blank" rel="noopener">HA-Jev</a><span class="author">AboveColin</span><span class="stars">★ 6</span></td>
+<td class="pname"><a href="https://github.com/AboveColin/HA-Jev" target="_blank" rel="noopener">HA-Jev</a><span class="author">AboveColin</span><span class="stars">6 stars</span></td>
 <td><span class="cat" style="--c:#e88a5d">Domain &amp; Vertical Tools</span><span class="vs">reviewed</span></td>
 <td class="what">Smart home answers like &#x27;is the laundry done but forgotten?&#x27; - Jev answers become Home Assistant sensors feeding automations.</td>
 <td class="jev">Selected device/entity states go to Jev; probability/option/score comes back and thresholds trigger automations.</td>
 <td class="note">Probability-as-sensor + threshold automation - elegant home pattern.</td>
 </tr><tr class="row" data-cat="Decision Tools" data-s="jev-benchmarks abdelstark puts jev and gliner on the same classification problems, checking probability calibration, not just accuracy. classifies fixed text/label sets, recording per-label probability, latency and failures. calibration benchmarking before trusting probabilities. adopt for my thresholds.">
 <td class="idx">25</td>
-<td class="pname"><a href="https://github.com/AbdelStark/jev-benchmarks" target="_blank" rel="noopener">jev-benchmarks</a><span class="author">AbdelStark</span><span class="stars">★ 6</span></td>
+<td class="pname"><a href="https://github.com/AbdelStark/jev-benchmarks" target="_blank" rel="noopener">jev-benchmarks</a><span class="author">AbdelStark</span><span class="stars">6 stars</span></td>
 <td><span class="cat" style="--c:#b0894c">Decision Tools</span><span class="vs">reviewed</span></td>
 <td class="what">Puts Jev and GLiNER on the same classification problems, checking probability calibration, not just accuracy.</td>
 <td class="jev">Classifies fixed text/label sets, recording per-label probability, latency and failures.</td>
 <td class="note">Calibration benchmarking before trusting probabilities. Adopt for my thresholds.</td>
 </tr><tr class="row" data-cat="MCP &amp; Integrations" data-s="jevbridge gamesonrblx a structured-decision adapter for existing agents: same questions can go to jev, a normal model, or offline rules. answers choice/score/noul, then sorts action advice by confidence into execute/confirm/escalate/abandon. identical ladder to my system-one skill + multi-backend fallback. validated.">
 <td class="idx">26</td>
-<td class="pname"><a href="https://github.com/gamesonrblx/Jevbridge" target="_blank" rel="noopener">Jevbridge</a><span class="author">gamesonrblx</span><span class="stars">★ 7</span></td>
+<td class="pname"><a href="https://github.com/gamesonrblx/Jevbridge" target="_blank" rel="noopener">Jevbridge</a><span class="author">gamesonrblx</span><span class="stars">7 stars</span></td>
 <td><span class="cat" style="--c:#4fc3a1">MCP &amp; Integrations</span><span class="vs">reviewed</span></td>
 <td class="what">A structured-decision adapter for existing agents: same questions can go to Jev, a normal model, or offline rules.</td>
 <td class="jev">Answers Choice/Score/Noul, then sorts action advice by confidence into execute/confirm/escalate/abandon.</td>
 <td class="note">Identical ladder to my system-one skill + multi-backend fallback. Validated.</td>
 </tr><tr class="row" data-cat="CLI &amp; Pipelines" data-s="jev-playground mizchi a moonbit playground: jev plays gomoku, a mini moba, judges command risk, and tries writing judgments as a mini-language. board/game state/commands/candidate tasks become typed questions; jev picks actions or scores risk. experiment playground pattern - cheap way to test a new decision shape.">
 <td class="idx">27</td>
-<td class="pname"><a href="https://github.com/mizchi/jev-playground" target="_blank" rel="noopener">jev-playground</a><span class="author">mizchi</span><span class="stars">★ 5</span></td>
+<td class="pname"><a href="https://github.com/mizchi/jev-playground" target="_blank" rel="noopener">jev-playground</a><span class="author">mizchi</span><span class="stars">5 stars</span></td>
 <td><span class="cat" style="--c:#c9a84c">CLI &amp; Pipelines</span><span class="vs">reviewed</span></td>
 <td class="what">A MoonBit playground: Jev plays gomoku, a mini MOBA, judges command risk, and tries writing judgments as a mini-language.</td>
 <td class="jev">Board/game state/commands/candidate tasks become typed questions; Jev picks actions or scores risk.</td>
 <td class="note">Experiment playground pattern - cheap way to test a new decision shape.</td>
 </tr><tr class="row" data-cat="MCP &amp; Integrations" data-s="zod-jev jomatsu adds a &#x27;does the meaning match&#x27; layer to zod form validation: after format passes, check description match and pii. merges semantic rules of one parse into jev noul questions; maps probability to pass/reject/uncertain/unavailable. format-valid is not semantically-valid - separate semantic check. adopt.">
 <td class="idx">28</td>
-<td class="pname"><a href="https://github.com/jomatsu/zod-jev" target="_blank" rel="noopener">zod-jev</a><span class="author">jomatsu</span><span class="stars">★ 5</span></td>
+<td class="pname"><a href="https://github.com/jomatsu/zod-jev" target="_blank" rel="noopener">zod-jev</a><span class="author">jomatsu</span><span class="stars">5 stars</span></td>
 <td><span class="cat" style="--c:#4fc3a1">MCP &amp; Integrations</span><span class="vs">reviewed</span></td>
 <td class="what">Adds a &#x27;does the meaning match&#x27; layer to Zod form validation: after format passes, check description match and PII.</td>
 <td class="jev">Merges semantic rules of one parse into Jev Noul questions; maps probability to pass/reject/uncertain/unavailable.</td>
 <td class="note">Format-valid is not semantically-valid - separate semantic check. Adopt.</td>
 </tr><tr class="row" data-cat="CLI &amp; Pipelines" data-s="jev-lm y0usaf treats the next word as a multiple-choice question to compose sentences; also picks whole drafted continuations. choice over words; noul judges whether a candidate continuation fits and whether to stop. creative but marginal for me - generation stays with generative models.">
 <td class="idx">29</td>
-<td class="pname"><a href="https://github.com/y0usaf/jev-lm" target="_blank" rel="noopener">jev-lm</a><span class="author">y0usaf</span><span class="stars">★ 4</span></td>
+<td class="pname"><a href="https://github.com/y0usaf/jev-lm" target="_blank" rel="noopener">jev-lm</a><span class="author">y0usaf</span><span class="stars">4 stars</span></td>
 <td><span class="cat" style="--c:#c9a84c">CLI &amp; Pipelines</span><span class="vs">reviewed</span></td>
 <td class="what">Treats the next word as a multiple-choice question to compose sentences; also picks whole drafted continuations.</td>
 <td class="jev">Choice over words; Noul judges whether a candidate continuation fits and whether to stop.</td>
 <td class="note">Creative but marginal for me - generation stays with generative models.</td>
 </tr><tr class="row" data-cat="Data &amp; Search" data-s="jev-search superagents-lab search the web in plain language: pick the source and time range, then rank relevant links. returns links and snippets. structured judgment picks retrieval parameters, then scores titles/snippets from search1api. retrieval parameter selection + result reranking - useful in my research loops.">
 <td class="idx">30</td>
-<td class="pname"><a href="https://github.com/superagents-lab/jev-search" target="_blank" rel="noopener">jev-search</a><span class="author">superagents-lab</span><span class="stars">★ 6</span></td>
+<td class="pname"><a href="https://github.com/superagents-lab/jev-search" target="_blank" rel="noopener">jev-search</a><span class="author">superagents-lab</span><span class="stars">6 stars</span></td>
 <td><span class="cat" style="--c:#4f9ed9">Data &amp; Search</span><span class="vs">reviewed</span></td>
 <td class="what">Search the web in plain language: pick the source and time range, then rank relevant links. Returns links and snippets.</td>
 <td class="jev">Structured judgment picks retrieval parameters, then scores titles/snippets from Search1API.</td>
 <td class="note">Retrieval parameter selection + result reranking - useful in my research loops.</td>
 </tr><tr class="row" data-cat="High-Frequency &amp; Simulation" data-s="live-jev vinilana top-down car simulator: jev picks lane and speed, and can race a chat model on the same route. one request judges lane change, speed, danger and yield; code enforces thresholds. multi-question batching per tick - one call, many decisions.">
 <td class="idx">31</td>
-<td class="pname"><a href="https://github.com/vinilana/live-jev" target="_blank" rel="noopener">live-jev</a><span class="author">vinilana</span><span class="stars">★ 3</span></td>
+<td class="pname"><a href="https://github.com/vinilana/live-jev" target="_blank" rel="noopener">live-jev</a><span class="author">vinilana</span><span class="stars">3 stars</span></td>
 <td><span class="cat" style="--c:#d96a9f">High-Frequency &amp; Simulation</span><span class="vs">reviewed</span></td>
 <td class="what">Top-down car simulator: Jev picks lane and speed, and can race a chat model on the same route.</td>
 <td class="jev">One request judges lane change, speed, danger and yield; code enforces thresholds.</td>
 <td class="note">Multi-question batching per tick - one call, many decisions.</td>
 </tr><tr class="row" data-cat="Codebase &amp; Graph Pathfinding" data-s="jev-code devagrawal09 a helper for coding agents: find relevant files, check if a change drifted off-task, tidy test failures and review comments. picks one of four fixed flows, then judges limited diff/code/log snippets; local rules assemble a located report. fixed flows constrain the choice space - fewer, better-defined decisions.">
 <td class="idx">32</td>
-<td class="pname"><a href="https://github.com/devagrawal09/jev-code" target="_blank" rel="noopener">jev-code</a><span class="author">devagrawal09</span><span class="stars">★ 3</span></td>
+<td class="pname"><a href="https://github.com/devagrawal09/jev-code" target="_blank" rel="noopener">jev-code</a><span class="author">devagrawal09</span><span class="stars">3 stars</span></td>
 <td><span class="cat" style="--c:#9a7cf0">Codebase &amp; Graph Pathfinding</span><span class="vs">reviewed</span></td>
 <td class="what">A helper for coding agents: find relevant files, check if a change drifted off-task, tidy test failures and review comments.</td>
 <td class="jev">Picks one of four fixed flows, then judges limited diff/code/log snippets; local rules assemble a located report.</td>
 <td class="note">Fixed flows constrain the choice space - fewer, better-defined decisions.</td>
 </tr><tr class="row" data-cat="MCP &amp; Integrations" data-s="daf-jev docxology a python toolbox of jev parts: ask, batch samples, inspect calibration, wire into programs or mcp. builds noul/choice/score questions, combines scores/routes/thresholds in local functions. batch + calibration tooling - the observability side most projects skip.">
 <td class="idx">33</td>
-<td class="pname"><a href="https://github.com/docxology/daf-jev" target="_blank" rel="noopener">daf-jev</a><span class="author">docxology</span><span class="stars">★ 3</span></td>
+<td class="pname"><a href="https://github.com/docxology/daf-jev" target="_blank" rel="noopener">daf-jev</a><span class="author">docxology</span><span class="stars">3 stars</span></td>
 <td><span class="cat" style="--c:#4fc3a1">MCP &amp; Integrations</span><span class="vs">reviewed</span></td>
 <td class="what">A Python toolbox of Jev parts: ask, batch samples, inspect calibration, wire into programs or MCP.</td>
 <td class="jev">Builds Noul/Choice/Score questions, combines scores/routes/thresholds in local functions.</td>
 <td class="note">Batch + calibration tooling - the observability side most projects skip.</td>
 </tr><tr class="row" data-cat="CLI &amp; Pipelines" data-s="jev-chat adhyaay-karnwal a research chat decoder: keeps asking jev to pick words or phrases, code stitches the answer together. picks next segment from hierarchical candidate tables, or a whole reply at once. hierarchical choice trees for constrained generation.">
 <td class="idx">34</td>
-<td class="pname"><a href="https://github.com/adhyaay-karnwal/jev-chat" target="_blank" rel="noopener">jev-chat</a><span class="author">adhyaay-karnwal</span><span class="stars">★ 3</span></td>
+<td class="pname"><a href="https://github.com/adhyaay-karnwal/jev-chat" target="_blank" rel="noopener">jev-chat</a><span class="author">adhyaay-karnwal</span><span class="stars">3 stars</span></td>
 <td><span class="cat" style="--c:#c9a84c">CLI &amp; Pipelines</span><span class="vs">reviewed</span></td>
 <td class="what">A research chat decoder: keeps asking Jev to pick words or phrases, code stitches the answer together.</td>
 <td class="jev">Picks next segment from hierarchical candidate tables, or a whole reply at once.</td>
 <td class="note">Hierarchical choice trees for constrained generation.</td>
 </tr><tr class="row" data-cat="CLI &amp; Pipelines" data-s="jev-cli tumf send text or json in the terminal, get back yes-no/which/score as json you can pipe onward. single or multi-question state sent to jev; returns full json or just the main value. thin client - my jev_ask.py already covers this.">
 <td class="idx">35</td>
-<td class="pname"><a href="https://github.com/tumf/jev-cli" target="_blank" rel="noopener">jev-cli</a><span class="author">tumf</span><span class="stars">★ 2</span></td>
+<td class="pname"><a href="https://github.com/tumf/jev-cli" target="_blank" rel="noopener">jev-cli</a><span class="author">tumf</span><span class="stars">2 stars</span></td>
 <td><span class="cat" style="--c:#c9a84c">CLI &amp; Pipelines</span><span class="vs">reviewed</span></td>
 <td class="what">Send text or JSON in the terminal, get back yes-no/which/score as JSON you can pipe onward.</td>
 <td class="jev">Single or multi-question state sent to Jev; returns full JSON or just the main value.</td>
 <td class="note">Thin client - my jev_ask.py already covers this.</td>
 </tr><tr class="row" data-cat="Browser &amp; OS Action" data-s="askjev ranjan2829 a task copilot for the browser: after a goal it clicks and fills; pauses to confirm on payment, deletion and other high-risk actions. picks the next action from interactive elements and rates click risk and irreversibility. risk-aware pauses = my approval gate on irreversible actions.">
 <td class="idx">36</td>
-<td class="pname"><a href="https://github.com/ranjan2829/AskJev" target="_blank" rel="noopener">AskJev</a><span class="author">ranjan2829</span><span class="stars">★ 2</span></td>
+<td class="pname"><a href="https://github.com/ranjan2829/AskJev" target="_blank" rel="noopener">AskJev</a><span class="author">ranjan2829</span><span class="stars">2 stars</span></td>
 <td><span class="cat" style="--c:#7c8cff">Browser &amp; OS Action</span><span class="vs">reviewed</span></td>
 <td class="what">A task copilot for the browser: after a goal it clicks and fills; pauses to confirm on payment, deletion and other high-risk actions.</td>
 <td class="jev">Picks the next action from interactive elements and rates click risk and irreversibility.</td>
 <td class="note">Risk-aware pauses = my approval gate on irreversible actions.</td>
 </tr><tr class="row" data-cat="Domain &amp; Vertical Tools" data-s="jev-for-engineers foadsf eight jev experiments for mechanical/electrical engineering: dispatch design tasks, check simulation logs, match parts. classifies engineering text, picks candidates, judges risk; dimension math and final handling stay in normal code. domain experiments with code having final say - the right division of labor.">
 <td class="idx">37</td>
-<td class="pname"><a href="https://github.com/Foadsf/jev-for-engineers" target="_blank" rel="noopener">jev-for-engineers</a><span class="author">Foadsf</span><span class="stars">★ 2</span></td>
+<td class="pname"><a href="https://github.com/Foadsf/jev-for-engineers" target="_blank" rel="noopener">jev-for-engineers</a><span class="author">Foadsf</span><span class="stars">2 stars</span></td>
 <td><span class="cat" style="--c:#e88a5d">Domain &amp; Vertical Tools</span><span class="vs">reviewed</span></td>
 <td class="what">Eight Jev experiments for mechanical/electrical engineering: dispatch design tasks, check simulation logs, match parts.</td>
 <td class="jev">Classifies engineering text, picks candidates, judges risk; dimension math and final handling stay in normal code.</td>
 <td class="note">Domain experiments with code having final say - the right division of labor.</td>
 </tr><tr class="row" data-cat="CLI &amp; Pipelines" data-s="jev-system-one haseeb-heaven terminal tool: openai writes the answer, jev picks the answer mode, checks the draft and decides on rewrites. judges mode, depth and clarification need, then checks draft relevance and unsupported claims. evaluator-as-editor over generative drafts - bounded relevance/claim checks before sending. adopt.">
 <td class="idx">38</td>
-<td class="pname"><a href="https://github.com/haseeb-heaven/jev-system-one" target="_blank" rel="noopener">jev-system-one</a><span class="author">haseeb-heaven</span><span class="stars">★ 2</span></td>
+<td class="pname"><a href="https://github.com/haseeb-heaven/jev-system-one" target="_blank" rel="noopener">jev-system-one</a><span class="author">haseeb-heaven</span><span class="stars">2 stars</span></td>
 <td><span class="cat" style="--c:#c9a84c">CLI &amp; Pipelines</span><span class="vs">reviewed</span></td>
 <td class="what">Terminal tool: OpenAI writes the answer, Jev picks the answer mode, checks the draft and decides on rewrites.</td>
 <td class="jev">Judges mode, depth and clarification need, then checks draft relevance and unsupported claims.</td>
 <td class="note">Evaluator-as-editor over generative drafts - bounded relevance/claim checks before sending. Adopt.</td>
 </tr><tr class="row" data-cat="High-Frequency &amp; Simulation" data-s="jevbird leftspace89 jev plays flappy bird: code first computes candidate flight paths, the model picks one. usually one choice per pipe over candidate trajectories plus a noul danger check; code schedules wing flaps. compute the legal option set first, evaluate second - jevpilot&#x27;s lesson again.">
 <td class="idx">39</td>
-<td class="pname"><a href="https://github.com/leftspace89/JevBird" target="_blank" rel="noopener">JevBird</a><span class="author">leftspace89</span><span class="stars">★ 2</span></td>
+<td class="pname"><a href="https://github.com/leftspace89/JevBird" target="_blank" rel="noopener">JevBird</a><span class="author">leftspace89</span><span class="stars">2 stars</span></td>
 <td><span class="cat" style="--c:#d96a9f">High-Frequency &amp; Simulation</span><span class="vs">reviewed</span></td>
 <td class="what">Jev plays Flappy Bird: code first computes candidate flight paths, the model picks one.</td>
 <td class="jev">Usually one Choice per pipe over candidate trajectories plus a Noul danger check; code schedules wing flaps.</td>
 <td class="note">Compute the legal option set first, evaluate second - jevpilot&#x27;s lesson again.</td>
 </tr><tr class="row" data-cat="Security &amp; Guardrails" data-s="jev-judgment hyunjunjeon one judgment check for coding agents: should it ask the user? is the command in scope? can it retry after failure? answers authorization clarity, operation risk and failure class from conversation and command results. ask-vs-act formalized + failure-class typing. adopt into my escalation rules.">
 <td class="idx">40</td>
-<td class="pname"><a href="https://github.com/HyunjunJeon/jev-judgment" target="_blank" rel="noopener">jev-judgment</a><span class="author">HyunjunJeon</span><span class="stars">★ 2</span></td>
+<td class="pname"><a href="https://github.com/HyunjunJeon/jev-judgment" target="_blank" rel="noopener">jev-judgment</a><span class="author">HyunjunJeon</span><span class="stars">2 stars</span></td>
 <td><span class="cat" style="--c:#e05c5c">Security &amp; Guardrails</span><span class="vs">reviewed</span></td>
 <td class="what">One judgment check for coding agents: should it ask the user? is the command in scope? can it retry after failure?</td>
 <td class="jev">Answers authorization clarity, operation risk and failure class from conversation and command results.</td>
 <td class="note">Ask-vs-act formalized + failure-class typing. Adopt into my escalation rules.</td>
 </tr><tr class="row" data-cat="CLI &amp; Pipelines" data-s="jev-cli jtsang4 terminal yes/no/classify/score questions with script-readable json output. classification, boolean and graded scoring over the same input, returning options with probabilities. thin cli client - duplicate of the jev-cli pattern.">
 <td class="idx">41</td>
-<td class="pname"><a href="https://github.com/jtsang4/jev-cli" target="_blank" rel="noopener">jev-cli</a><span class="author">jtsang4</span><span class="stars">★ 1</span></td>
+<td class="pname"><a href="https://github.com/jtsang4/jev-cli" target="_blank" rel="noopener">jev-cli</a><span class="author">jtsang4</span><span class="stars">1 stars</span></td>
 <td><span class="cat" style="--c:#c9a84c">CLI &amp; Pipelines</span><span class="vs">reviewed</span></td>
 <td class="what">Terminal yes/no/classify/score questions with script-readable JSON output.</td>
 <td class="jev">Classification, boolean and graded scoring over the same input, returning options with probabilities.</td>
 <td class="note">Thin CLI client - duplicate of the jev-cli pattern.</td>
 </tr><tr class="row" data-cat="Codebase &amp; Graph Pathfinding" data-s="claude-jev buchmark a second-opinion helper for claude code review conclusions: scores suspected bugs, debug hypotheses, designs and search results to set priority. judges whether defects exist and are triggerable, which hypothesis best fits symptoms, which files matter. prioritization scoring for investigation queues. adopt.">
 <td class="idx">42</td>
-<td class="pname"><a href="https://github.com/buchmark/claude-jev" target="_blank" rel="noopener">claude-jev</a><span class="author">buchmark</span><span class="stars">★ 1</span></td>
+<td class="pname"><a href="https://github.com/buchmark/claude-jev" target="_blank" rel="noopener">claude-jev</a><span class="author">buchmark</span><span class="stars">1 stars</span></td>
 <td><span class="cat" style="--c:#9a7cf0">Codebase &amp; Graph Pathfinding</span><span class="vs">reviewed</span></td>
 <td class="what">A second-opinion helper for Claude Code review conclusions: scores suspected bugs, debug hypotheses, designs and search results to set priority.</td>
 <td class="jev">Judges whether defects exist and are triggerable, which hypothesis best fits symptoms, which files matter.</td>
 <td class="note">Prioritization scoring for investigation queues. Adopt.</td>
 </tr><tr class="row" data-cat="Browser &amp; OS Action" data-s="jev-browser tontoko lets playwright understand natural-language page operations: click, fill whole forms, extract by record; cli/mcp/sdk with persistent sessions. picks action target, field-to-input mapping and the value to extract from real page elements and text candidates. field-mapping as choice - directly useful for my form fills.">
 <td class="idx">43</td>
-<td class="pname"><a href="https://github.com/tontoko/jev-browser" target="_blank" rel="noopener">jev-browser</a><span class="author">tontoko</span><span class="stars">★ 1</span></td>
+<td class="pname"><a href="https://github.com/tontoko/jev-browser" target="_blank" rel="noopener">jev-browser</a><span class="author">tontoko</span><span class="stars">1 stars</span></td>
 <td><span class="cat" style="--c:#7c8cff">Browser &amp; OS Action</span><span class="vs">reviewed</span></td>
 <td class="what">Lets Playwright understand natural-language page operations: click, fill whole forms, extract by record; CLI/MCP/SDK with persistent sessions.</td>
 <td class="jev">Picks action target, field-to-input mapping and the value to extract from real page elements and text candidates.</td>
 <td class="note">Field-mapping as Choice - directly useful for my form fills.</td>
 </tr><tr class="row" data-cat="MCP &amp; Integrations" data-s="pi-jev theooliveira helps the pi coding agent find tools and skills per task; also offers structured judgment and optional model routing and history filtering. judges which disabled tools, skills and history items matter for the current task; local rules load or keep them. skill relevance gating - load only what the task needs. adopt.">
 <td class="idx">44</td>
-<td class="pname"><a href="https://github.com/TheoOliveira/pi-jev" target="_blank" rel="noopener">pi-jev</a><span class="author">TheoOliveira</span><span class="stars">★ 1</span></td>
+<td class="pname"><a href="https://github.com/TheoOliveira/pi-jev" target="_blank" rel="noopener">pi-jev</a><span class="author">TheoOliveira</span><span class="stars">1 stars</span></td>
 <td><span class="cat" style="--c:#4fc3a1">MCP &amp; Integrations</span><span class="vs">reviewed</span></td>
 <td class="what">Helps the Pi coding agent find tools and skills per task; also offers structured judgment and optional model routing and history filtering.</td>
 <td class="jev">Judges which disabled tools, skills and history items matter for the current task; local rules load or keep them.</td>
 <td class="note">Skill relevance gating - load only what the task needs. Adopt.</td>
 </tr><tr class="row" data-cat="Classification &amp; Taxonomy" data-s="jev-tree reachjalil too many options to ask at once? split the catalog into a tree; jev picks a branch per level until it lands on an item, event type or workflow. single choice among the current level&#x27;s candidate branches, then descend the chosen branch. deep option spaces become layered single-choices. adopt for big taxonomies.">
 <td class="idx">45</td>
-<td class="pname"><a href="https://github.com/reachjalil/jev-tree" target="_blank" rel="noopener">jev-tree</a><span class="author">reachjalil</span><span class="stars">★ 1</span></td>
+<td class="pname"><a href="https://github.com/reachjalil/jev-tree" target="_blank" rel="noopener">jev-tree</a><span class="author">reachjalil</span><span class="stars">1 stars</span></td>
 <td><span class="cat" style="--c:#a3b86c">Classification &amp; Taxonomy</span><span class="vs">reviewed</span></td>
 <td class="what">Too many options to ask at once? Split the catalog into a tree; Jev picks a branch per level until it lands on an item, event type or workflow.</td>
 <td class="jev">Single Choice among the current level&#x27;s candidate branches, then descend the chosen branch.</td>
 <td class="note">Deep option spaces become layered single-choices. Adopt for big taxonomies.</td>
 </tr><tr class="row" data-cat="SDK &amp; Decision Frameworks" data-s="jev-starter hamakyo fills in the second half of jev judgments inside apps: route results to auto-handling, a backup model or human review, logging each rule&#x27;s effect. provides options and probabilities for classification or checks; code thresholds decide the follow-up route. outcome logging per rule - close the loop on threshold quality.">
 <td class="idx">46</td>
-<td class="pname"><a href="https://github.com/hamakyo/jev-starter" target="_blank" rel="noopener">jev-starter</a><span class="author">hamakyo</span><span class="stars">★ 1</span></td>
+<td class="pname"><a href="https://github.com/hamakyo/jev-starter" target="_blank" rel="noopener">jev-starter</a><span class="author">hamakyo</span><span class="stars">1 stars</span></td>
 <td><span class="cat" style="--c:#5bb8d4">SDK &amp; Decision Frameworks</span><span class="vs">reviewed</span></td>
 <td class="what">Fills in the second half of Jev judgments inside apps: route results to auto-handling, a backup model or human review, logging each rule&#x27;s effect.</td>
 <td class="jev">Provides options and probabilities for classification or checks; code thresholds decide the follow-up route.</td>
 <td class="note">Outcome logging per rule - close the loop on threshold quality.</td>
 </tr><tr class="row" data-cat="Browser &amp; OS Action" data-s="aside-jev himomohi wires a jev decision helper into the aside browser agent: the agent lists executable actions, jev picks one, aside performs it. picks a candidate id from the app-provided action table; probability threshold decides execute, abandon or hand to human. app-declared action space + threshold gate - clean contract.">
 <td class="idx">47</td>
-<td class="pname"><a href="https://github.com/himomohi/aside-jev" target="_blank" rel="noopener">aside-jev</a><span class="author">himomohi</span><span class="stars">★ 1</span></td>
+<td class="pname"><a href="https://github.com/himomohi/aside-jev" target="_blank" rel="noopener">aside-jev</a><span class="author">himomohi</span><span class="stars">1 stars</span></td>
 <td><span class="cat" style="--c:#7c8cff">Browser &amp; OS Action</span><span class="vs">reviewed</span></td>
 <td class="what">Wires a Jev decision helper into the Aside browser agent: the agent lists executable actions, Jev picks one, Aside performs it.</td>
 <td class="jev">Picks a candidate ID from the app-provided action table; probability threshold decides execute, abandon or hand to human.</td>
 <td class="note">App-declared action space + threshold gate - clean contract.</td>
 </tr><tr class="row" data-cat="Context GC &amp; Filter" data-s="jev-skill-gate shivampansuriya don&#x27;t dump every installed skill&#x27;s instructions into claude code: ranks skills by current-project relevance, keeps useful ones visible, rest name-only. judges each installed skill&#x27;s relevance against stack, directories and readme; rules adjust visibility. exactly my skill-loading discipline, formalized. adopt.">
 <td class="idx">48</td>
-<td class="pname"><a href="https://github.com/ShivamPansuriya/jev-skill-gate" target="_blank" rel="noopener">jev-skill-gate</a><span class="author">ShivamPansuriya</span><span class="stars">★ 1</span></td>
+<td class="pname"><a href="https://github.com/ShivamPansuriya/jev-skill-gate" target="_blank" rel="noopener">jev-skill-gate</a><span class="author">ShivamPansuriya</span><span class="stars">1 stars</span></td>
 <td><span class="cat" style="--c:#5faf6e">Context GC &amp; Filter</span><span class="vs">reviewed</span></td>
 <td class="what">Don&#x27;t dump every installed skill&#x27;s instructions into Claude Code: ranks skills by current-project relevance, keeps useful ones visible, rest name-only.</td>
 <td class="jev">Judges each installed skill&#x27;s relevance against stack, directories and README; rules adjust visibility.</td>
 <td class="note">Exactly my skill-loading discipline, formalized. Adopt.</td>
 </tr><tr class="row" data-cat="Security &amp; Guardrails" data-s="jev-guard leepokai checks coding-agent tool calls before and after: dangerous? actually user-requested? does the response contain injected instructions? judges tool risk, user intent and prompt-injection signs with session context; rules allow, warn or block. injection screening on tool results - adopt for all web content i read.">
 <td class="idx">49</td>
-<td class="pname"><a href="https://github.com/leepokai/jev-guard" target="_blank" rel="noopener">jev-guard</a><span class="author">leepokai</span><span class="stars">★ 1</span></td>
+<td class="pname"><a href="https://github.com/leepokai/jev-guard" target="_blank" rel="noopener">jev-guard</a><span class="author">leepokai</span><span class="stars">1 stars</span></td>
 <td><span class="cat" style="--c:#e05c5c">Security &amp; Guardrails</span><span class="vs">reviewed</span></td>
 <td class="what">Checks coding-agent tool calls before and after: dangerous? actually user-requested? does the response contain injected instructions?</td>
 <td class="jev">Judges tool risk, user intent and prompt-injection signs with session context; rules allow, warn or block.</td>
 <td class="note">Injection screening on tool RESULTS - adopt for all web content I read.</td>
 </tr><tr class="row" data-cat="MCP &amp; Integrations" data-s="jev-mcp rashedint32 installs jev as a general mcp judgment tool: classify, score, yes-no checks, multiple questions per call. answers within caller-provided options and criteria; returns answers, distributions and rule-usable signals. generic judgment tool - duplicate of the mcp pattern.">
 <td class="idx">50</td>
-<td class="pname"><a href="https://github.com/rashedInt32/jev-mcp" target="_blank" rel="noopener">jev-mcp</a><span class="author">rashedInt32</span><span class="stars">★ 1</span></td>
+<td class="pname"><a href="https://github.com/rashedInt32/jev-mcp" target="_blank" rel="noopener">jev-mcp</a><span class="author">rashedInt32</span><span class="stars">1 stars</span></td>
 <td><span class="cat" style="--c:#4fc3a1">MCP &amp; Integrations</span><span class="vs">reviewed</span></td>
 <td class="what">Installs Jev as a general MCP judgment tool: classify, score, yes-no checks, multiple questions per call.</td>
 <td class="jev">Answers within caller-provided options and criteria; returns answers, distributions and rule-usable signals.</td>
 <td class="note">Generic judgment tool - duplicate of the MCP pattern.</td>
 </tr><tr class="row" data-cat="SDK &amp; Decision Frameworks" data-s="jevclient abovecolin a small async python client: fire many judgment questions at once, get classification, scores and probability objects back. answers boolean, choice and scoring questions around one shared state, returned to the python program. concurrent batching client - matches my parallel speculative reads.">
 <td class="idx">51</td>
-<td class="pname"><a href="https://github.com/AboveColin/jevclient" target="_blank" rel="noopener">jevclient</a><span class="author">AboveColin</span><span class="stars">★ 1</span></td>
+<td class="pname"><a href="https://github.com/AboveColin/jevclient" target="_blank" rel="noopener">jevclient</a><span class="author">AboveColin</span><span class="stars">1 stars</span></td>
 <td><span class="cat" style="--c:#5bb8d4">SDK &amp; Decision Frameworks</span><span class="vs">reviewed</span></td>
 <td class="what">A small async Python client: fire many judgment questions at once, get classification, scores and probability objects back.</td>
 <td class="jev">Answers boolean, choice and scoring questions around one shared state, returned to the Python program.</td>
 <td class="note">Concurrent batching client - matches my parallel speculative reads.</td>
 </tr><tr class="row" data-cat="MCP &amp; Integrations" data-s="jev-workbench molis-ai define, trial-run and publish jev judgment functions in a local web ui; backend and agents call the same pinned version. saves ticket-classification or evidence questions as noul/choice/score functions, then calls typesafe. versioned judgment definitions - judgments as managed artifacts.">
 <td class="idx">52</td>
-<td class="pname"><a href="https://github.com/molis-ai/jev-workbench" target="_blank" rel="noopener">jev-workbench</a><span class="author">molis-ai</span><span class="stars">★ 1</span></td>
+<td class="pname"><a href="https://github.com/molis-ai/jev-workbench" target="_blank" rel="noopener">jev-workbench</a><span class="author">molis-ai</span><span class="stars">1 stars</span></td>
 <td><span class="cat" style="--c:#4fc3a1">MCP &amp; Integrations</span><span class="vs">reviewed</span></td>
 <td class="what">Define, trial-run and publish Jev judgment functions in a local web UI; backend and agents call the same pinned version.</td>
 <td class="jev">Saves ticket-classification or evidence questions as Noul/Choice/Score functions, then calls TypeSafe.</td>
 <td class="note">Versioned judgment definitions - judgments as managed artifacts.</td>
 </tr><tr class="row" data-cat="Domain &amp; Vertical Tools" data-s="got-jev phureewat29 a game of thrones text adventure: the llm writes the story, jev judges location, mood and danger to switch music and backdrop. judges location, beat, mood, danger and infiction states for each new scene. state-tagging alongside generation - cheap scene metadata.">
 <td class="idx">53</td>
-<td class="pname"><a href="https://github.com/phureewat29/got-jev" target="_blank" rel="noopener">got-jev</a><span class="author">phureewat29</span><span class="stars">★ 1</span></td>
+<td class="pname"><a href="https://github.com/phureewat29/got-jev" target="_blank" rel="noopener">got-jev</a><span class="author">phureewat29</span><span class="stars">1 stars</span></td>
 <td><span class="cat" style="--c:#e88a5d">Domain &amp; Vertical Tools</span><span class="vs">reviewed</span></td>
 <td class="what">A Game of Thrones text adventure: the LLM writes the story, Jev judges location, mood and danger to switch music and backdrop.</td>
 <td class="jev">Judges location, beat, mood, danger and inFiction states for each new scene.</td>
 <td class="note">State-tagging alongside generation - cheap scene metadata.</td>
 </tr><tr class="row" data-cat="CLI &amp; Pipelines" data-s="pi-fast-jev-compaction joelhooks pi port of fast-jev-compaction: deletes stale tool calls and results, keeps originals, generates no summaries. asks per call whether to keep the call and its result; keeps, truncates or pair-deletes. port of repo #14 - same mechanism, different host.">
 <td class="idx">54</td>
-<td class="pname"><a href="https://github.com/joelhooks/pi-fast-jev-compaction" target="_blank" rel="noopener">pi-fast-jev-compaction</a><span class="author">joelhooks</span><span class="stars">★ 1</span></td>
+<td class="pname"><a href="https://github.com/joelhooks/pi-fast-jev-compaction" target="_blank" rel="noopener">pi-fast-jev-compaction</a><span class="author">joelhooks</span><span class="stars">1 stars</span></td>
 <td><span class="cat" style="--c:#c9a84c">CLI &amp; Pipelines</span><span class="vs">reviewed</span></td>
 <td class="what">Pi port of fast-jev-compaction: deletes stale tool calls and results, keeps originals, generates no summaries.</td>
 <td class="jev">Asks per call whether to keep the call and its result; keeps, truncates or pair-deletes.</td>
 <td class="note">Port of repo #14 - same mechanism, different host.</td>
 </tr><tr class="row" data-cat="MCP &amp; Integrations" data-s="hermes-jev-approvals anpicasso hermes command-approval plugin: jev picks approve, reject or hand-to-human, then code applies local policy. one request judges approval, policy override, blast radius, sensitive info and outbound behavior together. multi-factor approval batched into one call - matches my approval gates. adopt.">
 <td class="idx">55</td>
-<td class="pname"><a href="https://github.com/anpicasso/hermes-jev-approvals" target="_blank" rel="noopener">hermes-jev-approvals</a><span class="author">anpicasso</span><span class="stars">★ 2</span></td>
+<td class="pname"><a href="https://github.com/anpicasso/hermes-jev-approvals" target="_blank" rel="noopener">hermes-jev-approvals</a><span class="author">anpicasso</span><span class="stars">2 stars</span></td>
 <td><span class="cat" style="--c:#4fc3a1">MCP &amp; Integrations</span><span class="vs">reviewed</span></td>
 <td class="what">Hermes command-approval plugin: Jev picks approve, reject or hand-to-human, then code applies local policy.</td>
 <td class="jev">One request judges approval, policy override, blast radius, sensitive info and outbound behavior together.</td>
 <td class="note">Multi-factor approval batched into ONE call - matches my approval gates. Adopt.</td>
 </tr><tr class="row" data-cat="Decision Tools" data-s="jev-research sherajdev a guide to jev + herdr teamwork, with a small prototype that dispatches tasks to different agents. chooses the executor, judges risk and dispatch-readiness from task and repo state. router pattern - duplicate of the dispatch family.">
 <td class="idx">56</td>
-<td class="pname"><a href="https://github.com/sherajdev/jev-research" target="_blank" rel="noopener">jev-research</a><span class="author">sherajdev</span><span class="stars">★ 1</span></td>
+<td class="pname"><a href="https://github.com/sherajdev/jev-research" target="_blank" rel="noopener">jev-research</a><span class="author">sherajdev</span><span class="stars">1 stars</span></td>
 <td><span class="cat" style="--c:#b0894c">Decision Tools</span><span class="vs">reviewed</span></td>
 <td class="what">A guide to Jev + Herdr teamwork, with a small prototype that dispatches tasks to different agents.</td>
 <td class="jev">Chooses the executor, judges risk and dispatch-readiness from task and repo state.</td>
 <td class="note">Router pattern - duplicate of the dispatch family.</td>
 </tr><tr class="row" data-cat="MCP &amp; Integrations" data-s="jev-resilience vicente-md for spring webflux: catches responses that return http 200 but whose body actually reports an error. judges whether the body is a hidden error or maintenance notice; above threshold, raises a business exception. surface-ok is not actually-ok - great post-action check. adopt.">
 <td class="idx">57</td>
-<td class="pname"><a href="https://github.com/Vicente-MD/jev-resilience" target="_blank" rel="noopener">jev-resilience</a><span class="author">Vicente-MD</span><span class="stars">★ 1</span></td>
+<td class="pname"><a href="https://github.com/Vicente-MD/jev-resilience" target="_blank" rel="noopener">jev-resilience</a><span class="author">Vicente-MD</span><span class="stars">1 stars</span></td>
 <td><span class="cat" style="--c:#4fc3a1">MCP &amp; Integrations</span><span class="vs">reviewed</span></td>
 <td class="what">For Spring WebFlux: catches responses that return HTTP 200 but whose body actually reports an error.</td>
 <td class="jev">Judges whether the body is a hidden error or maintenance notice; above threshold, raises a business exception.</td>
 <td class="note">Surface-OK is not actually-OK - great post-action check. Adopt.</td>
 </tr><tr class="row" data-cat="MCP &amp; Integrations" data-s="jev-go stumble community go sdk and interactive cli; talks to typesafe directly or through vercel ai gateway. builds choice/noul/score requests with go types; parses and validates responses. sdk binding - duplicate.">
 <td class="idx">58</td>
-<td class="pname"><a href="https://github.com/Stumble/jev-go" target="_blank" rel="noopener">jev-go</a><span class="author">Stumble</span><span class="stars">★ 1</span></td>
+<td class="pname"><a href="https://github.com/Stumble/jev-go" target="_blank" rel="noopener">jev-go</a><span class="author">Stumble</span><span class="stars">1 stars</span></td>
 <td><span class="cat" style="--c:#4fc3a1">MCP &amp; Integrations</span><span class="vs">reviewed</span></td>
 <td class="what">Community Go SDK and interactive CLI; talks to TypeSafe directly or through Vercel AI Gateway.</td>
 <td class="jev">Builds Choice/Noul/Score requests with Go types; parses and validates responses.</td>
 <td class="note">SDK binding - duplicate.</td>
 </tr><tr class="row" data-cat="Decision Tools" data-s="jev-agent-failure-benchmark tokentrim finds causes in failed multi-agent records: which agent, which step, which error type. three choice questions per trace: responsible agent, key step, error class. failure-triage taxonomy - useful for classifying my own failures. adopt.">
 <td class="idx">59</td>
-<td class="pname"><a href="https://github.com/TokenTrim/jev-agent-failure-benchmark" target="_blank" rel="noopener">jev-agent-failure-benchmark</a><span class="author">TokenTrim</span><span class="stars">★ 1</span></td>
+<td class="pname"><a href="https://github.com/TokenTrim/jev-agent-failure-benchmark" target="_blank" rel="noopener">jev-agent-failure-benchmark</a><span class="author">TokenTrim</span><span class="stars">1 stars</span></td>
 <td><span class="cat" style="--c:#b0894c">Decision Tools</span><span class="vs">reviewed</span></td>
 <td class="what">Finds causes in failed multi-agent records: which agent, which step, which error type.</td>
 <td class="jev">Three Choice questions per trace: responsible agent, key step, error class.</td>
 <td class="note">Failure-triage taxonomy - useful for classifying my own failures. Adopt.</td>
 </tr><tr class="row" data-cat="Browser &amp; OS Action" data-s="computer-use-jev paulsmith controls macos apps from go: jev picks controls and next actions from the current accessibility tree. judges action, target, whether text input is needed and whether the task is done, from window snapshots. done-detection built into every cycle - matches my verify-before-done.">
 <td class="idx">60</td>
-<td class="pname"><a href="https://github.com/paulsmith/computer-use-jev" target="_blank" rel="noopener">computer-use-jev</a><span class="author">paulsmith</span><span class="stars">★ 1</span></td>
+<td class="pname"><a href="https://github.com/paulsmith/computer-use-jev" target="_blank" rel="noopener">computer-use-jev</a><span class="author">paulsmith</span><span class="stars">1 stars</span></td>
 <td><span class="cat" style="--c:#7c8cff">Browser &amp; OS Action</span><span class="vs">reviewed</span></td>
 <td class="what">Controls macOS apps from Go: Jev picks controls and next actions from the current accessibility tree.</td>
 <td class="jev">Judges action, target, whether text input is needed and whether the task is done, from window snapshots.</td>
 <td class="note">Done-detection built into every cycle - matches my verify-before-done.</td>
 </tr><tr class="row" data-cat="Domain &amp; Vertical Tools" data-s="jev-broadcast-lab 4anti a chess-first jev lab that also tries ticket classification, document matching and moderation. picks one move from chess.js-computed legal moves; stockfish scores are operator-only. legal-move generation first - the deterministic-narrowing pattern.">
 <td class="idx">61</td>
-<td class="pname"><a href="https://github.com/4anti/jev-broadcast-lab" target="_blank" rel="noopener">jev-broadcast-lab</a><span class="author">4anti</span><span class="stars">★ 1</span></td>
+<td class="pname"><a href="https://github.com/4anti/jev-broadcast-lab" target="_blank" rel="noopener">jev-broadcast-lab</a><span class="author">4anti</span><span class="stars">1 stars</span></td>
 <td><span class="cat" style="--c:#e88a5d">Domain &amp; Vertical Tools</span><span class="vs">reviewed</span></td>
 <td class="what">A chess-first Jev lab that also tries ticket classification, document matching and moderation.</td>
 <td class="jev">Picks one move from chess.js-computed legal moves; Stockfish scores are operator-only.</td>
 <td class="note">Legal-move generation first - the deterministic-narrowing pattern.</td>
 </tr><tr class="row" data-cat="MCP &amp; Integrations" data-s="jevgo fgn a go client depending only on the standard library, with optional langfuse call logging. sends structured state and the three question types; returns typed answers and validates them. call logging built into the client - my jev_ask.py should log too.">
 <td class="idx">62</td>
-<td class="pname"><a href="https://github.com/fgn/jevgo" target="_blank" rel="noopener">jevgo</a><span class="author">fgn</span><span class="stars">★ 1</span></td>
+<td class="pname"><a href="https://github.com/fgn/jevgo" target="_blank" rel="noopener">jevgo</a><span class="author">fgn</span><span class="stars">1 stars</span></td>
 <td><span class="cat" style="--c:#4fc3a1">MCP &amp; Integrations</span><span class="vs">reviewed</span></td>
 <td class="what">A Go client depending only on the standard library, with optional Langfuse call logging.</td>
 <td class="jev">Sends structured state and the three question types; returns typed answers and validates them.</td>
 <td class="note">Call logging built into the client - my jev_ask.py should log too.</td>
 </tr><tr class="row" data-cat="High-Frequency &amp; Simulation" data-s="jev-little-airways lbotinelly a tiny island-airport simulator: jev judges diversions, holding, yielding and who lands first. each plane submits fuel, eta and nearby traffic; the tower asks for landing order separately. multi-entity scheduling judgments with per-entity state.">
 <td class="idx">63</td>
-<td class="pname"><a href="https://github.com/lbotinelly/jev-little-airways" target="_blank" rel="noopener">jev-little-airways</a><span class="author">lbotinelly</span><span class="stars">★ 1</span></td>
+<td class="pname"><a href="https://github.com/lbotinelly/jev-little-airways" target="_blank" rel="noopener">jev-little-airways</a><span class="author">lbotinelly</span><span class="stars">1 stars</span></td>
 <td><span class="cat" style="--c:#d96a9f">High-Frequency &amp; Simulation</span><span class="vs">reviewed</span></td>
 <td class="what">A tiny island-airport simulator: Jev judges diversions, holding, yielding and who lands first.</td>
 <td class="jev">Each plane submits fuel, ETA and nearby traffic; the tower asks for landing order separately.</td>
 <td class="note">Multi-entity scheduling judgments with per-entity state.</td>
 </tr><tr class="row" data-cat="Decision Tools" data-s="jev-playground little-planet-labs a web playground: paste state, add choice or scoring questions, see jev&#x27;s answers and probability distributions. puts multiple noul/choice/score questions into one request. playground - duplicate pattern.">
 <td class="idx">64</td>
-<td class="pname"><a href="https://github.com/Little-Planet-Labs/jev-playground" target="_blank" rel="noopener">jev-playground</a><span class="author">Little-Planet-Labs</span><span class="stars">★ 1</span></td>
+<td class="pname"><a href="https://github.com/Little-Planet-Labs/jev-playground" target="_blank" rel="noopener">jev-playground</a><span class="author">Little-Planet-Labs</span><span class="stars">1 stars</span></td>
 <td><span class="cat" style="--c:#b0894c">Decision Tools</span><span class="vs">reviewed</span></td>
 <td class="what">A web playground: paste state, add choice or scoring questions, see Jev&#x27;s answers and probability distributions.</td>
 <td class="jev">Puts multiple Noul/Choice/Score questions into one request.</td>
 <td class="note">Playground - duplicate pattern.</td>
 </tr><tr class="row" data-cat="MCP &amp; Integrations" data-s="laravel-typesafe-jev butochnikov laravel integration: config, dependency injection, facade and a test double that records requests. reuses the community php sdk for the three judgment types, keeping types, async promises and exceptions. framework binding - duplicate.">
 <td class="idx">65</td>
-<td class="pname"><a href="https://github.com/Butochnikov/laravel-typesafe-jev" target="_blank" rel="noopener">laravel-typesafe-jev</a><span class="author">Butochnikov</span><span class="stars">★ 1</span></td>
+<td class="pname"><a href="https://github.com/Butochnikov/laravel-typesafe-jev" target="_blank" rel="noopener">laravel-typesafe-jev</a><span class="author">Butochnikov</span><span class="stars">1 stars</span></td>
 <td><span class="cat" style="--c:#4fc3a1">MCP &amp; Integrations</span><span class="vs">reviewed</span></td>
 <td class="what">Laravel integration: config, dependency injection, facade and a test double that records requests.</td>
 <td class="jev">Reuses the community PHP SDK for the three judgment types, keeping types, async promises and exceptions.</td>
 <td class="note">Framework binding - duplicate.</td>
 </tr><tr class="row" data-cat="MCP &amp; Integrations" data-s="jev-go guillemus a minimal community go sdk for sending jev requests and listing models. converts go choice/noul/score questions into system one api requests. sdk binding - duplicate.">
 <td class="idx">66</td>
-<td class="pname"><a href="https://github.com/guillemus/jev-go" target="_blank" rel="noopener">jev-go</a><span class="author">guillemus</span><span class="stars">★ 1</span></td>
+<td class="pname"><a href="https://github.com/guillemus/jev-go" target="_blank" rel="noopener">jev-go</a><span class="author">guillemus</span><span class="stars">1 stars</span></td>
 <td><span class="cat" style="--c:#4fc3a1">MCP &amp; Integrations</span><span class="vs">reviewed</span></td>
 <td class="what">A minimal community Go SDK for sending Jev requests and listing models.</td>
 <td class="jev">Converts Go Choice/Noul/Score questions into System One API requests.</td>
 <td class="note">SDK binding - duplicate.</td>
 </tr><tr class="row" data-cat="CLI &amp; Pipelines" data-s="ask-jev omni- type &#x27;:jev&#x27; in a windows codex session and it runs an evidence check against the session&#x27;s recorded execution log. batch-asks whether tests, executions and evidence support the conclusion; can also ask single yes/no questions. evidence-support check before claiming done - matches my verify-with-real-checks rule. adopt.">
 <td class="idx">67</td>
-<td class="pname"><a href="https://github.com/omni-/ask-jev" target="_blank" rel="noopener">ask-jev</a><span class="author">omni-</span><span class="stars">★ 1</span></td>
+<td class="pname"><a href="https://github.com/omni-/ask-jev" target="_blank" rel="noopener">ask-jev</a><span class="author">omni-</span><span class="stars">1 stars</span></td>
 <td><span class="cat" style="--c:#c9a84c">CLI &amp; Pipelines</span><span class="vs">reviewed</span></td>
 <td class="what">Type &#x27;:jev&#x27; in a Windows Codex session and it runs an evidence check against the session&#x27;s recorded execution log.</td>
 <td class="jev">Batch-asks whether tests, executions and evidence support the conclusion; can also ask single yes/no questions.</td>
 <td class="note">Evidence-support check before claiming done - matches my verify-with-real-checks rule. Adopt.</td>
 </tr><tr class="row" data-cat="CLI &amp; Pipelines" data-s="jev-code rhighs an experimental coding terminal: jev makes bounded choices to assemble an ast step by step, calling local tools. picks among limited syntax and tool candidates; code composes the python/bash output. generation as bounded choice sequences - constrained synthesis.">
 <td class="idx">68</td>
-<td class="pname"><a href="https://github.com/rhighs/jev-code" target="_blank" rel="noopener">jev-code</a><span class="author">rhighs</span><span class="stars">★ 1</span></td>
+<td class="pname"><a href="https://github.com/rhighs/jev-code" target="_blank" rel="noopener">jev-code</a><span class="author">rhighs</span><span class="stars">1 stars</span></td>
 <td><span class="cat" style="--c:#c9a84c">CLI &amp; Pipelines</span><span class="vs">reviewed</span></td>
 <td class="what">An experimental coding terminal: Jev makes bounded choices to assemble an AST step by step, calling local tools.</td>
 <td class="jev">Picks among limited syntax and tool candidates; code composes the Python/Bash output.</td>
 <td class="note">Generation as bounded choice sequences - constrained synthesis.</td>
 </tr><tr class="row" data-cat="High-Frequency &amp; Simulation" data-s="jev-doom-agent lukaske two doom engines in the browser; jev reads game state and picks tactical moves. reads structured health/ammo/visible targets, picks one tactical macro, hands it to a local controller. macro-action selection over micro-execution - code does the aiming. adopt split.">
 <td class="idx">69</td>
-<td class="pname"><a href="https://github.com/lukaske/jev-doom-agent" target="_blank" rel="noopener">jev-doom-agent</a><span class="author">lukaske</span><span class="stars">★ 1</span></td>
+<td class="pname"><a href="https://github.com/lukaske/jev-doom-agent" target="_blank" rel="noopener">jev-doom-agent</a><span class="author">lukaske</span><span class="stars">1 stars</span></td>
 <td><span class="cat" style="--c:#d96a9f">High-Frequency &amp; Simulation</span><span class="vs">reviewed</span></td>
 <td class="what">Two Doom engines in the browser; Jev reads game state and picks tactical moves.</td>
 <td class="jev">Reads structured health/ammo/visible targets, picks one tactical macro, hands it to a local controller.</td>
 <td class="note">Macro-action selection over micro-execution - code does the aiming. Adopt split.</td>
 </tr><tr class="row" data-cat="Decision Tools" data-s="jev-rerank-bench anessbelbati hands jev thirty retrieved passages and tests whether it reranks like a dedicated reranker. reranks the same candidates via relevance scoring, yes-no or choice; logs raw responses. reranking is a core jev use - adopt for my search-result ordering.">
 <td class="idx">70</td>
-<td class="pname"><a href="https://github.com/anessbelbati/jev-rerank-bench" target="_blank" rel="noopener">jev-rerank-bench</a><span class="author">anessbelbati</span><span class="stars">★ 1</span></td>
+<td class="pname"><a href="https://github.com/anessbelbati/jev-rerank-bench" target="_blank" rel="noopener">jev-rerank-bench</a><span class="author">anessbelbati</span><span class="stars">1 stars</span></td>
 <td><span class="cat" style="--c:#b0894c">Decision Tools</span><span class="vs">reviewed</span></td>
 <td class="what">Hands Jev thirty retrieved passages and tests whether it reranks like a dedicated reranker.</td>
 <td class="jev">Reranks the same candidates via relevance scoring, yes-no or Choice; logs raw responses.</td>
 <td class="note">Reranking is a core Jev use - adopt for my search-result ordering.</td>
 </tr><tr class="row" data-cat="Decision Tools" data-s="jev-predict-skill danielkillenberger an agent skill that reads another skill&#x27;s rules and existing evidence, predicting which conclusion it will pick next time. first judges whether the task can become finite options, then picks from the target skill&#x27;s previous conclusions. predict-then-verify over my own skills - a quirky but real consistency check.">
 <td class="idx">71</td>
-<td class="pname"><a href="https://github.com/DanielKillenberger/jev-predict-skill" target="_blank" rel="noopener">jev-predict-skill</a><span class="author">DanielKillenberger</span><span class="stars">★ 1</span></td>
+<td class="pname"><a href="https://github.com/DanielKillenberger/jev-predict-skill" target="_blank" rel="noopener">jev-predict-skill</a><span class="author">DanielKillenberger</span><span class="stars">1 stars</span></td>
 <td><span class="cat" style="--c:#b0894c">Decision Tools</span><span class="vs">reviewed</span></td>
 <td class="what">An agent skill that reads another skill&#x27;s rules and existing evidence, predicting which conclusion it will pick next time.</td>
 <td class="jev">First judges whether the task can become finite options, then picks from the target skill&#x27;s previous conclusions.</td>
 <td class="note">Predict-then-verify over my own skills - a quirky but real consistency check.</td>
 </tr><tr class="row" data-cat="Domain &amp; Vertical Tools" data-s="jev-trade aowang-ai high-frequency trading on hyperliquid perpetuals (live dashboard at jev-trade.com); every tick reads the order book and jev decides positions. per-coin independent state; jev evaluates depth and imbalance at second scale, picking long/short and orders. real money at stake - my policy stays paper-only without explicit owner approval. watch-out example.">
 <td class="idx">72</td>
-<td class="pname"><a href="https://github.com/aowang-ai/jev-trade" target="_blank" rel="noopener">jev-trade</a><span class="author">aowang-ai</span><span class="stars">★ 1</span></td>
+<td class="pname"><a href="https://github.com/aowang-ai/jev-trade" target="_blank" rel="noopener">jev-trade</a><span class="author">aowang-ai</span><span class="stars">1 stars</span></td>
 <td><span class="cat" style="--c:#e88a5d">Domain &amp; Vertical Tools</span><span class="vs">reviewed</span></td>
 <td class="what">High-frequency trading on Hyperliquid perpetuals (live dashboard at jev-trade.com); every tick reads the order book and Jev decides positions.</td>
 <td class="jev">Per-coin independent state; Jev evaluates depth and imbalance at second scale, picking long/short and orders.</td>
 <td class="note">REAL money at stake - my policy stays paper-only without explicit owner approval. Watch-out example.</td>
 </tr><tr class="row" data-cat="Domain &amp; Vertical Tools" data-s="jevsume unownone a structured health check for resumes: wording, structure, machine-readability, plus match against a specific job description. judges and scores extracted resume text against each requirement; a worker assembles the review page. document-vs-requirements scoring - great for job applications and proposals. adopt.">
 <td class="idx">73</td>
-<td class="pname"><a href="https://github.com/unownone/jevsume" target="_blank" rel="noopener">jevsume</a><span class="author">unownone</span><span class="stars">★ 1</span></td>
+<td class="pname"><a href="https://github.com/unownone/jevsume" target="_blank" rel="noopener">jevsume</a><span class="author">unownone</span><span class="stars">1 stars</span></td>
 <td><span class="cat" style="--c:#e88a5d">Domain &amp; Vertical Tools</span><span class="vs">reviewed</span></td>
 <td class="what">A structured health check for resumes: wording, structure, machine-readability, plus match against a specific job description.</td>
 <td class="jev">Judges and scores extracted resume text against each requirement; a worker assembles the review page.</td>
 <td class="note">Document-vs-requirements scoring - great for job applications and proposals. Adopt.</td>
 </tr><tr class="row" data-cat="MCP &amp; Integrations" data-s="jev_ampcode thesammykins a comparison helper for amp: lay out alternative plans, evidence and preferences, let jev weigh in. allocates selection probability across explicit candidates and checks each against requirements separately. decision matrices from explicit candidates - matches my options-then-pick flow.">
 <td class="idx">74</td>
-<td class="pname"><a href="https://github.com/thesammykins/jev_ampcode" target="_blank" rel="noopener">jev_ampcode</a><span class="author">thesammykins</span><span class="stars">★ 1</span></td>
+<td class="pname"><a href="https://github.com/thesammykins/jev_ampcode" target="_blank" rel="noopener">jev_ampcode</a><span class="author">thesammykins</span><span class="stars">1 stars</span></td>
 <td><span class="cat" style="--c:#4fc3a1">MCP &amp; Integrations</span><span class="vs">reviewed</span></td>
 <td class="what">A comparison helper for Amp: lay out alternative plans, evidence and preferences, let Jev weigh in.</td>
 <td class="jev">Allocates selection probability across explicit candidates and checks each against requirements separately.</td>
 <td class="note">Decision matrices from explicit candidates - matches my options-then-pick flow.</td>
 </tr><tr class="row" data-cat="Security &amp; Guardrails" data-s="jev-tool-permissions nicolasmontone a gate for vercel ai sdk tool calls that also hides tools not needed this turn. deterministic rules check first, then jev judges auto-allow, ask-human or block, plus tool relevance. dynamic tool visibility + rules-first gating. adopt.">
 <td class="idx">75</td>
-<td class="pname"><a href="https://github.com/NicolasMontone/jev-tool-permissions" target="_blank" rel="noopener">jev-tool-permissions</a><span class="author">NicolasMontone</span><span class="stars">★ 1</span></td>
+<td class="pname"><a href="https://github.com/NicolasMontone/jev-tool-permissions" target="_blank" rel="noopener">jev-tool-permissions</a><span class="author">NicolasMontone</span><span class="stars">1 stars</span></td>
 <td><span class="cat" style="--c:#e05c5c">Security &amp; Guardrails</span><span class="vs">reviewed</span></td>
 <td class="what">A gate for Vercel AI SDK tool calls that also hides tools not needed this turn.</td>
 <td class="jev">Deterministic rules check first, then Jev judges auto-allow, ask-human or block, plus tool relevance.</td>
 <td class="note">Dynamic tool visibility + rules-first gating. Adopt.</td>
 </tr><tr class="row" data-cat="Creative Tools" data-s="jevthoven cocktailpeanut describe the music you want to hear; jev picks per-bar and the result is editable, playable, exportable multi-track midi. sequentially selects form, instruments, chords, rhythm and whole-bar patterns; local code turns choices into notes. structured generation through choice sequences - bounded creativity.">
 <td class="idx">76</td>
-<td class="pname"><a href="https://github.com/cocktailpeanut/jevthoven" target="_blank" rel="noopener">jevthoven</a><span class="author">cocktailpeanut</span><span class="stars">★ 1</span></td>
+<td class="pname"><a href="https://github.com/cocktailpeanut/jevthoven" target="_blank" rel="noopener">jevthoven</a><span class="author">cocktailpeanut</span><span class="stars">1 stars</span></td>
 <td><span class="cat" style="--c:#d4657f">Creative Tools</span><span class="vs">reviewed</span></td>
 <td class="what">Describe the music you want to hear; Jev picks per-bar and the result is editable, playable, exportable multi-track MIDI.</td>
 <td class="jev">Sequentially selects form, instruments, chords, rhythm and whole-bar patterns; local code turns choices into notes.</td>
 <td class="note">Structured generation through choice sequences - bounded creativity.</td>
 </tr><tr class="row" data-cat="High-Frequency &amp; Simulation" data-s="doom-jev amoghcreator jev plays doom: reads structured battle state, decides where to walk, whom to shoot, when to fire. picks macro target, enemy, movement, turn, jump and fire; geometry code handles fine aiming. macro/micro split again - evaluator picks the goal, code executes it.">
 <td class="idx">77</td>
-<td class="pname"><a href="https://github.com/AmoghCreator/doom-jev" target="_blank" rel="noopener">doom-jev</a><span class="author">AmoghCreator</span><span class="stars">★ 1</span></td>
+<td class="pname"><a href="https://github.com/AmoghCreator/doom-jev" target="_blank" rel="noopener">doom-jev</a><span class="author">AmoghCreator</span><span class="stars">1 stars</span></td>
 <td><span class="cat" style="--c:#d96a9f">High-Frequency &amp; Simulation</span><span class="vs">reviewed</span></td>
 <td class="what">Jev plays Doom: reads structured battle state, decides where to walk, whom to shoot, when to fire.</td>
 <td class="jev">Picks macro target, enemy, movement, turn, jump and fire; geometry code handles fine aiming.</td>
 <td class="note">Macro/micro split again - evaluator picks the goal, code executes it.</td>
 </tr><tr class="row" data-cat="Context GC &amp; Filter" data-s="jev-context zbush a sieve for codex code search: ripgrep finds candidates, only jev-approved relevant snippets get returned. judges snippet relevance segment by segment; returns only yes-snippets and logs before/after text. two-stage retrieval: deterministic recall, then semantic precision. adopt.">
 <td class="idx">78</td>
-<td class="pname"><a href="https://github.com/zbush/jev-context" target="_blank" rel="noopener">jev-context</a><span class="author">zbush</span><span class="stars">★ 1</span></td>
+<td class="pname"><a href="https://github.com/zbush/jev-context" target="_blank" rel="noopener">jev-context</a><span class="author">zbush</span><span class="stars">1 stars</span></td>
 <td><span class="cat" style="--c:#5faf6e">Context GC &amp; Filter</span><span class="vs">reviewed</span></td>
 <td class="what">A sieve for Codex code search: ripgrep finds candidates, only Jev-approved relevant snippets get returned.</td>
 <td class="jev">Judges snippet relevance segment by segment; returns only yes-snippets and logs before/after text.</td>
 <td class="note">Two-stage retrieval: deterministic recall, then semantic precision. Adopt.</td>
 </tr><tr class="row" data-cat="Creative Tools" data-s="ui-generator-instinct-jev joevidev describe the ui you want; jev picks types, fields and styles from a real component library, code assembles it. selects component family, specific component, field type and appearance from finite candidates; adds comparisons when unsure. generation from finite catalogs - perfect fit for typed evaluators.">
 <td class="idx">79</td>
-<td class="pname"><a href="https://github.com/joevidev/ui-generator-instinct-jev" target="_blank" rel="noopener">ui-generator-instinct-jev</a><span class="author">joevidev</span><span class="stars">★ 1</span></td>
+<td class="pname"><a href="https://github.com/joevidev/ui-generator-instinct-jev" target="_blank" rel="noopener">ui-generator-instinct-jev</a><span class="author">joevidev</span><span class="stars">1 stars</span></td>
 <td><span class="cat" style="--c:#d4657f">Creative Tools</span><span class="vs">reviewed</span></td>
 <td class="what">Describe the UI you want; Jev picks types, fields and styles from a real component library, code assembles it.</td>
 <td class="jev">Selects component family, specific component, field type and appearance from finite candidates; adds comparisons when unsure.</td>
 <td class="note">Generation from finite catalogs - perfect fit for typed evaluators.</td>
 </tr><tr class="row" data-cat="Browser &amp; OS Action" data-s="jev-use vlad-terin codex defines the goal, jev continuously picks controls; browser and desktop actions still run through codex&#x27;s existing tools. chooses the target control from each observation; the local loop executes, checks results and returns exceptions to the main agent. orchestrator-evaluator split with clean exception handback.">
 <td class="idx">80</td>
-<td class="pname"><a href="https://github.com/vlad-terin/jev-use" target="_blank" rel="noopener">jev-use</a><span class="author">vlad-terin</span><span class="stars">★ 76</span></td>
+<td class="pname"><a href="https://github.com/vlad-terin/jev-use" target="_blank" rel="noopener">jev-use</a><span class="author">vlad-terin</span><span class="stars">76 stars</span></td>
 <td><span class="cat" style="--c:#7c8cff">Browser &amp; OS Action</span><span class="vs">reviewed</span></td>
 <td class="what">Codex defines the goal, Jev continuously picks controls; browser and desktop actions still run through Codex&#x27;s existing tools.</td>
 <td class="jev">Chooses the target control from each observation; the local loop executes, checks results and returns exceptions to the main agent.</td>
 <td class="note">Orchestrator-evaluator split with clean exception handback.</td>
 </tr><tr class="row" data-cat="CLI &amp; Pipelines" data-s="is-odd-jev alxcrt a deliberately over-engineered experiment: give a number to jev, ask if it&#x27;s odd, look at the probability. one noul question - is n odd; local code converts probability to boolean. joke demo - but a clean minimal noul example.">
 <td class="idx">81</td>
-<td class="pname"><a href="https://github.com/alxcrt/is-odd-jev" target="_blank" rel="noopener">is-odd-jev</a><span class="author">alxcrt</span><span class="stars">★ —</span></td>
+<td class="pname"><a href="https://github.com/alxcrt/is-odd-jev" target="_blank" rel="noopener">is-odd-jev</a><span class="author">alxcrt</span><span class="stars">— stars</span></td>
 <td><span class="cat" style="--c:#c9a84c">CLI &amp; Pipelines</span><span class="vs">reviewed</span></td>
 <td class="what">A deliberately over-engineered experiment: give a number to Jev, ask if it&#x27;s odd, look at the probability.</td>
 <td class="jev">One Noul question - Is n odd; local code converts probability to boolean.</td>
 <td class="note">Joke demo - but a clean minimal Noul example.</td>
 </tr><tr class="row" data-cat="Browser &amp; OS Action" data-s="mobile-jev droidrun give an android phone a goal: jev picks apps and controls, mobilerun opens, clicks and types; a web panel shows the process. one request picks operation and compatible target; the local layer re-verifies the control before mobilerun executes. re-verify target before acting - exactly my validate-before-execute.">
 <td class="idx">82</td>
-<td class="pname"><a href="https://github.com/droidrun/mobile-jev" target="_blank" rel="noopener">mobile-jev</a><span class="author">droidrun</span><span class="stars">★ 58</span></td>
+<td class="pname"><a href="https://github.com/droidrun/mobile-jev" target="_blank" rel="noopener">mobile-jev</a><span class="author">droidrun</span><span class="stars">58 stars</span></td>
 <td><span class="cat" style="--c:#7c8cff">Browser &amp; OS Action</span><span class="vs">reviewed</span></td>
 <td class="what">Give an Android phone a goal: Jev picks apps and controls, Mobilerun opens, clicks and types; a web panel shows the process.</td>
 <td class="jev">One request picks operation and compatible target; the local layer re-verifies the control before Mobilerun executes.</td>
 <td class="note">Re-verify target before acting - exactly my validate-before-execute.</td>
 </tr><tr class="row" data-cat="Routing &amp; Cost Optimization" data-s="jev-demo minghanminghan a support-triage sample: ask the full classification tree in one round, then follow the answers; early handoff when the user wants a human. parallel evaluation of every tree layer plus handoff-wish and frustration, all at once; local rules use only needed answers. speculative whole-tree evaluation: ask all layers at once, discard unused. adopt.">
 <td class="idx">83</td>
-<td class="pname"><a href="https://github.com/minghanminghan/jev-demo" target="_blank" rel="noopener">jev-demo</a><span class="author">minghanminghan</span><span class="stars">★ —</span></td>
+<td class="pname"><a href="https://github.com/minghanminghan/jev-demo" target="_blank" rel="noopener">jev-demo</a><span class="author">minghanminghan</span><span class="stars">— stars</span></td>
 <td><span class="cat" style="--c:#6d5efc">Routing &amp; Cost Optimization</span><span class="vs">reviewed</span></td>
 <td class="what">A support-triage sample: ask the full classification tree in one round, then follow the answers; early handoff when the user wants a human.</td>
 <td class="jev">Parallel evaluation of every tree layer plus handoff-wish and frustration, all at once; local rules use only needed answers.</td>
 <td class="note">SPECULATIVE WHOLE-TREE EVALUATION: ask all layers at once, discard unused. Adopt.</td>
 </tr><tr class="row" data-cat="Domain &amp; Vertical Tools" data-s="jev-music-theory-1 adammichaelwood gives jev harmony exercises and lets it pick chords on an electric piano - probing what music theory it does and doesn&#x27;t get. choices over voices, pitches, durations, chord roots and types; code handles sounding and rule scoring. capability probing - know where the evaluator errs before relying on it.">
 <td class="idx">84</td>
-<td class="pname"><a href="https://github.com/adammichaelwood/jev-music-theory-1" target="_blank" rel="noopener">jev-music-theory-1</a><span class="author">adammichaelwood</span><span class="stars">★ —</span></td>
+<td class="pname"><a href="https://github.com/adammichaelwood/jev-music-theory-1" target="_blank" rel="noopener">jev-music-theory-1</a><span class="author">adammichaelwood</span><span class="stars">— stars</span></td>
 <td><span class="cat" style="--c:#e88a5d">Domain &amp; Vertical Tools</span><span class="vs">reviewed</span></td>
 <td class="what">Gives Jev harmony exercises and lets it pick chords on an electric piano - probing what music theory it does and doesn&#x27;t get.</td>
 <td class="jev">Choices over voices, pitches, durations, chord roots and types; code handles sounding and rule scoring.</td>
 <td class="note">Capability probing - know where the evaluator errs before relying on it.</td>
 </tr><tr class="row" data-cat="Browser &amp; OS Action" data-s="jev-macos-loop jcpsimmons recognizes on-screen text and controls locally on a mac, hands text options to jev, clicks what it picks. chooses from a finite list of visual/ocr/accessibility labels; coordinates and input stay on the mac. hybrid visual + structured state - my screenshot + snapshot combo.">
 <td class="idx">85</td>
-<td class="pname"><a href="https://github.com/jcpsimmons/jev-macos-loop" target="_blank" rel="noopener">jev-macos-loop</a><span class="author">jcpsimmons</span><span class="stars">★ —</span></td>
+<td class="pname"><a href="https://github.com/jcpsimmons/jev-macos-loop" target="_blank" rel="noopener">jev-macos-loop</a><span class="author">jcpsimmons</span><span class="stars">— stars</span></td>
 <td><span class="cat" style="--c:#7c8cff">Browser &amp; OS Action</span><span class="vs">reviewed</span></td>
 <td class="what">Recognizes on-screen text and controls locally on a Mac, hands text options to Jev, clicks what it picks.</td>
 <td class="jev">Chooses from a finite list of visual/OCR/accessibility labels; coordinates and input stay on the Mac.</td>
 <td class="note">Hybrid visual + structured state - my screenshot + snapshot combo.</td>
 </tr><tr class="row" data-cat="Routing &amp; Cost Optimization" data-s="jev-router-playground hugo-alves puts several models in a candidate pool, lets jev pick one, then shows each model&#x27;s actual answer for you to judge. judges task-to-model fit over candidate descriptions; local code sorts probabilities and can call candidates to compare. transparent side-by-side routing - good ux for trust.">
 <td class="idx">86</td>
-<td class="pname"><a href="https://github.com/hugo-alves/jev-router-playground" target="_blank" rel="noopener">jev-router-playground</a><span class="author">hugo-alves</span><span class="stars">★ —</span></td>
+<td class="pname"><a href="https://github.com/hugo-alves/jev-router-playground" target="_blank" rel="noopener">jev-router-playground</a><span class="author">hugo-alves</span><span class="stars">— stars</span></td>
 <td><span class="cat" style="--c:#6d5efc">Routing &amp; Cost Optimization</span><span class="vs">reviewed</span></td>
 <td class="what">Puts several models in a candidate pool, lets Jev pick one, then shows each model&#x27;s actual answer for you to judge.</td>
 <td class="jev">Judges task-to-model fit over candidate descriptions; local code sorts probabilities and can call candidates to compare.</td>
 <td class="note">Transparent side-by-side routing - good UX for trust.</td>
 </tr><tr class="row" data-cat="CLI &amp; Pipelines" data-s="jevscript amberwhitehead an early experiment embedding semantic judgments in a programming language; handwritten scripts probe multi-question requests. sends choice/noul/score for one ticket, comparing merged requests vs per-question requests. batch-vs-single cost study - batched requests win on latency.">
 <td class="idx">87</td>
-<td class="pname"><a href="https://github.com/amberwhitehead/jevscript" target="_blank" rel="noopener">jevscript</a><span class="author">amberwhitehead</span><span class="stars">★ —</span></td>
+<td class="pname"><a href="https://github.com/amberwhitehead/jevscript" target="_blank" rel="noopener">jevscript</a><span class="author">amberwhitehead</span><span class="stars">— stars</span></td>
 <td><span class="cat" style="--c:#c9a84c">CLI &amp; Pipelines</span><span class="vs">reviewed</span></td>
 <td class="what">An early experiment embedding semantic judgments in a programming language; handwritten scripts probe multi-question requests.</td>
 <td class="jev">Sends Choice/Noul/Score for one ticket, comparing merged requests vs per-question requests.</td>
 <td class="note">Batch-vs-single cost study - batched requests win on latency.</td>
 </tr><tr class="row" data-cat="Browser &amp; OS Action" data-s="grokskill-jev ae-alphaedge wires jev ultrafast into grok build, reusing already-open chrome tabs, with a powershell launcher. upstream behavior: jev picks click/select/done; a small model writes text when needed. integration wrapper - duplicate of #0&#x27;s mechanism.">
 <td class="idx">88</td>
-<td class="pname"><a href="https://github.com/AE-AlphaEdge/grokskill-jev" target="_blank" rel="noopener">grokskill-jev</a><span class="author">AE-AlphaEdge</span><span class="stars">★ —</span></td>
+<td class="pname"><a href="https://github.com/AE-AlphaEdge/grokskill-jev" target="_blank" rel="noopener">grokskill-jev</a><span class="author">AE-AlphaEdge</span><span class="stars">— stars</span></td>
 <td><span class="cat" style="--c:#7c8cff">Browser &amp; OS Action</span><span class="vs">reviewed</span></td>
 <td class="what">Wires Jev Ultrafast into Grok Build, reusing already-open Chrome tabs, with a PowerShell launcher.</td>
 <td class="jev">Upstream behavior: Jev picks click/select/done; a small model writes text when needed.</td>
 <td class="note">Integration wrapper - duplicate of #0&#x27;s mechanism.</td>
 </tr><tr class="row" data-cat="Domain &amp; Vertical Tools" data-s="jev-trade waxmell114514 turns btc/eth market data into text state for jev trade judgments, observed in a simulation with latency and fees. code computes market features; jev answers limited direction/risk questions; local strategy sizes simulated positions. simulation realism (latency + fees) - honest paper trading.">
 <td class="idx">89</td>
-<td class="pname"><a href="https://github.com/Waxmell114514/jev-trade" target="_blank" rel="noopener">jev-trade</a><span class="author">Waxmell114514</span><span class="stars">★ —</span></td>
+<td class="pname"><a href="https://github.com/Waxmell114514/jev-trade" target="_blank" rel="noopener">jev-trade</a><span class="author">Waxmell114514</span><span class="stars">— stars</span></td>
 <td><span class="cat" style="--c:#e88a5d">Domain &amp; Vertical Tools</span><span class="vs">reviewed</span></td>
 <td class="what">Turns BTC/ETH market data into text state for Jev trade judgments, observed in a simulation with latency and fees.</td>
 <td class="jev">Code computes market features; Jev answers limited direction/risk questions; local strategy sizes simulated positions.</td>
 <td class="note">Simulation realism (latency + fees) - honest paper trading.</td>
 </tr><tr class="row" data-cat="High-Frequency &amp; Simulation" data-s="jev-demos bud-ro quizzes jev with mazes: next-step only vs many steps at once, watching when it hits walls, detours or spins in circles. maze state plus multi-step candidate actions go to jev; a simulator executes and scores each step. single-step loops can loop - add cycle detection to iterative tasks. adopt.">
 <td class="idx">90</td>
-<td class="pname"><a href="https://github.com/Bud-ro/jev-demos" target="_blank" rel="noopener">jev-demos</a><span class="author">Bud-ro</span><span class="stars">★ —</span></td>
+<td class="pname"><a href="https://github.com/Bud-ro/jev-demos" target="_blank" rel="noopener">jev-demos</a><span class="author">Bud-ro</span><span class="stars">— stars</span></td>
 <td><span class="cat" style="--c:#d96a9f">High-Frequency &amp; Simulation</span><span class="vs">reviewed</span></td>
 <td class="what">Quizzes Jev with mazes: next-step only vs many steps at once, watching when it hits walls, detours or spins in circles.</td>
 <td class="jev">Maze state plus multi-step candidate actions go to Jev; a simulator executes and scores each step.</td>
 <td class="note">Single-step loops can LOOP - add cycle detection to iterative tasks. Adopt.</td>
 </tr><tr class="row" data-cat="MCP &amp; Integrations" data-s="jevex jvsteiner jev conducts the workflow: ordinary llms only fill parameters and write final prose, mcp tools do the actual work. jev selects the tool or end; an llm fills open content; python validates args; jev approves the concrete call. evaluator approves the executor&#x27;s plan before firing - plan-then-approve. adopt.">
 <td class="idx">91</td>
-<td class="pname"><a href="https://github.com/jvsteiner/jevex" target="_blank" rel="noopener">jevex</a><span class="author">jvsteiner</span><span class="stars">★ 3</span></td>
+<td class="pname"><a href="https://github.com/jvsteiner/jevex" target="_blank" rel="noopener">jevex</a><span class="author">jvsteiner</span><span class="stars">3 stars</span></td>
 <td><span class="cat" style="--c:#4fc3a1">MCP &amp; Integrations</span><span class="vs">reviewed</span></td>
 <td class="what">Jev conducts the workflow: ordinary LLMs only fill parameters and write final prose, MCP tools do the actual work.</td>
 <td class="jev">Jev selects the tool or end; an LLM fills open content; Python validates args; Jev approves the concrete call.</td>
 <td class="note">Evaluator approves the executor&#x27;s plan before firing - plan-then-approve. Adopt.</td>
 </tr><tr class="row" data-cat="High-Frequency &amp; Simulation" data-s="jev-experiments mittal-parth jev plays the chrome dino and a local shooter arena: reads structured state, picks jump/move/aim/fire. each tick asks actions and relevant toggles in parallel; python or page code runs physics and collisions. per-tick parallel batching - duplicate of the game-loop pattern.">
 <td class="idx">92</td>
-<td class="pname"><a href="https://github.com/mittal-parth/jev-experiments" target="_blank" rel="noopener">jev-experiments</a><span class="author">mittal-parth</span><span class="stars">★ —</span></td>
+<td class="pname"><a href="https://github.com/mittal-parth/jev-experiments" target="_blank" rel="noopener">jev-experiments</a><span class="author">mittal-parth</span><span class="stars">— stars</span></td>
 <td><span class="cat" style="--c:#d96a9f">High-Frequency &amp; Simulation</span><span class="vs">reviewed</span></td>
 <td class="what">Jev plays the Chrome dino and a local shooter arena: reads structured state, picks jump/move/aim/fire.</td>
 <td class="jev">Each tick asks actions and relevant toggles in parallel; Python or page code runs physics and collisions.</td>
 <td class="note">Per-tick parallel batching - duplicate of the game-loop pattern.</td>
 </tr><tr class="row" data-cat="Codebase &amp; Graph Pathfinding" data-s="foreman-jev shifty-eye-games a jev supervisor for codex workers: it judges progress, but completion also requires the acceptance commands the programmer specified to pass. judges progress and completion from work state and evidence; local code runs acceptance checks and verifies source unchanged during verification. completion = acceptance checks pass, not judgment alone. already my rule - reinforced.">
 <td class="idx">93</td>
-<td class="pname"><a href="https://github.com/Shifty-Eye-Games/foreman-jev" target="_blank" rel="noopener">foreman-jev</a><span class="author">Shifty-Eye-Games</span><span class="stars">★ —</span></td>
+<td class="pname"><a href="https://github.com/Shifty-Eye-Games/foreman-jev" target="_blank" rel="noopener">foreman-jev</a><span class="author">Shifty-Eye-Games</span><span class="stars">— stars</span></td>
 <td><span class="cat" style="--c:#9a7cf0">Codebase &amp; Graph Pathfinding</span><span class="vs">reviewed</span></td>
 <td class="what">A Jev supervisor for Codex workers: it judges progress, but completion also REQUIRES the acceptance commands the programmer specified to pass.</td>
 <td class="jev">Judges progress and completion from work state and evidence; local code runs acceptance checks and verifies source unchanged during verification.</td>
 <td class="note">Completion = acceptance checks pass, not judgment alone. Already my rule - reinforced.</td>
 </tr><tr class="row" data-cat="Context GC &amp; Filter" data-s="jevlogs reachjalil logs get archived as-is; jev first picks which parts deserve further analysis, then which go to heavier models. judges diagnostic value, priority and actionability probability; rules annotate or route to analysis branches. tiered log triage - cheap evaluator first, expensive analysis second. adopt.">
 <td class="idx">94</td>
-<td class="pname"><a href="https://github.com/reachjalil/jevlogs" target="_blank" rel="noopener">jevlogs</a><span class="author">reachjalil</span><span class="stars">★ 5</span></td>
+<td class="pname"><a href="https://github.com/reachjalil/jevlogs" target="_blank" rel="noopener">jevlogs</a><span class="author">reachjalil</span><span class="stars">5 stars</span></td>
 <td><span class="cat" style="--c:#5faf6e">Context GC &amp; Filter</span><span class="vs">reviewed</span></td>
 <td class="what">Logs get archived as-is; Jev first picks which parts deserve further analysis, then which go to heavier models.</td>
 <td class="jev">Judges diagnostic value, priority and actionability probability; rules annotate or route to analysis branches.</td>
 <td class="note">Tiered log triage - cheap evaluator first, expensive analysis second. Adopt.</td>
 </tr><tr class="row" data-cat="Domain &amp; Vertical Tools" data-s="ha-conversation-jev luxus a voice entry point for home assistant: simple light commands go straight to device services, the rest to a grok chat assistant. classifies utterances as fast_service, grok or reject with local goal matching and confidence thresholds. three-way voice routing - skip (i have no voice channel).">
 <td class="idx">95</td>
-<td class="pname"><a href="https://github.com/luxus/ha-conversation-jev" target="_blank" rel="noopener">ha-conversation-jev</a><span class="author">luxus</span><span class="stars">★ —</span></td>
+<td class="pname"><a href="https://github.com/luxus/ha-conversation-jev" target="_blank" rel="noopener">ha-conversation-jev</a><span class="author">luxus</span><span class="stars">— stars</span></td>
 <td><span class="cat" style="--c:#e88a5d">Domain &amp; Vertical Tools</span><span class="vs">reviewed</span></td>
 <td class="what">A voice entry point for Home Assistant: simple light commands go straight to device services, the rest to a Grok chat assistant.</td>
 <td class="jev">Classifies utterances as fast_service, grok or reject with local goal matching and confidence thresholds.</td>
 <td class="note">Three-way voice routing - skip (I have no voice channel).</td>
 </tr><tr class="row" data-cat="SDK &amp; Integrations" data-s="ai vercel vercel ai sdk&#x27;s optional typesafe provider: one evaluate interface asks jev multiple choice/score/yes-no questions. sends shared state + questions to system one; maps native probabilities, scores and usage back into sdk results. sdk provider - the integration wave reaching mainstream frameworks.">
 <td class="idx">96</td>
-<td class="pname"><a href="https://github.com/vercel/ai" target="_blank" rel="noopener">ai</a><span class="author">vercel</span><span class="stars">★ 26,819</span></td>
+<td class="pname"><a href="https://github.com/vercel/ai" target="_blank" rel="noopener">ai</a><span class="author">vercel</span><span class="stars">26,819 stars</span></td>
 <td><span class="cat" style="--c:#5a9fd4">SDK &amp; Integrations</span><span class="vs">reviewed</span></td>
 <td class="what">Vercel AI SDK&#x27;s optional TypeSafe provider: one evaluate interface asks Jev multiple choice/score/yes-no questions.</td>
 <td class="jev">Sends shared state + questions to System One; maps native probabilities, scores and usage back into SDK results.</td>
 <td class="note">SDK provider - the integration wave reaching mainstream frameworks.</td>
 </tr><tr class="row" data-cat="SDK &amp; Integrations" data-s="langchain langchain-ai adds an optional jev classification node to python langchain flows, returning category, probability and grade. typesafeclassifier sends json state and typed questions to /v1/systemone, sync and async runnable support. mainstream adoption signal - jev as a pluggable runnable.">
 <td class="idx">97</td>
-<td class="pname"><a href="https://github.com/langchain-ai/langchain" target="_blank" rel="noopener">langchain</a><span class="author">langchain-ai</span><span class="stars">★ 146,575</span></td>
+<td class="pname"><a href="https://github.com/langchain-ai/langchain" target="_blank" rel="noopener">langchain</a><span class="author">langchain-ai</span><span class="stars">146,575 stars</span></td>
 <td><span class="cat" style="--c:#5a9fd4">SDK &amp; Integrations</span><span class="vs">reviewed</span></td>
 <td class="what">Adds an optional Jev classification node to Python LangChain flows, returning category, probability and grade.</td>
 <td class="jev">TypeSafeClassifier sends JSON state and typed questions to /v1/systemone, sync and async Runnable support.</td>
 <td class="note">Mainstream adoption signal - Jev as a pluggable Runnable.</td>
 </tr><tr class="row" data-cat="SDK &amp; Integrations" data-s="oh-my-pi can1357 oh my pi optionally uses jev for small judgments: how deep to think, whether it stopped unexpectedly, git-staging classification. unified judgment interface calls jev when typesafe credentials exist; structured questions return probabilities for local policy. &#x27;did i stop unexpectedly?&#x27; self-check - interesting failure detector. adopt.">
 <td class="idx">98</td>
-<td class="pname"><a href="https://github.com/can1357/oh-my-pi" target="_blank" rel="noopener">oh-my-pi</a><span class="author">can1357</span><span class="stars">★ 31,711</span></td>
+<td class="pname"><a href="https://github.com/can1357/oh-my-pi" target="_blank" rel="noopener">oh-my-pi</a><span class="author">can1357</span><span class="stars">31,711 stars</span></td>
 <td><span class="cat" style="--c:#5a9fd4">SDK &amp; Integrations</span><span class="vs">reviewed</span></td>
 <td class="what">Oh My Pi optionally uses Jev for small judgments: how deep to think, whether it stopped unexpectedly, git-staging classification.</td>
 <td class="jev">Unified judgment interface calls Jev when TypeSafe credentials exist; structured questions return probabilities for local policy.</td>
 <td class="note">&#x27;Did I stop unexpectedly?&#x27; self-check - interesting failure detector. Adopt.</td>
 </tr><tr class="row" data-cat="SDK &amp; Integrations" data-s="eliza elizaos an optional typesafe http adapter inside eliza&#x27;s source, for explicit structured judgment requests. caller provides model, state and questions; systemone validates input and output around the request. sdk binding - duplicate.">
 <td class="idx">99</td>
-<td class="pname"><a href="https://github.com/elizaOS/eliza" target="_blank" rel="noopener">eliza</a><span class="author">elizaOS</span><span class="stars">★ 19,358</span></td>
+<td class="pname"><a href="https://github.com/elizaOS/eliza" target="_blank" rel="noopener">eliza</a><span class="author">elizaOS</span><span class="stars">19,358 stars</span></td>
 <td><span class="cat" style="--c:#5a9fd4">SDK &amp; Integrations</span><span class="vs">reviewed</span></td>
 <td class="what">An optional TypeSafe HTTP adapter inside Eliza&#x27;s source, for explicit structured judgment requests.</td>
 <td class="jev">Caller provides model, state and questions; systemOne validates input and output around the request.</td>
 <td class="note">SDK binding - duplicate.</td>
 </tr><tr class="row" data-cat="SDK &amp; Integrations" data-s="composio composiohq an optional jev decision layer for composio&#x27;s toolbox: pick the tool, fill enumerable params, hand the rest back. compiles tools and closed parameters into typed questions; returns full call, partial call or abstain; explicit execute afterwards. partial-fill + abstain semantics for tool calls - adopt for my form fills.">
 <td class="idx">100</td>
-<td class="pname"><a href="https://github.com/ComposioHQ/composio" target="_blank" rel="noopener">composio</a><span class="author">ComposioHQ</span><span class="stars">★ 30,227</span></td>
+<td class="pname"><a href="https://github.com/ComposioHQ/composio" target="_blank" rel="noopener">composio</a><span class="author">ComposioHQ</span><span class="stars">30,227 stars</span></td>
 <td><span class="cat" style="--c:#5a9fd4">SDK &amp; Integrations</span><span class="vs">reviewed</span></td>
 <td class="what">An optional Jev decision layer for Composio&#x27;s toolbox: pick the tool, fill enumerable params, hand the rest back.</td>
 <td class="jev">Compiles tools and closed parameters into typed questions; returns full call, partial call or abstain; explicit execute afterwards.</td>
 <td class="note">PARTIAL-FILL + ABSTAIN semantics for tool calls - adopt for my form fills.</td>
 </tr><tr class="row" data-cat="SDK &amp; Integrations" data-s="pydantic-ai pydantic pydantic ai&#x27;s optional jev model: boolean and enum fields of your output schema become questions, typed answers come back. typesafemodel compiles supported output_type fields into typed questions; typesafeprovider calls the api and reassembles the output. type-safe output reconstruction from judgments - clean schema mapping.">
 <td class="idx">101</td>
-<td class="pname"><a href="https://github.com/pydantic/pydantic-ai" target="_blank" rel="noopener">pydantic-ai</a><span class="author">pydantic</span><span class="stars">★ 20,021</span></td>
+<td class="pname"><a href="https://github.com/pydantic/pydantic-ai" target="_blank" rel="noopener">pydantic-ai</a><span class="author">pydantic</span><span class="stars">20,021 stars</span></td>
 <td><span class="cat" style="--c:#5a9fd4">SDK &amp; Integrations</span><span class="vs">reviewed</span></td>
 <td class="what">Pydantic AI&#x27;s optional Jev model: boolean and enum fields of your output schema become questions, typed answers come back.</td>
 <td class="jev">TypeSafeModel compiles supported output_type fields into typed questions; TypeSafeProvider calls the API and reassembles the output.</td>
 <td class="note">Type-safe output reconstruction from judgments - clean schema mapping.</td>
 </tr><tr class="row" data-cat="Routing &amp; Cost Optimization" data-s="litellm berriai litellm&#x27;s complexity routing can use jev: judge which model tier the request needs, then hand off to the routing strategy. jev choice over configured model tiers; http client returns probabilities and confidence for the router. complexity routing in the biggest llm gateway - mainstream signal.">
 <td class="idx">102</td>
-<td class="pname"><a href="https://github.com/BerriAI/litellm" target="_blank" rel="noopener">litellm</a><span class="author">BerriAI</span><span class="stars">★ 59,048</span></td>
+<td class="pname"><a href="https://github.com/BerriAI/litellm" target="_blank" rel="noopener">litellm</a><span class="author">BerriAI</span><span class="stars">59,048 stars</span></td>
 <td><span class="cat" style="--c:#6d5efc">Routing &amp; Cost Optimization</span><span class="vs">reviewed</span></td>
 <td class="what">LiteLLM&#x27;s complexity routing can use Jev: judge which model tier the request needs, then hand off to the routing strategy.</td>
 <td class="jev">Jev Choice over configured model tiers; HTTP client returns probabilities and confidence for the router.</td>
 <td class="note">Complexity routing in the biggest LLM gateway - mainstream signal.</td>
 </tr><tr class="row" data-cat="SDK &amp; Integrations" data-s="langchainjs langchain-ai langchain.js&#x27;s optional jev classifier: pair state with questions, get categories and scores usable directly in code. typesafeclassifier sends shared state with choice/noul/score as a runnable, validates and organizes answers. js mirror of #97 - duplicate pattern.">
 <td class="idx">103</td>
-<td class="pname"><a href="https://github.com/langchain-ai/langchainjs" target="_blank" rel="noopener">langchainjs</a><span class="author">langchain-ai</span><span class="stars">★ 18,206</span></td>
+<td class="pname"><a href="https://github.com/langchain-ai/langchainjs" target="_blank" rel="noopener">langchainjs</a><span class="author">langchain-ai</span><span class="stars">18,206 stars</span></td>
 <td><span class="cat" style="--c:#5a9fd4">SDK &amp; Integrations</span><span class="vs">reviewed</span></td>
 <td class="what">LangChain.js&#x27;s optional Jev classifier: pair state with questions, get categories and scores usable directly in code.</td>
 <td class="jev">TypeSafeClassifier sends shared state with Choice/Noul/Score as a Runnable, validates and organizes answers.</td>
 <td class="note">JS mirror of #97 - duplicate pattern.</td>
 </tr><tr class="row" data-cat="Routing &amp; Cost Optimization" data-s="firstmate kunchenguid firstmate optionally uses jev to read task briefs and match dispatch rules; local rules pick the concrete agent config. one choice over task and candidate dispatch rules; confidence, approvals, quotas and ranking stay in shell logic. dispatch router - duplicate of the routing family.">
 <td class="idx">104</td>
-<td class="pname"><a href="https://github.com/kunchenguid/firstmate" target="_blank" rel="noopener">firstmate</a><span class="author">kunchenguid</span><span class="stars">★ 6,452</span></td>
+<td class="pname"><a href="https://github.com/kunchenguid/firstmate" target="_blank" rel="noopener">firstmate</a><span class="author">kunchenguid</span><span class="stars">6,452 stars</span></td>
 <td><span class="cat" style="--c:#6d5efc">Routing &amp; Cost Optimization</span><span class="vs">reviewed</span></td>
 <td class="what">Firstmate optionally uses Jev to read task briefs and match dispatch rules; local rules pick the concrete agent config.</td>
 <td class="jev">One Choice over task and candidate dispatch rules; confidence, approvals, quotas and ranking stay in shell logic.</td>
 <td class="note">Dispatch router - duplicate of the routing family.</td>
 </tr><tr class="row" data-cat="Routing &amp; Cost Optimization" data-s="openchamber openchamber openchamber&#x27;s optional auto model routing: jev reads which task class a message is, then uses that class&#x27;s bound model and effort. choice judges task class; a separate noul decides if auto-approved permissions should go back to the user for confirmation. the permission noul - auto-approval gating matches my approval-first. adopt.">
 <td class="idx">105</td>
-<td class="pname"><a href="https://github.com/openchamber/openchamber" target="_blank" rel="noopener">openchamber</a><span class="author">openchamber</span><span class="stars">★ 10,017</span></td>
+<td class="pname"><a href="https://github.com/openchamber/openchamber" target="_blank" rel="noopener">openchamber</a><span class="author">openchamber</span><span class="stars">10,017 stars</span></td>
 <td><span class="cat" style="--c:#6d5efc">Routing &amp; Cost Optimization</span><span class="vs">reviewed</span></td>
 <td class="what">OpenChamber&#x27;s optional auto model routing: Jev reads which task class a message is, then uses that class&#x27;s bound model and effort.</td>
 <td class="jev">Choice judges task class; a separate Noul decides if auto-approved permissions should go back to the user for confirmation.</td>
 <td class="note">The permission Noul - auto-approval gating matches my approval-first. Adopt.</td>
 </tr><tr class="row" data-cat="SDK &amp; Integrations" data-s="ax ax-llm ax&#x27;s optional typesafe interface: call jev with boolean or fixed-category signatures, or read raw probabilities and scores. adapter turns supported output fields into jev questions; native client&#x27;s systemone sends and validates answers. signature-based mapping - duplicate of schema-compilation pattern.">
 <td class="idx">106</td>
-<td class="pname"><a href="https://github.com/ax-llm/ax" target="_blank" rel="noopener">ax</a><span class="author">ax-llm</span><span class="stars">★ 2,924</span></td>
+<td class="pname"><a href="https://github.com/ax-llm/ax" target="_blank" rel="noopener">ax</a><span class="author">ax-llm</span><span class="stars">2,924 stars</span></td>
 <td><span class="cat" style="--c:#5a9fd4">SDK &amp; Integrations</span><span class="vs">reviewed</span></td>
 <td class="what">Ax&#x27;s optional TypeSafe interface: call Jev with boolean or fixed-category signatures, or read raw probabilities and scores.</td>
 <td class="jev">Adapter turns supported output fields into Jev questions; native client&#x27;s systemOne sends and validates answers.</td>
 <td class="note">Signature-based mapping - duplicate of schema-compilation pattern.</td>
 </tr><tr class="row" data-cat="Security &amp; Guardrails" data-s="agentgateway agentgateway an optional guardrail example for agentgateway: jev checks model requests and replies for jailbreaks, harmful content and secret leaks. a bun webhook scores via jev through the gateway; thresholds at reject level return http 403. gateway-level content gate - infrastructure-grade guardrail placement.">
 <td class="idx">107</td>
-<td class="pname"><a href="https://github.com/agentgateway/agentgateway" target="_blank" rel="noopener">agentgateway</a><span class="author">agentgateway</span><span class="stars">★ 4,905</span></td>
+<td class="pname"><a href="https://github.com/agentgateway/agentgateway" target="_blank" rel="noopener">agentgateway</a><span class="author">agentgateway</span><span class="stars">4,905 stars</span></td>
 <td><span class="cat" style="--c:#e05c5c">Security &amp; Guardrails</span><span class="vs">reviewed</span></td>
 <td class="what">An optional guardrail example for agentgateway: Jev checks model requests and replies for jailbreaks, harmful content and secret leaks.</td>
 <td class="jev">A Bun webhook scores via Jev through the gateway; thresholds at reject level return HTTP 403.</td>
 <td class="note">Gateway-level content gate - infrastructure-grade guardrail placement.</td>
 </tr><tr class="row" data-cat="Browser &amp; OS Action" data-s="omg.dev bennykok omg.dev&#x27;s mobile test scripts can use jev over the accessibility tree: pick the next control, judge step done or dead-end. a test-helper judge sends ui trees with noul/choice questions; exact string assertions stay in code. judge assists, assertions stay deterministic - right boundary.">
 <td class="idx">108</td>
-<td class="pname"><a href="https://github.com/BennyKok/omg.dev" target="_blank" rel="noopener">omg.dev</a><span class="author">BennyKok</span><span class="stars">★ 531</span></td>
+<td class="pname"><a href="https://github.com/BennyKok/omg.dev" target="_blank" rel="noopener">omg.dev</a><span class="author">BennyKok</span><span class="stars">531 stars</span></td>
 <td><span class="cat" style="--c:#7c8cff">Browser &amp; OS Action</span><span class="vs">reviewed</span></td>
 <td class="what">omg.dev&#x27;s mobile test scripts can use Jev over the accessibility tree: pick the next control, judge step done or dead-end.</td>
 <td class="jev">A test-helper judge sends UI trees with Noul/Choice questions; exact string assertions stay in code.</td>
 <td class="note">Judge assists, assertions stay deterministic - right boundary.</td>
 </tr><tr class="row" data-cat="SDK &amp; Decision Frameworks" data-s="pi-fabric monotykamary programmable jev decision loops for pi&#x27;s tool runtime: write observe-judge-execute steps, run front or back within a budget. single-choice, boolean or scoring judgment over program-submitted state; loops and actions run locally with budgets. budgeted decision loops - resource-capped autonomy.">
 <td class="idx">109</td>
-<td class="pname"><a href="https://github.com/monotykamary/pi-fabric" target="_blank" rel="noopener">pi-fabric</a><span class="author">monotykamary</span><span class="stars">★ 232</span></td>
+<td class="pname"><a href="https://github.com/monotykamary/pi-fabric" target="_blank" rel="noopener">pi-fabric</a><span class="author">monotykamary</span><span class="stars">232 stars</span></td>
 <td><span class="cat" style="--c:#5bb8d4">SDK &amp; Decision Frameworks</span><span class="vs">reviewed</span></td>
 <td class="what">Programmable Jev decision loops for Pi&#x27;s tool runtime: write observe-judge-execute steps, run front or back within a budget.</td>
 <td class="jev">Single-choice, boolean or scoring judgment over program-submitted state; loops and actions run locally with budgets.</td>
 <td class="note">Budgeted decision loops - resource-capped autonomy.</td>
 </tr><tr class="row" data-cat="Evaluation &amp; Observability" data-s="latitude-llm latitude-dev latitude&#x27;s conversation-check pipeline gets a side observer: optionally calls jev, logging which checks it would run vs the real pipeline. answers one boolean per conversation state; thresholds record &#x27;would run&#x27; or &#x27;would skip&#x27;. shadow-mode observer again - validate before switching. adopt.">
 <td class="idx">110</td>
-<td class="pname"><a href="https://github.com/latitude-dev/latitude-llm" target="_blank" rel="noopener">latitude-llm</a><span class="author">latitude-dev</span><span class="stars">★ 4,652</span></td>
+<td class="pname"><a href="https://github.com/latitude-dev/latitude-llm" target="_blank" rel="noopener">latitude-llm</a><span class="author">latitude-dev</span><span class="stars">4,652 stars</span></td>
 <td><span class="cat" style="--c:#7fb069">Evaluation &amp; Observability</span><span class="vs">reviewed</span></td>
 <td class="what">Latitude&#x27;s conversation-check pipeline gets a side observer: optionally calls Jev, logging which checks it WOULD run vs the real pipeline.</td>
 <td class="jev">Answers one boolean per conversation state; thresholds record &#x27;would run&#x27; or &#x27;would skip&#x27;.</td>
 <td class="note">Shadow-mode observer again - validate before switching. Adopt.</td>
 </tr><tr class="row" data-cat="SDK &amp; Decision Frameworks" data-s="instructor-php cognesy php applications use jev through a unified decision interface: hand over business state and judgment questions, get options, scores, probabilities. calls jev via polyglot&#x27;s typesafe driver; answers caller-specified questions. php binding - duplicate.">
 <td class="idx">111</td>
-<td class="pname"><a href="https://github.com/cognesy/instructor-php" target="_blank" rel="noopener">instructor-php</a><span class="author">cognesy</span><span class="stars">★ 327</span></td>
+<td class="pname"><a href="https://github.com/cognesy/instructor-php" target="_blank" rel="noopener">instructor-php</a><span class="author">cognesy</span><span class="stars">327 stars</span></td>
 <td><span class="cat" style="--c:#5bb8d4">SDK &amp; Decision Frameworks</span><span class="vs">reviewed</span></td>
 <td class="what">PHP applications use Jev through a unified Decision interface: hand over business state and judgment questions, get options, scores, probabilities.</td>
 <td class="jev">Calls Jev via Polyglot&#x27;s TypeSafe driver; answers caller-specified questions.</td>
 <td class="note">PHP binding - duplicate.</td>
 </tr><tr class="row" data-cat="Routing &amp; Cost Optimization" data-s="atomic bastani-inc atomic coding agent&#x27;s optional decision backend: when routing needs a judgment among given options, jev can take it; code stays with the normal model. compiles structured multiple-choice into jev choice requests and validates returned options and distributions. routing-only adoption - writing stays with generative models.">
 <td class="idx">112</td>
-<td class="pname"><a href="https://github.com/bastani-inc/atomic" target="_blank" rel="noopener">atomic</a><span class="author">bastani-inc</span><span class="stars">★ 805</span></td>
+<td class="pname"><a href="https://github.com/bastani-inc/atomic" target="_blank" rel="noopener">atomic</a><span class="author">bastani-inc</span><span class="stars">805 stars</span></td>
 <td><span class="cat" style="--c:#6d5efc">Routing &amp; Cost Optimization</span><span class="vs">reviewed</span></td>
 <td class="what">Atomic coding agent&#x27;s optional decision backend: when routing needs a judgment among given options, Jev can take it; code stays with the normal model.</td>
 <td class="jev">Compiles structured multiple-choice into Jev Choice requests and validates returned options and distributions.</td>
 <td class="note">Routing-only adoption - writing stays with generative models.</td>
 </tr><tr class="row" data-cat="Routing &amp; Cost Optimization" data-s="wrongstack wrongstack an optional dispatch helper for the wrongstack coding agent: with several similar specialist agents, jev judges who fits the task. picks from candidate roles while separately judging whether any candidate truly fits; falls back to the original strategy when none. explicit &#x27;none of the above&#x27; check beside the pick. adopt - add abstain to every choice set.">
 <td class="idx">113</td>
-<td class="pname"><a href="https://github.com/WrongStack/WrongStack" target="_blank" rel="noopener">WrongStack</a><span class="author">WrongStack</span><span class="stars">★ 327</span></td>
+<td class="pname"><a href="https://github.com/WrongStack/WrongStack" target="_blank" rel="noopener">WrongStack</a><span class="author">WrongStack</span><span class="stars">327 stars</span></td>
 <td><span class="cat" style="--c:#6d5efc">Routing &amp; Cost Optimization</span><span class="vs">reviewed</span></td>
 <td class="what">An optional dispatch helper for the WrongStack coding agent: with several similar specialist agents, Jev judges who fits the task.</td>
 <td class="jev">Picks from candidate roles while separately judging whether ANY candidate truly fits; falls back to the original strategy when none.</td>
 <td class="note">Explicit &#x27;none of the above&#x27; check beside the pick. Adopt - add abstain to every choice set.</td>
 </tr><tr class="row" data-cat="Codebase &amp; Graph Pathfinding" data-s="celesto celestoai a jev code-review example in the celesto repo: triage suspected pr issues, then check if this change introduced it, evidence exists, and it&#x27;s worth fixing. answers &#x27;yes / no / insufficient-evidence&#x27; per candidate finding; code keeps or sends back for more evidence. three-question evidence gate per finding - clean review loop. adopt.">
 <td class="idx">114</td>
-<td class="pname"><a href="https://github.com/CelestoAI/celesto" target="_blank" rel="noopener">celesto</a><span class="author">CelestoAI</span><span class="stars">★ 943</span></td>
+<td class="pname"><a href="https://github.com/CelestoAI/celesto" target="_blank" rel="noopener">celesto</a><span class="author">CelestoAI</span><span class="stars">943 stars</span></td>
 <td><span class="cat" style="--c:#9a7cf0">Codebase &amp; Graph Pathfinding</span><span class="vs">reviewed</span></td>
 <td class="what">A Jev code-review example in the Celesto repo: triage suspected PR issues, then check if this change introduced it, evidence exists, and it&#x27;s worth fixing.</td>
 <td class="jev">Answers &#x27;yes / no / insufficient-evidence&#x27; per candidate finding; code keeps or sends back for more evidence.</td>
 <td class="note">Three-question evidence gate per finding - clean review loop. Adopt.</td>
 </tr><tr class="row" data-cat="SDK &amp; Decision Frameworks" data-s="req_llm agentjido reqllm brings jev judgment questions to elixir: an evaluate interface takes state and questions, returns answers and probabilities. typesafe provider sends evaluate requests to system one; unifies boolean, choice and scoring results. elixir binding - duplicate.">
 <td class="idx">115</td>
-<td class="pname"><a href="https://github.com/agentjido/req_llm" target="_blank" rel="noopener">req_llm</a><span class="author">agentjido</span><span class="stars">★ 576</span></td>
+<td class="pname"><a href="https://github.com/agentjido/req_llm" target="_blank" rel="noopener">req_llm</a><span class="author">agentjido</span><span class="stars">576 stars</span></td>
 <td><span class="cat" style="--c:#5bb8d4">SDK &amp; Decision Frameworks</span><span class="vs">reviewed</span></td>
 <td class="what">ReqLLM brings Jev judgment questions to Elixir: an evaluate interface takes state and questions, returns answers and probabilities.</td>
 <td class="jev">TypeSafe provider sends evaluate requests to System One; unifies boolean, choice and scoring results.</td>
 <td class="note">Elixir binding - duplicate.</td>
 </tr><tr class="row" data-cat="MCP &amp; Integrations" data-s="vellum-assistant vellum-ai vellum assistant adds a jev provider: once selected, conversation state or explicit question packs get structured judgments. calls the native system one interface for named questions and routes results back through the assistant&#x27;s adapter layer. platform provider - duplicate.">
 <td class="idx">116</td>
-<td class="pname"><a href="https://github.com/vellum-ai/vellum-assistant" target="_blank" rel="noopener">vellum-assistant</a><span class="author">vellum-ai</span><span class="stars">★ 1,282</span></td>
+<td class="pname"><a href="https://github.com/vellum-ai/vellum-assistant" target="_blank" rel="noopener">vellum-assistant</a><span class="author">vellum-ai</span><span class="stars">1,282 stars</span></td>
 <td><span class="cat" style="--c:#4fc3a1">MCP &amp; Integrations</span><span class="vs">reviewed</span></td>
 <td class="what">Vellum Assistant adds a Jev provider: once selected, conversation state or explicit question packs get structured judgments.</td>
 <td class="jev">Calls the native System One interface for named questions and routes results back through the assistant&#x27;s adapter layer.</td>
 <td class="note">Platform provider - duplicate.</td>
 </tr><tr class="row" data-cat="Routing &amp; Cost Optimization" data-s="vexjoy-agent notque a jev route for vexjoy task dispatch: given a requirement, judge which specialist agent, skill and workflow to use. first judges whether routing is needed, then picks from the real candidate list; illegal choices or failures fall back to the original flow. invalid-choice fallback path - always have a recovery route. adopt.">
 <td class="idx">117</td>
-<td class="pname"><a href="https://github.com/notque/vexjoy-agent" target="_blank" rel="noopener">vexjoy-agent</a><span class="author">notque</span><span class="stars">★ 420</span></td>
+<td class="pname"><a href="https://github.com/notque/vexjoy-agent" target="_blank" rel="noopener">vexjoy-agent</a><span class="author">notque</span><span class="stars">420 stars</span></td>
 <td><span class="cat" style="--c:#6d5efc">Routing &amp; Cost Optimization</span><span class="vs">reviewed</span></td>
 <td class="what">A Jev route for VexJoy task dispatch: given a requirement, judge which specialist agent, skill and workflow to use.</td>
 <td class="jev">First judges whether routing is needed, then picks from the real candidate list; illegal choices or failures fall back to the original flow.</td>
 <td class="note">Invalid-choice fallback path - always have a recovery route. Adopt.</td>
 </tr><tr class="row" data-cat="Voice &amp; Conversation" data-s="aiavatarkit uezo gives voice characters fewer interruptions: aiavatarkit can use jev to judge whether the user really finished or is pausing to think. combines transcript and pause length to estimate whether to keep waiting; config decides when to end the turn. end-of-utterance detection - clever; mostly n/a for my text channels.">
 <td class="idx">118</td>
-<td class="pname"><a href="https://github.com/uezo/aiavatarkit" target="_blank" rel="noopener">aiavatarkit</a><span class="author">uezo</span><span class="stars">★ 672</span></td>
+<td class="pname"><a href="https://github.com/uezo/aiavatarkit" target="_blank" rel="noopener">aiavatarkit</a><span class="author">uezo</span><span class="stars">672 stars</span></td>
 <td><span class="cat" style="--c:#c98fd9">Voice &amp; Conversation</span><span class="vs">reviewed</span></td>
 <td class="what">Gives voice characters fewer interruptions: AIAvatarKit can use Jev to judge whether the user really finished or is pausing to think.</td>
 <td class="jev">Combines transcript and pause length to estimate whether to keep waiting; config decides when to end the turn.</td>
 <td class="note">End-of-utterance detection - clever; mostly n/a for my text channels.</td>
 </tr><tr class="row" data-cat="MCP &amp; Integrations" data-s="taskuary ldbumble taskuary pools messages, tasks and agent work, with an optional jev judge checking run state against user-set conditions. submits the same run state with multiple conditions as yes-no questions; returns booleans and raw probabilities. condition checking as batched noul - duplicate pattern.">
 <td class="idx">119</td>
-<td class="pname"><a href="https://github.com/ldbumble/taskuary" target="_blank" rel="noopener">taskuary</a><span class="author">ldbumble</span><span class="stars">★ 96</span></td>
+<td class="pname"><a href="https://github.com/ldbumble/taskuary" target="_blank" rel="noopener">taskuary</a><span class="author">ldbumble</span><span class="stars">96 stars</span></td>
 <td><span class="cat" style="--c:#4fc3a1">MCP &amp; Integrations</span><span class="vs">reviewed</span></td>
 <td class="what">Taskuary pools messages, tasks and agent work, with an optional Jev judge checking run state against user-set conditions.</td>
 <td class="jev">Submits the same run state with multiple conditions as yes-no questions; returns booleans and raw probabilities.</td>
 <td class="note">Condition checking as batched Noul - duplicate pattern.</td>
 </tr><tr class="row" data-cat="Classification &amp; Taxonomy" data-s="orchestkit yonatangross orchestkit optionally uses jev to classify coding sessions - debugging, development or other - and color-codes the session above threshold. single choice over fixed categories from session-opening messages; falls back to haiku classification when uncertain. cheap-classifier fallback chain - degrade gracefully. adopt.">
 <td class="idx">120</td>
-<td class="pname"><a href="https://github.com/yonatangross/orchestkit" target="_blank" rel="noopener">orchestkit</a><span class="author">yonatangross</span><span class="stars">★ 278</span></td>
+<td class="pname"><a href="https://github.com/yonatangross/orchestkit" target="_blank" rel="noopener">orchestkit</a><span class="author">yonatangross</span><span class="stars">278 stars</span></td>
 <td><span class="cat" style="--c:#a3b86c">Classification &amp; Taxonomy</span><span class="vs">reviewed</span></td>
 <td class="what">OrchestKit optionally uses Jev to classify coding sessions - debugging, development or other - and color-codes the session above threshold.</td>
 <td class="jev">Single Choice over fixed categories from session-opening messages; falls back to Haiku classification when uncertain.</td>
 <td class="note">Cheap-classifier fallback chain - degrade gracefully. Adopt.</td>
 </tr><tr class="row" data-cat="Context GC &amp; Filter" data-s="skillbox kitze a self-built versioned agent skill library with optional jev recommendations: name the task, it picks more relevant skills you can use. judges each candidate skill&#x27;s task relevance item by item; the app organizes recommendations. skill recommendation - duplicate of the skill-gating family.">
 <td class="idx">121</td>
-<td class="pname"><a href="https://github.com/kitze/skillbox" target="_blank" rel="noopener">skillbox</a><span class="author">kitze</span><span class="stars">★ 123</span></td>
+<td class="pname"><a href="https://github.com/kitze/skillbox" target="_blank" rel="noopener">skillbox</a><span class="author">kitze</span><span class="stars">123 stars</span></td>
 <td><span class="cat" style="--c:#5faf6e">Context GC &amp; Filter</span><span class="vs">reviewed</span></td>
 <td class="what">A self-built versioned agent skill library with optional Jev recommendations: name the task, it picks more relevant skills you can use.</td>
 <td class="jev">Judges each candidate skill&#x27;s task relevance item by item; the app organizes recommendations.</td>
 <td class="note">Skill recommendation - duplicate of the skill-gating family.</td>
 </tr><tr class="row" data-cat="Security &amp; Guardrails" data-s="interlinked-cli quentincody optional jev scoring layered on local rule checks for coding agents - a supplemental judgment channel over deterministic rules. answers boolean, choice or scoring questions over incoming state for upper-layer policy; returns &#x27;unmeasured&#x27; on failure. graceful &#x27;unmeasured&#x27; state instead of fake confidence. adopt.">
 <td class="idx">122</td>
-<td class="pname"><a href="https://github.com/QuentinCody/interlinked-cli" target="_blank" rel="noopener">interlinked-cli</a><span class="author">QuentinCody</span><span class="stars">★ 177</span></td>
+<td class="pname"><a href="https://github.com/QuentinCody/interlinked-cli" target="_blank" rel="noopener">interlinked-cli</a><span class="author">QuentinCody</span><span class="stars">177 stars</span></td>
 <td><span class="cat" style="--c:#e05c5c">Security &amp; Guardrails</span><span class="vs">reviewed</span></td>
 <td class="what">Optional Jev scoring layered on local rule checks for coding agents - a supplemental judgment channel over deterministic rules.</td>
 <td class="jev">Answers boolean, choice or scoring questions over incoming state for upper-layer policy; returns &#x27;unmeasured&#x27; on failure.</td>
 <td class="note">Graceful &#x27;unmeasured&#x27; state instead of fake confidence. Adopt.</td>
 </tr><tr class="row" data-cat="SDK &amp; Decision Frameworks" data-s="effect-agent danieljvdm jev decision model inside effect agent: typescript programs make typed judgments and can also use it for model selection. typesafedecisionmodel calls through typesafeclient; probabilities, choices and scores map back into effect. ts framework binding - duplicate.">
 <td class="idx">123</td>
-<td class="pname"><a href="https://github.com/danieljvdm/effect-agent" target="_blank" rel="noopener">effect-agent</a><span class="author">danieljvdm</span><span class="stars">★ 115</span></td>
+<td class="pname"><a href="https://github.com/danieljvdm/effect-agent" target="_blank" rel="noopener">effect-agent</a><span class="author">danieljvdm</span><span class="stars">115 stars</span></td>
 <td><span class="cat" style="--c:#5bb8d4">SDK &amp; Decision Frameworks</span><span class="vs">reviewed</span></td>
 <td class="what">Jev decision model inside Effect Agent: TypeScript programs make typed judgments and can also use it for model selection.</td>
 <td class="jev">TypeSafeDecisionModel calls through TypeSafeClient; probabilities, choices and scores map back into Effect.</td>
 <td class="note">TS framework binding - duplicate.</td>
 </tr><tr class="row" data-cat="Security &amp; Guardrails" data-s="pi-warden devmortimer a rule supervisor for the pi coding agent: checks file edits against project conventions, evaluates dangerous commands, feeds issues back to the agent. judges whether edits violate rules, drift off-task or are irreversible; merges with local mode rules. convention-checking guardrail - duplicate of the warden pattern.">
 <td class="idx">124</td>
-<td class="pname"><a href="https://github.com/DevMortimer/pi-warden" target="_blank" rel="noopener">pi-warden</a><span class="author">DevMortimer</span><span class="stars">★ 48</span></td>
+<td class="pname"><a href="https://github.com/DevMortimer/pi-warden" target="_blank" rel="noopener">pi-warden</a><span class="author">DevMortimer</span><span class="stars">48 stars</span></td>
 <td><span class="cat" style="--c:#e05c5c">Security &amp; Guardrails</span><span class="vs">reviewed</span></td>
 <td class="what">A rule supervisor for the Pi coding agent: checks file edits against project conventions, evaluates dangerous commands, feeds issues back to the agent.</td>
 <td class="jev">Judges whether edits violate rules, drift off-task or are irreversible; merges with local mode rules.</td>
 <td class="note">Convention-checking guardrail - duplicate of the warden pattern.</td>
 </tr><tr class="row" data-cat="SDK &amp; Decision Frameworks" data-s="advocaat pithings ask jev with short typescript calls: write several judgments over the same data at once, get probabilities, options and scores. converts typed questions into system one requests and maps named answers back to the caller. ergonomics-focused client - duplicate.">
 <td class="idx">125</td>
-<td class="pname"><a href="https://github.com/pithings/advocaat" target="_blank" rel="noopener">advocaat</a><span class="author">pithings</span><span class="stars">★ 55</span></td>
+<td class="pname"><a href="https://github.com/pithings/advocaat" target="_blank" rel="noopener">advocaat</a><span class="author">pithings</span><span class="stars">55 stars</span></td>
 <td><span class="cat" style="--c:#5bb8d4">SDK &amp; Decision Frameworks</span><span class="vs">reviewed</span></td>
 <td class="what">Ask Jev with short TypeScript calls: write several judgments over the same data at once, get probabilities, options and scores.</td>
 <td class="jev">Converts typed questions into System One requests and maps named answers back to the caller.</td>
 <td class="note">Ergonomics-focused client - duplicate.</td>
 </tr><tr class="row" data-cat="MCP &amp; Integrations" data-s="synkora-ai getsynkora the synkora agent platform ships a typesafe client: hand business data to jev for classification, scoring or yes-no as one workflow capability. converts caller question/options/levels into jev question types and criteria, then calls system one. platform capability - duplicate.">
 <td class="idx">126</td>
-<td class="pname"><a href="https://github.com/getsynkora/synkora-ai" target="_blank" rel="noopener">synkora-ai</a><span class="author">getsynkora</span><span class="stars">★ 34</span></td>
+<td class="pname"><a href="https://github.com/getsynkora/synkora-ai" target="_blank" rel="noopener">synkora-ai</a><span class="author">getsynkora</span><span class="stars">34 stars</span></td>
 <td><span class="cat" style="--c:#4fc3a1">MCP &amp; Integrations</span><span class="vs">reviewed</span></td>
 <td class="what">The Synkora agent platform ships a TypeSafe client: hand business data to Jev for classification, scoring or yes-no as one workflow capability.</td>
 <td class="jev">Converts caller question/options/levels into Jev question types and criteria, then calls System One.</td>
 <td class="note">Platform capability - duplicate.</td>
 </tr><tr class="row" data-cat="MCP &amp; Integrations" data-s="ai hackclub hack club&#x27;s ai agent adds a jev forwarding endpoint: approved users submit judgment questions through one entry with auth, limits and usage metering. the proxy forwards state and questions to typesafe and returns jev&#x27;s structured answer to the caller. quota&#x27;d proxy - operational plumbing for shared access.">
 <td class="idx">127</td>
-<td class="pname"><a href="https://github.com/hackclub/ai" target="_blank" rel="noopener">ai</a><span class="author">hackclub</span><span class="stars">★ 133</span></td>
+<td class="pname"><a href="https://github.com/hackclub/ai" target="_blank" rel="noopener">ai</a><span class="author">hackclub</span><span class="stars">133 stars</span></td>
 <td><span class="cat" style="--c:#4fc3a1">MCP &amp; Integrations</span><span class="vs">reviewed</span></td>
 <td class="what">Hack Club&#x27;s AI agent adds a Jev forwarding endpoint: approved users submit judgment questions through one entry with auth, limits and usage metering.</td>
 <td class="jev">The proxy forwards state and questions to TypeSafe and returns Jev&#x27;s structured answer to the caller.</td>
 <td class="note">Quota&#x27;d proxy - operational plumbing for shared access.</td>
 </tr><tr class="row" data-cat="Browser &amp; OS Action" data-s="unclutter kitze a visual-declutter browser extension: jev identifies ads, promos and subscription popups; reusable hide rules get stored locally. classifies page-element candidates; only above-threshold non-essential elements enter hide rules, uncertain ones stay visible. mine repeated judgments into local rules - cache frequent verdicts. adopt.">
 <td class="idx">128</td>
-<td class="pname"><a href="https://github.com/kitze/unclutter" target="_blank" rel="noopener">unclutter</a><span class="author">kitze</span><span class="stars">★ 56</span></td>
+<td class="pname"><a href="https://github.com/kitze/unclutter" target="_blank" rel="noopener">unclutter</a><span class="author">kitze</span><span class="stars">56 stars</span></td>
 <td><span class="cat" style="--c:#7c8cff">Browser &amp; OS Action</span><span class="vs">reviewed</span></td>
 <td class="what">A visual-declutter browser extension: Jev identifies ads, promos and subscription popups; reusable hide rules get stored locally.</td>
 <td class="jev">Classifies page-element candidates; only above-threshold non-essential elements enter hide rules, uncertain ones stay visible.</td>
 <td class="note">MINE REPEATED JUDGMENTS INTO LOCAL RULES - cache frequent verdicts. Adopt.</td>
 </tr><tr class="row" data-cat="SDK &amp; Decision Frameworks" data-s="openai-scala-client cequence-io brings jev to scala: the multi-model client gains a typesafe module for state + judgment questions returning structured answers. calls system one for choice, score and boolean probabilities; converts supported closed json schemas into questions. schema-to-questions compilation - duplicate of #101/#106.">
 <td class="idx">129</td>
-<td class="pname"><a href="https://github.com/cequence-io/openai-scala-client" target="_blank" rel="noopener">openai-scala-client</a><span class="author">cequence-io</span><span class="stars">★ 248</span></td>
+<td class="pname"><a href="https://github.com/cequence-io/openai-scala-client" target="_blank" rel="noopener">openai-scala-client</a><span class="author">cequence-io</span><span class="stars">248 stars</span></td>
 <td><span class="cat" style="--c:#5bb8d4">SDK &amp; Decision Frameworks</span><span class="vs">reviewed</span></td>
 <td class="what">Brings Jev to Scala: the multi-model client gains a TypeSafe module for state + judgment questions returning structured answers.</td>
 <td class="jev">Calls System One for choice, score and boolean probabilities; converts supported closed JSON Schemas into questions.</td>
 <td class="note">Schema-to-questions compilation - duplicate of #101/#106.</td>
 </tr><tr class="row" data-cat="Browser &amp; OS Action" data-s="ego-jev phd-peter wires jev into the ego lite browser: reads a lightweight semantic snapshot, jev picks which control to click and how to scroll. reads the current action-space candidates and picks target control + operation in one request; ego-lite executes locally. semantic-snapshot variant - duplicate of the browser-loop family.">
 <td class="idx">130</td>
-<td class="pname"><a href="https://github.com/phd-peter/ego-jev" target="_blank" rel="noopener">ego-jev</a><span class="author">phd-peter</span><span class="stars">★ —</span></td>
+<td class="pname"><a href="https://github.com/phd-peter/ego-jev" target="_blank" rel="noopener">ego-jev</a><span class="author">phd-peter</span><span class="stars">— stars</span></td>
 <td><span class="cat" style="--c:#7c8cff">Browser &amp; OS Action</span><span class="vs">✓ verified</span></td>
 <td class="what">Wires Jev into the Ego Lite browser: reads a lightweight semantic snapshot, Jev picks which control to click and how to scroll.</td>
 <td class="jev">Reads the current action-space candidates and picks target control + operation in one request; ego-lite executes locally.</td>
 <td class="note">Semantic-snapshot variant - duplicate of the browser-loop family.</td>
 </tr><tr class="row" data-cat="SDK &amp; Decision Frameworks" data-s="jev-visual hr98w a local vision-jev experiment on apple silicon: single-image choice/score/boolean with three local visual game demos. reuses image context and reads model logits directly to score candidate answers; local code assembles results. local-logit scoring - n/a for my remote api setup, interesting math.">
 <td class="idx">131</td>
-<td class="pname"><a href="https://github.com/hr98w/jev-visual" target="_blank" rel="noopener">jev-visual</a><span class="author">hr98w</span><span class="stars">★ 75</span></td>
+<td class="pname"><a href="https://github.com/hr98w/jev-visual" target="_blank" rel="noopener">jev-visual</a><span class="author">hr98w</span><span class="stars">75 stars</span></td>
 <td><span class="cat" style="--c:#5bb8d4">SDK &amp; Decision Frameworks</span><span class="vs">✓ verified</span></td>
 <td class="what">A local vision-Jev experiment on Apple Silicon: single-image choice/score/boolean with three local visual game demos.</td>
 <td class="jev">Reuses image context and reads model logits directly to score candidate answers; local code assembles results.</td>
 <td class="note">Local-logit scoring - n/a for my remote API setup, interesting math.</td>
 </tr><tr class="row" data-cat="Context GC &amp; Filter" data-s="bluenoise rokcso an x/twitter browser extension for noise reduction: local rules filter spam, hard replies go to jev in batches (hide at noul &gt;= 0.9). long-tail replies missing local rules are batched (max 25 per request) for noise probability; code decides hiding. rules-first + batched long-tail + high bar to act (0.9) - the best filtering design in the list. adopt.">
 <td class="idx">132</td>
-<td class="pname"><a href="https://github.com/rokcso/bluenoise" target="_blank" rel="noopener">bluenoise</a><span class="author">rokcso</span><span class="stars">★ 82</span></td>
+<td class="pname"><a href="https://github.com/rokcso/bluenoise" target="_blank" rel="noopener">bluenoise</a><span class="author">rokcso</span><span class="stars">82 stars</span></td>
 <td><span class="cat" style="--c:#5faf6e">Context GC &amp; Filter</span><span class="vs">✓ verified</span></td>
 <td class="what">An X/Twitter browser extension for noise reduction: local rules filter spam, hard replies go to Jev in batches (hide at noul &gt;= 0.9).</td>
 <td class="jev">Long-tail replies missing local rules are batched (max 25 per request) for noise probability; code decides hiding.</td>
 <td class="note">RULES-FIRST + BATCHED LONG-TAIL + HIGH BAR TO ACT (0.9) - the best filtering design in the list. Adopt.</td>
 </tr><tr class="row" data-cat="High-Frequency &amp; Simulation" data-s="jev-gomoku xiechengyuan two jev players battle in tic-tac-toe-style gomoku, comparing how input information changes decisions, showing real requests per move. one choice per move over board/rules/color/legal candidates; local code validates and executes. transparent request logging - duplicate of the game-loop pattern.">
 <td class="idx">133</td>
-<td class="pname"><a href="https://github.com/XieChengYuan/jev-gomoku" target="_blank" rel="noopener">jev-gomoku</a><span class="author">XieChengYuan</span><span class="stars">★ —</span></td>
+<td class="pname"><a href="https://github.com/XieChengYuan/jev-gomoku" target="_blank" rel="noopener">jev-gomoku</a><span class="author">XieChengYuan</span><span class="stars">— stars</span></td>
 <td><span class="cat" style="--c:#d96a9f">High-Frequency &amp; Simulation</span><span class="vs">✓ verified</span></td>
 <td class="what">Two Jev players battle in tic-tac-toe-style gomoku, comparing how input information changes decisions, showing real requests per move.</td>
 <td class="jev">One Choice per move over board/rules/color/legal candidates; local code validates and executes.</td>
