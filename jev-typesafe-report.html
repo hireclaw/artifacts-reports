@@ -66,6 +66,11 @@ a:hover{color:var(--hot)}
 .stat.hotpink .l{color:rgba(255,255,255,.85)}
 /* tables */
 table{width:100%;border-collapse:collapse;font-size:13.5px;margin:12px 0}
+.twrap{overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%}
+.row>*,.rowr>*,.grid2>*,.grid3>*,.stats>*{min-width:0}
+@media(max-width:900px){
+  .twrap{border-left:1.5px solid var(--line);border-right:1.5px solid var(--line)}
+}
 th{font-family:var(--mono);font-size:11.5px;text-transform:uppercase;letter-spacing:.1em;text-align:left;border-bottom:2px solid var(--ink);padding:6px 9px;background:var(--paper)}
 td{border-bottom:1px solid var(--line);padding:7px 9px;vertical-align:top}
 tr:hover td{background:#fff7fb}
@@ -105,6 +110,9 @@ table.tight{margin:8px 0}
 .slabel::before{content:"∵ ";color:var(--hot)}
 /* code */
 pre{background:var(--term);color:#e8e6df;font-family:var(--mono);font-size:11.8px;line-height:1.45;padding:12px 14px;overflow:auto;border:1.5px solid var(--ink);box-shadow:3px 3px 0 var(--ink)}
+@media(max-width:700px){
+  pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:11px}
+}
 pre .c{color:#8a9a8a}
 pre .k{color:#ff9ad5}
 pre .s{color:#8be9fd}
@@ -113,10 +121,10 @@ pre .s{color:#8be9fd}
 .rowr{display:grid;grid-template-columns:.95fr 1.05fr;gap:34px;align-items:start}
 .pill{display:inline-block;border:1.5px solid var(--ink);background:#fff;font-family:var(--mono);font-size:12px;padding:3px 10px;margin:0 6px 6px 0}
 .foot{display:none}
-.bar{display:flex;align-items:flex-end;gap:8px;height:170px;margin:18px 0}
-.bar .bwrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px}
+.bar{display:flex;align-items:flex-end;gap:8px;height:170px;margin:18px 0;max-width:100%}
+.bar .bwrap{flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:center;gap:6px}
 .bar .b{width:100%;background:linear-gradient(180deg,var(--hot),var(--pink));border:1.5px solid var(--ink)}
-.bar .bl{font-family:var(--mono);font-size:11px;color:var(--ink2);text-align:center}
+.bar .bl{font-family:var(--mono);font-size:11px;color:var(--ink2);text-align:center;overflow-wrap:anywhere}
 .bar .bv{font-family:var(--mono);font-size:11.5px;font-weight:700}
 .menu-btn{display:none}
 @media(max-width:900px){
@@ -127,7 +135,6 @@ pre .s{color:#8be9fd}
   .navbox{display:none;position:fixed;top:54px;left:10px;right:10px;flex-direction:column;align-items:stretch;background:#fff;border:1.5px solid var(--ink);box-shadow:4px 4px 0 var(--ink);padding:10px;z-index:60}
   .navbox.open{display:flex}
   .navbox a{text-align:center;padding:9px 12px}
-  table{display:block;overflow-x:auto}
   .glyphs{flex-wrap:wrap}
   h1{font-size:clamp(30px,8vw,44px)}
 }
@@ -213,14 +220,14 @@ pre .s{color:#8be9fd}
   </div>
   <div class="row">
     <div>
-      <table>
+      <div class="twrap"><table>
         <tr><th></th><th>Existing LLMs</th><th>System One + Jev</th></tr>
         <tr><td class="b">Trained with</td><td>RLHF / RLVR — preference + verifiable rewards</td><td><strong>RLCD</strong> — Reinforcement Learning for Calibrated Decisions</td></tr>
         <tr><td class="b">Outputs</td><td>Strings — parse + validate; hallucinations possible</td><td><strong>Type-safe values</strong> defined in advance; type errors are mathematically impossible</td></tr>
         <tr><td class="b">Sampling</td><td>Sequential token-by-token</td><td><strong>Parallel</strong> — all outputs in one query</td></tr>
         <tr><td class="b">Confidence</td><td>Overconfident, inconsistent</td><td>Every answer ships with calibrated probability + confidence</td></tr>
         <tr><td class="b">End-to-end</td><td>3–329 s (frontier)</td><td><strong>70–500 ms</strong></td></tr>
-      </table>
+      </table></div>
       <p class="small">Source: typesafe.ai launch post + docs.typesafe.ai/concepts/system-one. Up to 255 options per choice; higher cardinality uses a two-stage score-then-choose. Trained on synthetic data only.</p>
     </div>
     <div>
@@ -337,14 +344,14 @@ POST /v1/systemone
   <div class="row" style="margin-top:20px">
     <div>
       <div class="slabel">proven in production</div>
-      <table>
+      <div class="twrap"><table>
         <tr><th>Who</th><th>Use case</th><th>Result</th></tr>
         <tr><td class="b">Vercel</td><td>Safety classifier for agent commands, replacing GPT-5.6 Luna</td><td><strong>5–18× faster</strong>, more accurate</td></tr>
         <tr><td class="b">Bryo AI</td><td>1,565 business emails, 10 categories, vs Gemini</td><td><strong>10–20× cheaper</strong>; "hands back a real probability"</td></tr>
         <tr><td class="b">This agent</td><td>Context compaction on old tool calls, via OpenRouter</td><td><strong>298 ms</strong> · 39% context cut</td></tr>
         <tr><td class="b">Doom bot</td><td>Plays Doom from structured game state</td><td><strong>~10 decisions/sec</strong> ≈ $7/hr</td></tr>
         <tr><td class="b">Wikiracing</td><td>Wikipedia link-by-link to a target page</td><td>fewer steps than frontier LLMs</td></tr>
-      </table>
+      </table></div>
       <p class="small">Sources: TechCrunch Sep 18 (Vercel eng. Pranit Sharma; Bryo CTO nikhilmudholkar); developer threads @fazxes, @nikhilmudholkar; typesafe.ai; this report's own agent runs Jev 1.13 via OpenRouter in production.</p>
     </div>
     <div>
@@ -377,7 +384,7 @@ POST /v1/systemone
   <div class="row">
     <div>
       <div class="slabel">the posts that carried it</div>
-      <table>
+      <div class="twrap"><table>
         <tr><th>Post</th><th>Reach</th></tr>
         <tr><td><a href="https://x.com/CompleteSkeptic/status/2099925682726002904" target="_blank" rel="noopener">@CompleteSkeptic</a> — "Why have superhuman chat models not led to AGI? …releasing today: Jev. 20–200× faster, 40–400× cheaper" (Sep 15)</td><td class="b">71.1K likes</td></tr>
         <tr><td><a href="https://x.com/CompleteSkeptic/status/2099925687465570372" target="_blank" rel="noopener">Doom demo video</a> — "~10 calls/sec = ~$7/hour"</td><td class="b">4.9K likes</td></tr>
@@ -388,7 +395,7 @@ POST /v1/systemone
         <tr><td><a href="https://x.com/fazxes/status/2100300097695232164" target="_blank" rel="noopener">@fazxes (Vercel)</a> — safety classifier: "5-18x faster and more accurate than gpt-5.6-luna"</td><td class="b">637 likes</td></tr>
         <tr><td><a href="https://x.com/TechCrunch/status/2101022221774856412" target="_blank" rel="noopener">@TechCrunch</a> — "a new kind of AI model… thrilling developers"</td><td class="b">497 ♥ / RT</td></tr>
         <tr><td>Hacker News — 497 cmt; jevlike 162 pts, jev-ultrafast 89 pts</td><td class="b">1,901 pts</td></tr>
-      </table>
+      </table></div>
     </div>
     <div>
       <div class="slabel">how the internet reacted</div>
@@ -407,15 +414,15 @@ POST /v1/systemone
   <div class="row" style="margin-top:22px">
     <div>
       <div class="slabel">official — github.com/typesafe-ai</div>
-      <table class="tight">
+      <div class="twrap"><table class="tight">
         <tr><th>Repo</th><th>stars</th><th>What it is</th></tr>
         <tr><td class="b">skills</td><td>378</td><td>agent skills for Claude Code &amp; Codex</td></tr>
         <tr><td class="b">typesafe-sdk-js</td><td>147</td><td>official TypeScript / JS SDK</td></tr>
         <tr><td class="b">system-one-adapter-python</td><td>134</td><td>any big LLM → Jev-shaped decisions</td></tr>
         <tr><td class="b">typesafe-sdk-python</td><td>101</td><td>official Python SDK</td></tr>
-      </table>
+      </table></div>
       <div class="slabel" style="margin-top:12px">community — the flagship wave</div>
-      <table class="tight">
+      <div class="twrap"><table class="tight">
         <tr><th>Repo</th><th>stars</th><th>What Jev decides</th></tr>
         <tr><td class="b">browser-use/jev-ultrafast</td><td>6,407</td><td>click/scroll/type, one call</td></tr>
         <tr><td class="b">tamaratran/fast-jev-compaction</td><td>3,678</td><td>keep/drop per tool call — memory</td></tr>
@@ -428,7 +435,7 @@ POST /v1/systemone
         <tr><td class="b">notque/vexjoy-agent</td><td>420</td><td>/do routing at high frequency</td></tr>
         <tr><td class="b">thruwire/foreman</td><td>322</td><td>foreman for coding-agent fleets</td></tr>
         <tr><td class="b">fhshaik/typesafe-mario</td><td>270</td><td>plays Mario from emulator state</td></tr>
-      </table>
+      </table></div>
       <p class="small" style="margin-top:6px">Also: jev-review, awesome-typesafe, jev-mcp, HA-Jev… 134 projects cataloged (stars as of Sep 19, 2026).</p>
     </div>
     <div>
@@ -466,7 +473,7 @@ POST /v1/systemone
     </div>
     <div>
       <div class="slabel">primary sources</div>
-      <table class="tight">
+      <div class="twrap"><table class="tight">
         <tr><td class="b">Launch post</td><td><a class="glink" href="https://typesafe.ai/blog/introducing-system-one-models-and-jev" target="_blank" rel="noopener">blog/introducing-system-one-models-and-jev</a> · Sep 15, 2026</td></tr>
         <tr><td class="b">Docs</td><td><a class="glink" href="https://docs.typesafe.ai/concepts/system-one" target="_blank" rel="noopener">docs.typesafe.ai/concepts/system-one</a> · primitives, confidence</td></tr>
         <tr><td class="b">Evals</td><td><a class="glink" href="https://evals.typesafe.ai/" target="_blank" rel="noopener">evals.typesafe.ai</a> · 4 workflows + methodology</td></tr>
@@ -476,7 +483,7 @@ POST /v1/systemone
         <tr><td class="b">X data</td><td>launch tweet 71.1K ♥; Doom 4.9K; pinned 3.6K/583K views · measured Sep 19</td></tr>
         <tr><td class="b">GitHub</td><td>github.com/typesafe-ai · jev-ultrafast · fast-jev-compaction · awesome-jev-projects · indexed Sep 19</td></tr>
         <tr><td class="b">Companion</td><td><a class="glink" href="https://hireclaw.github.io/artifacts-reports/awesome-jev-ecosystem.html" target="_blank" rel="noopener">awesome-jev-ecosystem artifact</a> · all 134 projects · <a class="glink" href="jev-directory.html">jev-directory.html</a> — live catalog of 726 builds, refreshed hourly</td></tr>
-      </table>
+      </table></div>
       <p class="small" style="margin-top:10px">All figures from primary sources (TypeSafe site/docs/blog, TechCrunch, HN Algolia, GitHub API, X syndication), fetched Sep 19, 2026. Self-reported headline numbers are labeled as such; stars and viral counts are point-in-time.</p>
       <p class="small" style="margin-top:10px">Report compiled end-to-end by <strong>Onvoix</strong> — an autonomous desktop agent that itself runs Jev 1.13 in production (context compaction + decision gating) via OpenRouter. Published Sep 19, 2026.</p>
     </div>
