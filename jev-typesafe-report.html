@@ -123,10 +123,23 @@ pre .s{color:#8be9fd}
 .bar .b{width:100%;background:linear-gradient(180deg,var(--hot),var(--pink));border:1.5px solid var(--ink)}
 .bar .bl{font-family:var(--mono);font-size:11px;color:var(--ink2);text-align:center}
 .bar .bv{font-family:var(--mono);font-size:11.5px;font-weight:700}
+.menu-btn{display:none}
 @media(max-width:900px){
+  html,body{overflow-x:hidden}
   .grid2,.grid3,.row,.rowr{grid-template-columns:1fr}
-  .page{padding:84px 6vw 90px}
-  .pnbtn{display:none}
+  .page{height:auto;min-height:100vh;min-height:100svh;max-height:none;overflow:visible;padding:76px 6vw 112px}
+  .foot{position:static;margin-top:28px}
+  .pnbtn{display:block;top:auto;bottom:14px;transform:none;width:46px;height:46px;font-size:17px;transition:opacity .25s}
+  #prev{left:12px}
+  #next{right:12px}
+  .dots{bottom:12px;background:rgba(254,254,254,.94);border:1.5px solid var(--line);border-radius:18px;padding:8px 12px;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);transition:opacity .25s}
+  .ctlhide .pnbtn,.ctlhide .dots{opacity:0;pointer-events:none}
+  .topbar{background:rgba(254,254,254,.96);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-bottom:1.5px solid var(--line);pointer-events:auto}
+  .menu-btn{display:inline-block;font-family:var(--mono);font-size:12.5px;background:#fff;border:1.5px solid var(--ink);padding:5px 12px;box-shadow:2px 2px 0 var(--ink);cursor:pointer;pointer-events:auto}
+  .navbox{display:none;position:fixed;top:58px;left:10px;right:10px;flex-direction:column;align-items:stretch;background:#fff;border:1.5px solid var(--ink);box-shadow:4px 4px 0 var(--ink);padding:10px;z-index:60}
+  .navbox.open{display:flex}
+  .navbox a{text-align:center;padding:9px 12px}
+  table{display:block;overflow-x:auto}
 }
 </style>
 </head>
@@ -134,6 +147,7 @@ pre .s{color:#8be9fd}
 <div class="topbar">
   <a class="brand" href="https://typesafe.ai" target="_blank" rel="noopener">TypeSafe AI<span style="color:var(--hot)"> ∵</span></a>
   <nav class="navbox" id="nav"></nav>
+  <button class="menu-btn" id="menubtn" aria-label="Pages menu">menu</button>
 </div>
 <button class="pnbtn" id="prev" aria-label="Previous">←</button>
 <button class="pnbtn" id="next" aria-label="Next">→</button>
@@ -436,6 +450,7 @@ POST /v1/systemone
         <div style="margin-top:6px">2. <span class="lnk">docs.typesafe.ai</span> — state → primitives → workflows</div>
         <div style="margin-top:6px">3. console.typesafe.ai playground (early access)</div>
         <div style="margin-top:6px">4. or call <span class="ok">typesafe/jev-1.13</span> on OpenRouter — no key ceremony, $0.042/M in, $0 out</div>
+        <div style="margin-top:6px">5. <a class="glink" href="jev-directory.html">jev-directory.html</a> — the live interactive directory: 726 community builds, 50 full evals, refreshed hourly</div>
       </div>
     </div>
   </div>
@@ -469,7 +484,7 @@ POST /v1/systemone
         <tr><td class="b">Hacker News</td><td><a class="glink" href="https://news.ycombinator.com/item?id=49717558" target="_blank" rel="noopener">news.ycombinator.com/item?id=49717558</a> · Sep 15, 2026</td></tr>
         <tr><td class="b">X data</td><td>launch tweet 71.1K ♥; Doom 4.9K; pinned 3.6K/583K views · measured Sep 19</td></tr>
         <tr><td class="b">GitHub</td><td>github.com/typesafe-ai · jev-ultrafast · fast-jev-compaction · awesome-jev-projects · indexed Sep 19</td></tr>
-        <tr><td class="b">Companion</td><td><a class="glink" href="https://hireclaw.github.io/artifacts-reports/awesome-jev-ecosystem.html" target="_blank" rel="noopener">awesome-jev-ecosystem artifact</a> · all 134 projects</td></tr>
+        <tr><td class="b">Companion</td><td><a class="glink" href="https://hireclaw.github.io/artifacts-reports/awesome-jev-ecosystem.html" target="_blank" rel="noopener">awesome-jev-ecosystem artifact</a> · all 134 projects · <a class="glink" href="jev-directory.html">jev-directory.html</a> — live catalog of 726 builds, refreshed hourly</td></tr>
       </table>
       <p class="small" style="margin-top:10px">All figures from primary sources (TypeSafe site/docs/blog, TechCrunch, HN Algolia, GitHub API, X syndication), fetched Sep 19, 2026. Self-reported headline numbers are labeled as such; stars and viral counts are point-in-time.</p>
       <p class="small" style="margin-top:10px">Report compiled end-to-end by <strong>Onvoix</strong> — an autonomous desktop agent that itself runs Jev 1.13 in production (context compaction + decision gating) via OpenRouter. Published Sep 19, 2026.</p>
@@ -488,12 +503,32 @@ pages.forEach((p,i)=>{
   const d=document.createElement('button');d.title=names[i];d.onclick=()=>go(i);dots.appendChild(d);
   const a=document.createElement('a');a.href='#p'+(i+1);a.textContent=names[i];nav.appendChild(a);
 });
+const dl=document.createElement('a');dl.href='jev-directory.html';dl.textContent='Directory ↗';nav.appendChild(dl);
+const mb=document.getElementById('menubtn');
+mb.addEventListener('click',e=>{e.stopPropagation();nav.classList.toggle('open');});
+nav.addEventListener('click',e=>{if(e.target.tagName==='A')nav.classList.remove('open');});
+document.addEventListener('click',e=>{if(innerWidth<=900&&!nav.contains(e.target)&&e.target!==mb)nav.classList.remove('open');});
+const pbtnP=document.getElementById('prev'),pbtnN=document.getElementById('next');
+function updPN(){
+  if(innerWidth<=900){pbtnP.style.visibility=cur===0?'hidden':'visible';pbtnN.style.visibility=cur===pages.length-1?'hidden':'visible';}
+  else{pbtnP.style.visibility='visible';pbtnN.style.visibility='visible';document.body.classList.remove('ctlhide');}
+}
+let lastSY=0;
+addEventListener('scroll',()=>{
+  if(innerWidth>900)return;
+  const y=window.scrollY;
+  if(y<=60||y<lastSY-4)document.body.classList.remove('ctlhide');
+  else if(y>lastSY+4)document.body.classList.add('ctlhide');
+  lastSY=y;
+},{passive:true});
+addEventListener('resize',updPN);updPN();
 function go(i){
   cur=Math.max(0,Math.min(pages.length-1,i));
   pages.forEach((p,j)=>p.classList.toggle('active',j===cur));
   [...dots.children].forEach((d,j)=>d.classList.toggle('on',j===cur));
   [...nav.children].forEach((a,j)=>a.classList.toggle('on',j===cur));
   history.replaceState(null,'','#p'+(cur+1));
+  updPN();
   window.scrollTo(0,0);
 }
 function fromHash(){const m=location.hash.match(/p(\d+)/);go(m?+m[1]-1:0);}
@@ -507,15 +542,16 @@ addEventListener('keydown',e=>{
 let wt=0;
 addEventListener('wheel',e=>{
   if(document.body.classList.contains('printmode'))return;
+  if(innerWidth<=900)return;
   const deck=document.getElementById('deck');const p=pages[cur];
   const t=e.deltaY;
   if((p.scrollHeight-p.clientHeight<40)||(p.scrollTop+p.clientHeight>=p.scrollHeight-2&&t>0)||(p.scrollTop<=0&&t<0)){
     const now=Date.now();if(now-wt<650)return;wt=now;go(cur+(t>0?1:-1));
   }
 },{passive:true});
-let tx=0;
-addEventListener('touchstart',e=>tx=e.touches[0].clientX,{passive:true});
-addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>60)go(cur+(dx<0?1:-1))},{passive:true});
+let tx=0,ty=0;
+addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY},{passive:true});
+addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.4)go(cur+(dx<0?1:-1))},{passive:true});
 addEventListener('hashchange',fromHash);
 fromHash();
 </script>
