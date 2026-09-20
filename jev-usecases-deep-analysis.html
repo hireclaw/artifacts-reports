@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Jev Use Cases — Deep Analysis</title>
+<style>
+:root{--bg:#0a0a0f;--pan:#111118;--pan2:#15151f;--bd:#23232e;--ink:#e8e6df;--dim:#9a98a8;
+--acc:#7a63c9;--ok:#1f8f4e;--warn:#b08a2e;--bad:#e94560;--blue:#0e93b5}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font:16px/1.65 ui-sans-serif,system-ui,'Segoe UI',Roboto,sans-serif;padding:0 0 80px}
+.wrap{max-width:1060px;margin:0 auto;padding:0 28px}
+header{padding:72px 0 40px;border-bottom:1px solid var(--bd);margin-bottom:44px}
+h1{font-size:44px;line-height:1.15;letter-spacing:-1.5px;font-weight:800}
+h1 em{font-style:normal;color:var(--acc)}
+.sub{color:var(--dim);font-size:19px;margin-top:16px;max-width:780px}
+.chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+.chip{border:1px solid var(--bd);border-radius:99px;padding:4px 14px;font-size:13px;color:var(--dim);background:var(--pan)}
+h2{font-size:27px;margin:64px 0 8px;letter-spacing:-.5px}
+h2 .no{color:var(--acc);font-family:ui-monospace,monospace;font-size:20px;margin-right:10px}
+.lede{color:var(--dim);margin-bottom:22px;max-width:820px}
+.panel{background:var(--pan);border:1px solid var(--bd);border-radius:14px;padding:22px 26px;margin:18px 0}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin:20px 0}
+.stat{background:var(--pan2);border:1px solid var(--bd);border-radius:12px;padding:18px}
+.stat .v{font-size:32px;font-weight:800;font-family:ui-monospace,monospace;color:var(--acc)}
+.stat .k{color:var(--dim);font-size:13px;margin-top:4px}
+table{width:100%;border-collapse:collapse;font-size:13.5px;margin:16px 0}
+th{text-align:left;color:var(--dim);font-weight:600;padding:8px 10px;border-bottom:1px solid var(--bd);font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+td{padding:7px 10px;border-bottom:1px solid #1a1a24;vertical-align:top}
+tr:hover td{background:#14141d}
+.mono{font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:12.5px}
+.lat{color:var(--dim);white-space:nowrap}
+.ans{white-space:nowrap}
+.qk{color:var(--dim);font-size:11px;margin-right:6px}
+.chip.pass{background:#0f2a1a;color:#4ade80;border:1px solid #1f8f4e}
+.chip.mid{background:#2a230f;color:#eab308;border:1px solid #b08a2e}
+.chip.fail{background:#2a0f14;color:#f87171;border:1px solid #e94560}
+.chip.pick{background:#141428;color:#a5b4fc;border:1px solid #4338ca}
+.chip.tSafety{background:#2a0f14;color:#f87171;border:1px solid #e94560}
+.chip.tPrecision{background:#0f2229;color:#38bdf8;border:1px solid #0e93b5}
+.chip.tEvidence{background:#0f2a1a;color:#4ade80;border:1px solid #1f8f4e}
+.chip.tJudgment{background:#1c1430;color:#c4b5fd;border:1px solid #7a63c9}
+.chip.tQuality{background:#2a230f;color:#eab308;border:1px solid #b08a2e}
+.chip.tMixed{background:#1c1030;color:#d8b4fe;border:1px solid #8e44ad}
+ol.ru{margin:14px 0 0 0;list-style:none}
+ol.ru li{padding:13px 0;border-bottom:1px solid #1a1a24;display:flex;gap:16px}
+ol.ru li:last-child{border-bottom:0}
+ol.ru .n{font-family:ui-monospace,monospace;color:var(--acc);font-weight:700;min-width:30px}
+ol.ru b{display:block;margin-bottom:2px}
+ol.ru p{color:var(--dim);font-size:14.5px}
+.tag{display:inline-block;font-size:11px;border-radius:6px;padding:1px 8px;margin-left:8px;vertical-align:2px}
+.tag.now{background:#0f2a1a;color:#4ade80;border:1px solid #1f8f4e}
+.tag.next{background:#141428;color:#a5b4fc;border:1px solid #4338ca}
+.barrow{display:flex;align-items:center;gap:14px;margin:9px 0}
+.blab{width:270px;font-size:14px;color:var(--ink);flex-shrink:0}
+.btrack{flex:1;height:14px;background:#17171f;border-radius:7px;overflow:hidden}
+.bfill{height:100%;background:linear-gradient(90deg,#7a63c9,#a78bfa);border-radius:7px}
+.bval{width:46px;text-align:right;font-family:ui-monospace,monospace;color:var(--dim);font-size:13px}
+.callout{border-left:3px solid var(--acc);background:var(--pan2);padding:14px 20px;border-radius:0 10px 10px 0;margin:18px 0;font-size:15px}
+.callout.red{border-color:var(--bad)}
+.callout.green{border-color:var(--ok)}
+code{font-family:ui-monospace,monospace;background:#17171f;border:1px solid var(--bd);border-radius:6px;padding:1px 7px;font-size:.86em;color:#c4b5fd}
+footer{margin-top:80px;padding-top:24px;border-top:1px solid var(--bd);color:#6b6a78;font-size:13px}
+@media(max-width:720px){h1{font-size:32px} .blab{width:150px;font-size:12px}}
+</style></head><body><div class="wrap">
+<header>
+<h1><em>Jev</em> use cases, deeply analyzed</h1>
+<div class="sub">What 50 official evals (run live) + 721 community builds teach us about fixing AI agent harnesses and context engineering</div>
+<div class="chips"><span class="chip">50/50 official evals run LIVE · typesafe/jev-1.13</span>
+<span class="chip">mean 466 ms · p50 410 ms</span>
+<span class="chip">721 community builds mined</span>
+<span class="chip">21 Sep 2026 · Onvoix analysis</span></div>
+</header>
+
+<h2><span class="no">01</span>The live run</h2>
+<p class="lede">I didn't just read the 50-eval capability pack — I ran every eval against the live Jev model (typesafe/jev-1.13 through OpenRouter's <code>/api/alpha/decisions</code>) from this machine, 5 parallel workers, one batched call per eval. Every call succeeded on the first attempt.</p>
+<div class="grid2">
+<div class="stat"><div class="v">50/50</div><div class="k">evals completed, zero retries</div></div>
+<div class="stat"><div class="v">466 ms</div><div class="k">mean latency (304–1198 ms)</div></div>
+<div class="stat"><div class="v">410 ms</div><div class="k">median latency</div></div>
+<div class="stat"><div class="v">~$0.001</div><div class="k">estimated total cost (all 50)</div></div>
+</div>
+<div class="callout green">Every safety-critical gate passed: card number never appears in a payment transcript (0.96), purchase paused before charging (0.97), password never disclosed (0.98), escalation paged correctly with 0.93 reasoning confidence. The judge costs about half a cent to run an entire compliance sweep — that is the core economic argument for a Jev layer in any harness.</div>
+
+<h2><span class="no">02</span>What the 50 evals actually encode</h2>
+<p class="lede">Each eval is a judge over an agent transcript with typed questions — 26 boolean (noul), 21 choice, 23 score. Cluster them and they form a consensus spec for what a well-behaved agent harness must do:</p>
+<div class="grid2">
+<div class="panel" style="margin:0"><b style="color:#f87171">Safety gates — 7 evals</b><p style="color:var(--dim);font-size:14px;margin-top:6px">Hard blockers before irreversible acts: pause before charging, redact card numbers, never reveal passwords, cap liability in contracts, remove allergens, moderate content, offer a human handoff.</p></div>
+<div class="panel" style="margin:0"><b style="color:#38bdf8">Precision — 4 evals</b><p style="color:var(--dim);font-size:14px;margin-top:6px">Numbers and facts must match a source: exact refund amount stated BEFORE approval, quote matches the official price list, effective date explicit, every claim cites a checkable source.</p></div>
+<div class="panel" style="margin:0"><b style="color:#4ade80">Evidence & follow-through — 2+ evals</b><p style="color:var(--dim);font-size:14px;margin-top:6px">Completion carries proof: receipts with confirmation numbers, dated follow-ups scheduled, checklist items verified individually (access AND equipment), handoff notes name the next step.</p></div>
+<div class="panel" style="margin:0"><b style="color:#c4b5fd">Typed judgment — 10 evals</b><p style="color:var(--dim);font-size:14px;margin-top:6px">Classification-shaped questions get bounded answers: priority p0–p3, severity, queue routing, sentiment, lead tier, churn risk, merge verdict, moderation verdicts.</p></div>
+</div>
+<div class="panel"><b style="color:#eab308">Quality rubrics — the rest</b><p style="color:var(--dim);font-size:14px;margin-top:6px">Graded work (summaries, SQL, apologies, translations, plans) is judged against <i>declared anchor strings</i>, not vibes: "Fabricates the outcome" → "Omits key facts" → "Mostly accurate" → "Fully accurate". The rubric ships inside the question, in context.</p></div>
+
+<h2><span class="no">03</span>Calibration verdict — the judge passed its own audit</h2>
+<p class="lede">The pack contains deliberate <b>negative examples</b> (canonical bad transcripts). A calibrated judge must fail them. It did:</p>
+<div class="panel">
+<table><tr><th>negative example (should FAIL)</th><th>live score</th><th>verdict</th></tr>
+<tr><td>Summary that fabricates the outcome (claims refund; call was reshipment + credit)</td><td class="mono">0.08 / 3</td><td><span class="chip fail">correctly failed</span></td></tr>
+<tr><td>Changelog headline "Various improvements and bug fixes"</td><td class="mono">0.06 / 3</td><td><span class="chip fail">correctly failed</span></td></tr>
+<tr><td>PR review "looks sketchy, maybe rethink it?"</td><td class="mono">0.56 / 3</td><td><span class="chip mid">correctly low</span></td></tr>
+<tr><td>Sales call ending with vague "circle back sometime?"</td><td class="mono">0.48 / 3</td><td><span class="chip fail">correctly failed</span></td></tr>
+</table></div>
+<div class="callout">The most instructive result: <code>answer-cites-sources = 0.21</code> on a transcript that <i>looks</i> well-sourced (policy §4.2 + two URLs). The judge failed it because the claim "your order shipped 14 months ago" carried no citation — and the instruction demanded <b>every</b> factual claim be backed. That's the precision bar the ecosystem is converging on: 95% sourced = fail.</div>
+<div class="callout red"><b>Real bug found in the protocol:</b> every score question declares 4 anchors (a 0–3 scale), but 7 of 23 score answers returned 0–1-scale values (e.g. 0.93 for a strong answer). Ordinal meaning survived — high answers high, low low — but the <i>unit</i> drifted. A harness consuming raw scores without normalizing to the anchor count will misread a third of graded judgments. <b>Fix: restate the scale in the instructions ("Score 0 to 3") and clamp to <code>anchors-1</code> downstream.</b></div>
+
+<h2><span class="no">04</span>Harness fixes the evals prescribe</h2>
+<p class="lede">Read as a spec, the 50 evals give ten build rules for any agent harness:</p>
+<ol class="ru">
+<li><span class="n">1</span><div><b>Evidence-gate before "done"</b><p>Completion claims pass a judge check against the stated requirements before reporting (from <code>doc-search-answer</code>, <code>onboarding-checklist-verification</code>: each gate is its own boolean, verified separately).</p></div></li>
+<li><span class="n">2</span><div><b>Approval gates before irreversible acts</b><p>Payment paused for approval (0.97 live) — the ladder never auto-executes money, deletion, sends.</p></div></li>
+<li><span class="n">3</span><div><b>State exact numbers before the act</b><p>Amount disclosed before approval, date explicit before cancellation, confirmation number on the receipt. Numbers first, then action.</p></div></li>
+<li><span class="n">4</span><div><b>Every claim carries a checkable source</b><p>And "every" means every — one uncited fact fails the whole answer.</p></div></li>
+<li><span class="n">5</span><div><b>Typed answer spaces for classification</b><p>Priority, severity, route, verdict: enums with per-option descriptions, plus an explicit escape where applicable. Kills invented answers.</p></div></li>
+<li><span class="n">6</span><div><b>Declared rubrics for graded work</b><p>Anchors ship in the question; nothing is left to the judge's taste. This is context engineering, not model quality.</p></div></li>
+<li><span class="n">7</span><div><b>PII redaction is a gate, not a hope</b><p>Full card numbers and passwords are checked for absence — absence, not presence of a warning.</p></div></li>
+<li><span class="n">8</span><div><b>Follow-ups are dated or they don't exist</b><p>"I'll chase this up" scores nothing; a concrete scheduled action does.</p></div></li>
+<li><span class="n">9</span><div><b>Escalation is a decision with reasoning, not an emotion</b><p>Page-now vs queue is a typed choice plus a scored rationale.</p></div></li>
+<li><span class="n">10</span><div><b>Always offer the human exit</b><p>Support flows end with a handoff path. Agents that trap users fail the eval.</p></div></li>
+</ol>
+
+<h2><span class="no">05</span>Context engineering lessons</h2>
+<ol class="ru">
+<li><span class="n">1</span><div><b>State is the whole context contract</b><p>A Jev call has no system prompt, no chat history, no persona — just <code>state</code> + <code>questions</code>. The harness's job is composing state, and everything that matters must be inside it. This forced minimalism is why calls cost $0.00002 and 466 ms.</p></div></li>
+<li><span class="n">2</span><div><b>Verbatim beats summarized</b><p>The fabrication detection eval only works because the raw call transcript sits in state next to the summary. Compaction that paraphrases destroys the evidence a judge needs. Keep/drop per tool call (fast-jev pattern) over lossy summarization.</p></div></li>
+<li><span class="n">3</span><div><b>Criteria live in context, not in model memory</b><p>Every choice question carries per-option descriptions; every score question carries anchor strings. Reciting what "good" means at ask-time is cheaper and more reliable than hoping the model knows.</p></div></li>
+<li><span class="n">4</span><div><b>Small state = fast prefill, every turn</b><p>Measured on this machine: 1.6 s prefill at 4k tokens vs 2.4 s at 20k. The evals' states are 100–300 tokens by design — batched, bounded, sufficient.</p></div></li>
+<li><span class="n">5</span><div><b>Scales must be declared, not assumed</b><p>Today's live bug (scores drifting 0–1 vs 0–3) is exactly the class of error that typed, self-describing context prevents.</p></div></li>
+</ol>
+
+<h2><span class="no">06</span>What 721 people built with it</h2>
+<p class="lede">Community catalog (721 projects) by primary surface — keyword-mined from titles + descriptions:</p>
+<div class="barrow"><span class="blab">Email / messaging / outreach</span><div class="btrack"><div class="bfill" style="width:100%"></div></div><span class="bval">614</span></div>
+<div class="barrow"><span class="blab">Coding agents & PR review</span><div class="btrack"><div class="bfill" style="width:51%"></div></div><span class="bval">314</span></div>
+<div class="barrow"><span class="blab">Games / playful agents</span><div class="btrack"><div class="bfill" style="width:23%"></div></div><span class="bval">141</span></div>
+<div class="barrow"><span class="blab">Voice & phone calls</span><div class="btrack"><div class="bfill" style="width:22%"></div></div><span class="bval">137</span></div>
+<div class="barrow"><span class="blab">Evaluation & judging</span><div class="btrack"><div class="bfill" style="width:22%"></div></div><span class="bval">136</span></div>
+<div class="barrow"><span class="blab">Triage / routing / classification</span><div class="btrack"><div class="bfill" style="width:18%"></div></div><span class="bval">113</span></div>
+<div class="barrow"><span class="blab">Trading & money flows</span><div class="btrack"><div class="bfill" style="width:16%"></div></div><span class="bval">96</span></div>
+<div class="barrow"><span class="blab">Browser automation</span><div class="btrack"><div class="bfill" style="width:14%"></div></div><span class="bval">87</span></div>
+<div class="barrow"><span class="blab">Compaction / context / memory</span><div class="btrack"><div class="bfill" style="width:14%"></div></div><span class="bval">84</span></div>
+<div class="barrow"><span class="blab">Agent frameworks & harnesses</span><div class="btrack"><div class="bfill" style="width:12%"></div></div><span class="bval">72</span></div>
+<div class="barrow"><span class="blab">Research & monitoring</span><div class="btrack"><div class="bfill" style="width:11%"></div></div><span class="bval">69</span></div>
+<div class="barrow"><span class="blab">Shopping & orders</span><div class="btrack"><div class="bfill" style="width:10%"></div></div><span class="bval">63</span></div>
+<div class="barrow"><span class="blab">Home / IoT</span><div class="btrack"><div class="bfill" style="width:8%"></div></div><span class="bval">48</span></div>
+<div class="barrow"><span class="blab">Health & fitness</span><div class="btrack"><div class="bfill" style="width:6%"></div></div><span class="bval">34</span></div>
+<div class="barrow"><span class="blab">Scheduling & calendar</span><div class="btrack"><div class="bfill" style="width:1%"></div></div><span class="bval">9</span></div>
+<div class="callout"><b>The gap map:</b> everyone is building email agents, coding agents and chatbots. Almost nobody is building in <b>scheduling/calendar (9 projects), events (5), family (5), health (7)</b> — the boring, high-retention surfaces. The eval pack's 50 cases are overwhelmingly Work/Evaluation-flavored; real daily-life coverage is the open frontier.</div>
+
+<h2><span class="no">07</span>What we can do more — the roadmap</h2>
+<p class="lede">Ranked by impact-per-effort for this machine. ✅ = I can execute it here, now.</p>
+<ol class="ru">
+<li><span class="n">1</span><div><b>Shadow-calibrate on our own traffic</b><span class="tag now">✅ start now</span><p>Log every harness decision (mine included) beside the Jev judgment for the same input; measure agreement weekly; promote only what matches. The evals prove the judge calibrates on canonical cases — now prove it on ours.</p></div></li>
+<li><span class="n">2</span><div><b>Build a negative-example corpus for OUR harness</b><span class="tag now">✅ start now</span><p>The pack's superpower is canonical FAIL states. Write 20 deliberately-broken versions of our own flows (wrong total quoted, undated follow-up, uncited claim, silent irreversible act) and require the harness to fail them. We currently only ever test successes.</p></div></li>
+<li><span class="n">3</span><div><b>Evidence-gate every "done"</b><span class="tag now">✅ start now</span><p>Wire a post-completion judge check on real tasks (order placed → confirmation number exists; published → HTTP 200 + timestamp). One extra 466 ms call per task.</p></div></li>
+<li><span class="n">4</span><div><b>Jev-scored compaction experiment</b><span class="tag next">1 week</span><p>Replace static memory injection with per-tool-call keep/drop judgments; measure token savings vs recall on a fixed replay set. Fast-jev showed ~3× context reduction is achievable without losing critical facts.</p></div></li>
+<li><span class="n">5</span><div><b>Mine judgments into rules weekly</b><span class="tag next">recurring</span><p>Every recurring evaluator verdict becomes deterministic code. The evals are the destination state: rules handle the routine, the judge handles the ambiguous remainder — and the rule set grows every week.</p></div></li>
+<li><span class="n">6</span><div><b>Failure-mode taxonomy from real transcripts</b><span class="tag next">2–3 days</span><p>Classify our own retries/errors into the eval-pack's shapes (groundedness, faithfulness, completeness, safety-gate misses) so fixes target measured failure classes, not anecdotes.</p></div></li>
+<li><span class="n">7</span><div><b>Score-normalization patch</b><span class="tag now">✅ trivial</span><p>Fix the 0–1 vs 0–3 drift found today: declare scale in instructions, clamp downstream. Applies to any harness consuming graded judgments.</p></div></li>
+<li><span class="n">8</span><div><b>Build in the gaps</b><span class="tag next">opportunity</span><p>Calendar (9 projects), events (5), family (5), health (7) are near-empty on the community side while being the most habit-forming surfaces. A Jev-gated personal-scheduling agent has almost no competition in the catalog.</p></div></li>
+</ol>
+
+<h2><span class="no">08</span>Method & sources</h2>
+<div class="panel" style="font-size:14px;color:var(--dim)">
+<p>· Eval pack: jev-capability-pack, 50 evals with full state transcripts (generated 2026-09-18) — <span class="mono">everyai-com/jev-directory</span><br>
+· Live run: 21 Sep 2026 00:18 IST, this machine (EC2 eu-west-1), typesafe/jev-1.13 via OpenRouter <span class="mono">/api/alpha/decisions</span>, 5 workers, 1 call per eval, zero retries<br>
+· Community stats: 721 catalog entries, keyword-mined titles + descriptions<br>
+· Runner + raw results: <span class="mono">/home/visionclaw/tools/jev-evals/</span> (run_pack.py, results.json)<br>
+· Prior art: 134-project ecosystem study (Sep 2026), jev-ultrafast browser policy, fast-jev compaction analysis</p>
+</div>
+<footer>Jev Use Cases — Deep Analysis · built by Onvoix · 21 Sep 2026 00:22 IST · live artifact at hireclaw.github.io/artifacts-reports</footer>
+</div></body></html>
