@@ -65,7 +65,7 @@ function activate(i){
   cur=s; curIdx=i;
   engine.rayCenter.set(s.ray.center[0],s.ray.center[1]);
   engine.rayStrength=s.ray.strength;
-  engine.exposure=s.grade.exposure+0.18;
+  engine.exposure=s.grade.exposure+0.55;
   engine.gradeTintAmt=s.grade.tintAmt;
   setBillboardSource(engine.camera);
   showTitle(SCENES[i]);

@@ -67,7 +67,7 @@ export class Engine {
   }
 
   _initPasses(){
-    this.uBright={ tD:{value:null}, uThresh:{value:0.68}, uKnee:{value:0.30} };
+    this.uBright={ tD:{value:null}, uThresh:{value:0.55}, uKnee:{value:0.30} };
     this.bright=FS(this.uBright, /*glsl*/`
       varying vec2 vUv; uniform sampler2D tD; uniform float uThresh,uKnee; ${LIB}
       void main(){ vec3 c=texture2D(tD, vUv*0.5+0.5).rgb; float l=luma(c);
@@ -95,7 +95,7 @@ export class Engine {
       tScene:{value:null}, tB0:{value:null}, tB1:{value:null}, tB2:{value:null}, tB3:{value:null},
       tRay:{value:null},
       uTime:{value:0}, uExposure:{value:1}, uTint:{value:new THREE.Color(1,.78,.45)},
-      uTintAmt:{value:.5}, uVignette:{value:.42}, uGrain:{value:.05},
+      uTintAmt:{value:.5}, uVignette:{value:.34}, uGrain:{value:.05},
       uCA:{value:.0020}, uLetterbox:{value:.065}, uFade:{value:1}, uTintBlack:{value:0},
       uBloomStr:{value:0.85}
     };

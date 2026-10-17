@@ -8,8 +8,8 @@ import { LIB } from './engine.js';
 export function makeLit(opts={}){
   const u={
     uKeyDir:{value:opts.keyDir||new THREE.Vector3(-0.6,0.8,0.35)},
-    uKeyCol:{value:opts.keyCol||new THREE.Color(1.0,0.72,0.38)},
-    uFillCol:{value:opts.fillCol||new THREE.Color(0.16,0.14,0.28)},
+    uKeyCol:{value:opts.keyCol||new THREE.Color(1.25,0.88,0.46)},
+    uFillCol:{value:opts.fillCol||new THREE.Color(0.30,0.26,0.42)},
     uRimCol:{value:opts.rimCol||new THREE.Color(1.0,0.62,0.20)},
     uRimPow:{value:opts.rimPow??2.6},
     uRimStr:{value:opts.rimStr??1.0},
